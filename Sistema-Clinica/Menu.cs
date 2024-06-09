@@ -44,5 +44,10 @@ namespace Sistema_Clinica
         {
             btnInicio_Click(null, e);
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            abrir_form(new MANTENIMIENTO());
+        }
     }
 }

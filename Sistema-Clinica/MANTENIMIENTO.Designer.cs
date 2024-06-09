@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Clinica
 {
-    partial class Form1
+    partial class MANTENIMIENTO
     {
         /// <summary>
         /// Required designer variable.
@@ -80,7 +80,7 @@
             this.groupBox3.Controls.Add(this.textBox1);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Location = new System.Drawing.Point(20, 333);
+            this.groupBox3.Location = new System.Drawing.Point(20, 332);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);

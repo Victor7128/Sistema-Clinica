@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Panel_content = new System.Windows.Forms.Panel();
-            this.btnInicio = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.btnConsultas = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.btnConsultas = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btnInicio = new System.Windows.Forms.PictureBox();
+            this.Panel_content = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).BeginInit();
             this.SuspendLayout();
@@ -56,14 +56,68 @@
             this.panel1.Size = new System.Drawing.Size(167, 504);
             this.panel1.TabIndex = 0;
             // 
-            // Panel_content
+            // button6
             // 
-            this.Panel_content.BackColor = System.Drawing.Color.White;
-            this.Panel_content.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Panel_content.Location = new System.Drawing.Point(0, 0);
-            this.Panel_content.Name = "Panel_content";
-            this.Panel_content.Size = new System.Drawing.Size(660, 504);
-            this.Panel_content.TabIndex = 1;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.FlatAppearance.BorderSize = 0;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(74, 448);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(90, 44);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "Historial";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(6, 356);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(158, 60);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "Cronograma";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // btnConsultas
+            // 
+            this.btnConsultas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConsultas.FlatAppearance.BorderSize = 0;
+            this.btnConsultas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConsultas.Location = new System.Drawing.Point(6, 158);
+            this.btnConsultas.Name = "btnConsultas";
+            this.btnConsultas.Size = new System.Drawing.Size(158, 60);
+            this.btnConsultas.TabIndex = 4;
+            this.btnConsultas.Text = "Consultas";
+            this.btnConsultas.UseVisualStyleBackColor = true;
+            this.btnConsultas.Click += new System.EventHandler(this.btnConsultas_Click);
+            // 
+            // button3
+            // 
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(6, 290);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(158, 60);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Citas";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(6, 224);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(158, 60);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Registrar";
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // btnInicio
             // 
@@ -77,67 +131,14 @@
             this.btnInicio.TabStop = false;
             this.btnInicio.Click += new System.EventHandler(this.btnInicio_Click);
             // 
-            // button2
+            // Panel_content
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.Font = new System.Drawing.Font("Cascadia Code PL", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(6, 224);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(158, 60);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Registrar";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.Font = new System.Drawing.Font("Cascadia Code PL", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(6, 290);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(158, 60);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Citas";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // btnConsultas
-            // 
-            this.btnConsultas.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConsultas.FlatAppearance.BorderSize = 0;
-            this.btnConsultas.Font = new System.Drawing.Font("Cascadia Code PL", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsultas.Location = new System.Drawing.Point(6, 158);
-            this.btnConsultas.Name = "btnConsultas";
-            this.btnConsultas.Size = new System.Drawing.Size(158, 60);
-            this.btnConsultas.TabIndex = 4;
-            this.btnConsultas.Text = "Consultas";
-            this.btnConsultas.UseVisualStyleBackColor = true;
-            this.btnConsultas.Click += new System.EventHandler(this.btnConsultas_Click);
-            // 
-            // button5
-            // 
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.Font = new System.Drawing.Font("Cascadia Code PL", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(6, 356);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(158, 60);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Cronograma";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.Font = new System.Drawing.Font("Cascadia Code PL", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(74, 448);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(90, 44);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Historial";
-            this.button6.UseVisualStyleBackColor = true;
+            this.Panel_content.BackColor = System.Drawing.Color.White;
+            this.Panel_content.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Panel_content.Location = new System.Drawing.Point(0, 0);
+            this.Panel_content.Name = "Panel_content";
+            this.Panel_content.Size = new System.Drawing.Size(660, 504);
+            this.Panel_content.TabIndex = 1;
             // 
             // Menu
             // 
