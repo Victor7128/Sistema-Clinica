@@ -51,9 +51,9 @@ namespace Sistema_Clinica
             this.Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnConsultas = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnLimpuiar = new System.Windows.Forms.Button();
+            this.btnEntrada = new System.Windows.Forms.Button();
+            this.btnSalida = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -232,43 +232,35 @@ namespace Sistema_Clinica
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 18;
             // 
-            // button2
+            // btnLimpuiar
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(488, 94);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(128, 27);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Registrar Salida";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnLimpuiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpuiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpuiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpuiar.Location = new System.Drawing.Point(505, 132);
+            this.btnLimpuiar.Name = "btnLimpuiar";
+            this.btnLimpuiar.Size = new System.Drawing.Size(111, 29);
+            this.btnLimpuiar.TabIndex = 6;
+            this.btnLimpuiar.Text = "Limpiar";
+            this.btnLimpuiar.UseVisualStyleBackColor = true;
             // 
-            // btnConsultas
+            // btnEntrada
             // 
-            this.btnConsultas.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConsultas.FlatAppearance.BorderSize = 0;
-            this.btnConsultas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsultas.Location = new System.Drawing.Point(488, 46);
-            this.btnConsultas.Name = "btnConsultas";
-            this.btnConsultas.Size = new System.Drawing.Size(128, 29);
-            this.btnConsultas.TabIndex = 4;
-            this.btnConsultas.Text = "Registrar Entrada";
-            this.btnConsultas.UseVisualStyleBackColor = true;
+            this.btnEntrada.Location = new System.Drawing.Point(505, 48);
+            this.btnEntrada.Name = "btnEntrada";
+            this.btnEntrada.Size = new System.Drawing.Size(111, 24);
+            this.btnEntrada.TabIndex = 19;
+            this.btnEntrada.Text = "Registrar Entrada";
+            this.btnEntrada.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnSalida
             // 
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(488, 132);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(128, 29);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Limpiar";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnSalida.Location = new System.Drawing.Point(505, 86);
+            this.btnSalida.Name = "btnSalida";
+            this.btnSalida.Size = new System.Drawing.Size(111, 28);
+            this.btnSalida.TabIndex = 20;
+            this.btnSalida.Text = "Registrar Salida";
+            this.btnSalida.UseVisualStyleBackColor = true;
             // 
             // Registro_de_Pacientes
             // 
@@ -277,11 +269,11 @@ namespace Sistema_Clinica
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackColor = System.Drawing.Color.DodgerBlue;
             this.ClientSize = new System.Drawing.Size(660, 504);
+            this.Controls.Add(this.btnSalida);
+            this.Controls.Add(this.btnEntrada);
             this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.btnLimpuiar);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.btnConsultas);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
@@ -331,8 +323,8 @@ namespace Sistema_Clinica
         private System.Windows.Forms.DataGridViewTextBoxColumn Estado;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button btnConsultas;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnLimpuiar;
+        private System.Windows.Forms.Button btnEntrada;
+        private System.Windows.Forms.Button btnSalida;
     }
 }

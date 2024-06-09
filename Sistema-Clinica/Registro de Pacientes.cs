@@ -26,5 +26,10 @@ namespace Sistema_Clinica
         {
 
         }
+
+        private void btnConsultas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
