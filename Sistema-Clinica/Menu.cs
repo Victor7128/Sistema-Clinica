@@ -47,7 +47,7 @@ namespace Sistema_Clinica
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            abrir_form(new Registro());
+            abrir_form(new Licenciado());
         }
 
         private void btnCitas_Click(object sender, EventArgs e)
