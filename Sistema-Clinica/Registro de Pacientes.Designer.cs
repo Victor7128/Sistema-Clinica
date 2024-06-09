@@ -36,7 +36,7 @@ namespace Sistema_Clinica
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cobxt1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -120,16 +120,16 @@ namespace Sistema_Clinica
             this.label7.TabIndex = 8;
             this.label7.Text = "Genero";
             // 
-            // comboBox1
+            // cobxt1
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cobxt1.FormattingEnabled = true;
+            this.cobxt1.Items.AddRange(new object[] {
             "Masculino",
             "Femenino"});
-            this.comboBox1.Location = new System.Drawing.Point(332, 51);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 9;
+            this.cobxt1.Location = new System.Drawing.Point(332, 51);
+            this.cobxt1.Name = "cobxt1";
+            this.cobxt1.Size = new System.Drawing.Size(121, 21);
+            this.cobxt1.TabIndex = 9;
             // 
             // dateTimePicker1
             // 
@@ -281,7 +281,7 @@ namespace Sistema_Clinica
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cobxt1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -308,7 +308,7 @@ namespace Sistema_Clinica
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cobxt1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.TextBox textBox1;
