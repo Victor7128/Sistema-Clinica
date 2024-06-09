@@ -52,7 +52,6 @@ namespace Sistema_Clinica
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.btnConsultas = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -238,25 +237,13 @@ namespace Sistema_Clinica
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(488, 87);
+            this.button2.Location = new System.Drawing.Point(488, 94);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(128, 27);
             this.button2.TabIndex = 2;
             this.button2.Text = "Registrar Salida";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(488, 120);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(128, 30);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Buscar Paciente";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // btnConsultas
             // 
@@ -276,7 +263,7 @@ namespace Sistema_Clinica
             this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(488, 156);
+            this.button5.Location = new System.Drawing.Point(488, 132);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(128, 29);
             this.button5.TabIndex = 6;
@@ -293,7 +280,6 @@ namespace Sistema_Clinica
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.btnConsultas);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
@@ -346,7 +332,6 @@ namespace Sistema_Clinica
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnConsultas;
         private System.Windows.Forms.Button button5;
     }
