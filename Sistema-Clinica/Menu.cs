@@ -59,5 +59,10 @@ namespace Sistema_Clinica
         {
             abrir_form(new Administrador());
         }
+
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            abrir_form(new Registro());
+        }
     }
 }
