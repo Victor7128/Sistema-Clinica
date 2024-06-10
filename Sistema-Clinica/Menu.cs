@@ -32,7 +32,7 @@ namespace Sistema_Clinica
 
         private void btnConsultas_Click(object sender, EventArgs e)
         {
-            abrir_form(new Consultas());
+            abrir_form(new P_Pacientes());
         }
 
         private void btnInicio_Click(object sender, EventArgs e)
