@@ -32,7 +32,7 @@ namespace Sistema_Clinica
 
         private void btnConsultas_Click(object sender, EventArgs e)
         {
-            abrir_form(new P_Pacientes());
+            abrir_form(new Consultas());
         }
 
         private void btnInicio_Click(object sender, EventArgs e)
@@ -47,22 +47,22 @@ namespace Sistema_Clinica
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            abrir_form(new Licenciado());
+            abrir_form(new Registros());
         }
 
         private void btnCitas_Click(object sender, EventArgs e)
         {
-            abrir_form(new Medico());
+            abrir_form(new Cirugias());
         }
 
         private void btnCronograma_Click(object sender, EventArgs e)
         {
-            abrir_form(new Administrador());
+            abrir_form(new Cronograma());
         }
 
         private void btnHistorial_Click(object sender, EventArgs e)
         {
-            abrir_form(new Registro());
+            abrir_form(new Historial());
         }
     }
 }

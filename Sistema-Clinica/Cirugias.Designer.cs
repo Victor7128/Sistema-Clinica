@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Clinica
 {
-    partial class Medico
+    partial class Cirugias
     {
         /// <summary>
         /// Required designer variable.

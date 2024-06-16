@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Clinica
 {
-    partial class Administrador
+    partial class Cronograma
     {
         /// <summary>
         /// Required designer variable.

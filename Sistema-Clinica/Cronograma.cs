@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace Sistema_Clinica
 {
-    public partial class Medico : Form
+    public partial class Cronograma : Form
     {
-        public Medico()
+        public Cronograma()
         {
             InitializeComponent();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

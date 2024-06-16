@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Sistema_Clinica
 {
-    public partial class P_Pacientes : Form
+    public partial class Historial : Form
     {
-        public P_Pacientes()
+        public Historial()
         {
             InitializeComponent();
         }

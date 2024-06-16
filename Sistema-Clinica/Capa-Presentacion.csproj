@@ -35,6 +35,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,29 +55,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administrador.cs">
+    <Compile Include="Cronograma.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Administrador.Designer.cs">
-      <DependentUpon>Administrador.cs</DependentUpon>
+    <Compile Include="Cronograma.Designer.cs">
+      <DependentUpon>Cronograma.cs</DependentUpon>
     </Compile>
-    <Compile Include="P_Pacientes.cs">
+    <Compile Include="Consultas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="P_Pacientes.Designer.cs">
-      <DependentUpon>P_Pacientes.cs</DependentUpon>
+    <Compile Include="Consultas.Designer.cs">
+      <DependentUpon>Consultas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Licenciado.cs">
+    <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Licenciado.Designer.cs">
-      <DependentUpon>Licenciado.cs</DependentUpon>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registro.cs">
+    <Compile Include="Registros.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registro.Designer.cs">
-      <DependentUpon>Registro.cs</DependentUpon>
+    <Compile Include="Registros.Designer.cs">
+      <DependentUpon>Registros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Historial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Historial.Designer.cs">
+      <DependentUpon>Historial.cs</DependentUpon>
     </Compile>
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
@@ -77,11 +91,11 @@
     <Compile Include="Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Medico.cs">
+    <Compile Include="Cirugias.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Medico.Designer.cs">
-      <DependentUpon>Medico.cs</DependentUpon>
+    <Compile Include="Cirugias.Designer.cs">
+      <DependentUpon>Cirugias.cs</DependentUpon>
     </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
@@ -91,23 +105,26 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Administrador.resx">
-      <DependentUpon>Administrador.cs</DependentUpon>
+    <EmbeddedResource Include="Cronograma.resx">
+      <DependentUpon>Cronograma.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="P_Pacientes.resx">
-      <DependentUpon>P_Pacientes.cs</DependentUpon>
+    <EmbeddedResource Include="Consultas.resx">
+      <DependentUpon>Consultas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Licenciado.resx">
-      <DependentUpon>Licenciado.cs</DependentUpon>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registro.resx">
-      <DependentUpon>Registro.cs</DependentUpon>
+    <EmbeddedResource Include="Registros.resx">
+      <DependentUpon>Registros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial.resx">
+      <DependentUpon>Historial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Medico.resx">
-      <DependentUpon>Medico.cs</DependentUpon>
+    <EmbeddedResource Include="Cirugias.resx">
+      <DependentUpon>Cirugias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
@@ -121,6 +138,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

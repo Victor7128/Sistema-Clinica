@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Sistema_Clinica
 {
-    public partial class Licenciado : Form
+    public partial class Registros : Form
     {
-        public Licenciado()
+        public Registros()
         {
             InitializeComponent();
         }

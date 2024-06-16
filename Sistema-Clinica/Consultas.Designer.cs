@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Clinica
 {
-    partial class P_Pacientes
+    partial class Consultas
     {
         /// <summary>
         /// Required designer variable.

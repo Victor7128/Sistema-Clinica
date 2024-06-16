@@ -1,6 +1,6 @@
 ﻿namespace Sistema_Clinica
 {
-    partial class Registro
+    partial class Historial
     {
         /// <summary>
         /// Required designer variable.

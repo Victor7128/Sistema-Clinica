@@ -1,7 +1,7 @@
 ﻿
 namespace Sistema_Clinica
 {
-    partial class Licenciado
+    partial class Registros
     {
         /// <summary>
         /// Required designer variable.
