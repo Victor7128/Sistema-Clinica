@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sistema_Clinica
+namespace CapaDatos
 {
     public class CD_Usuario
     {

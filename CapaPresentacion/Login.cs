@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Sistema_Clinica.CapaDatos;
-using System.Sistema_Clinica.CapaEntidad;
+using SistemaClinica.CapaDatos;
+using SistemaClinica.CapaEntidad;
+using SistemaClinica.CapaNegocio;
 
-namespace Sistema_Clinica
+namespace CapaPresentacion
 {
     public partial class Login : Form
     {
@@ -22,7 +23,7 @@ namespace Sistema_Clinica
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            int idUsuarioEsperado = CD_Usuario.Loguear("usuario", "contraseña");
+
         }
     }
 }

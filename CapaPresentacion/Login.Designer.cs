@@ -1,16 +1,16 @@
-﻿namespace Sistema_Clinica
-{    
+﻿namespace CapaPresentacion
+{
     partial class Login
     {
         /// <summary>
-        /// Required designer variable.
+        /// Variable del diseñador necesaria.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Limpiar los recursos que se estén usando.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,11 +20,11 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Código generado por el Diseñador de Windows Forms
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent()
         {
@@ -52,7 +52,7 @@
             this.panel1.Location = new System.Drawing.Point(384, 111);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 298);
-            this.panel1.TabIndex = 11;
+            this.panel1.TabIndex = 14;
             // 
             // label2
             // 
@@ -118,7 +118,7 @@
             this.lblHora.Location = new System.Drawing.Point(433, 41);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(218, 39);
-            this.lblHora.TabIndex = 10;
+            this.lblHora.TabIndex = 13;
             this.lblHora.Text = "Iniciar Sesión";
             // 
             // btnInicio
@@ -129,7 +129,7 @@
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(241, 221);
             this.btnInicio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.btnInicio.TabIndex = 9;
+            this.btnInicio.TabIndex = 12;
             this.btnInicio.TabStop = false;
             // 
             // Login
@@ -143,7 +143,6 @@
             this.Controls.Add(this.btnInicio);
             this.Name = "Login";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).EndInit();
@@ -164,3 +163,4 @@
         private System.Windows.Forms.PictureBox btnInicio;
     }
 }
+
