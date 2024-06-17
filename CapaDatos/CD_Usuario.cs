@@ -33,7 +33,6 @@ namespace CapaDatos
                     idusuario = 0;
                 }
             }
-
             return idusuario;
         }
     }

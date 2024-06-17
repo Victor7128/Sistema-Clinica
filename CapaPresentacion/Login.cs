@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using SistemaClinica.CapaDatos;
-using SistemaClinica.CapaEntidad;
-using SistemaClinica.CapaNegocio;
+using CapaDatos;
+using CapaEntidad;
+using CapaNegocio;
 
 namespace CapaPresentacion
 {
@@ -23,7 +23,16 @@ namespace CapaPresentacion
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            int idusuario_esperado = CD_Usuario.Loguear(txtUsuario.Text, txtClave.Text);
 
+            if(idusuario_esperado != 0)
+            {
+                MessageBox.Show("Hola Bienvenido");
+            }
+            else
+            {
+                MessageBox.Show("Usuario o contraseña incorrectos.");
+            }
         }
     }
 }
