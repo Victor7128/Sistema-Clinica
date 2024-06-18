@@ -44,7 +44,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label10.Location = new System.Drawing.Point(12, 9);
+            this.label10.Location = new System.Drawing.Point(12, 26);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(331, 39);
             this.label10.TabIndex = 13;
@@ -55,7 +55,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(105, 69);
+            this.label2.Location = new System.Drawing.Point(105, 86);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 21);
             this.label2.TabIndex = 14;
@@ -68,7 +68,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Activo",
             "Inactivo"});
-            this.comboBox1.Location = new System.Drawing.Point(156, 66);
+            this.comboBox1.Location = new System.Drawing.Point(156, 83);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(242, 29);
             this.comboBox1.TabIndex = 25;
@@ -79,7 +79,7 @@
             this.btnBuscarPaciente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscarPaciente.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarPaciente.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarPaciente.Location = new System.Drawing.Point(488, 60);
+            this.btnBuscarPaciente.Location = new System.Drawing.Point(488, 77);
             this.btnBuscarPaciente.Name = "btnBuscarPaciente";
             this.btnBuscarPaciente.Size = new System.Drawing.Size(166, 39);
             this.btnBuscarPaciente.TabIndex = 26;
@@ -92,7 +92,7 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.dataGridView1.Location = new System.Drawing.Point(156, 121);
+            this.dataGridView1.Location = new System.Drawing.Point(156, 138);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(295, 315);
             this.dataGridView1.TabIndex = 27;
@@ -114,7 +114,7 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(488, 397);
+            this.button1.Location = new System.Drawing.Point(488, 414);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(166, 39);
             this.button1.TabIndex = 28;
