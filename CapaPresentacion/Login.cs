@@ -37,5 +37,17 @@ namespace CapaPresentacion
                 MessageBox.Show("Usuario o contraseña incorrectos.");
             }
         }
+
+        private void pbMostrar_Click(object sender, EventArgs e)
+        {
+            pbOcultar.BringToFront();
+            txtClave.PasswordChar = '*';
+        }
+
+        private void pbOcultar_Click(object sender, EventArgs e)
+        {
+            pbMostrar.BringToFront();
+            txtClave.PasswordChar = '\0';            
+        }
     }
 }

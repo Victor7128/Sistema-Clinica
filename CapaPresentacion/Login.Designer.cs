@@ -37,18 +37,24 @@
             this.btnIngresar = new System.Windows.Forms.Button();
             this.lblHora = new System.Windows.Forms.Label();
             this.btnInicio = new System.Windows.Forms.PictureBox();
+            this.pbMostrar = new System.Windows.Forms.PictureBox();
+            this.pbOcultar = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMostrar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOcultar)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.pbOcultar);
             this.panel1.Controls.Add(this.txtUsuario);
             this.panel1.Controls.Add(this.txtClave);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnIngresar);
+            this.panel1.Controls.Add(this.pbMostrar);
             this.panel1.Location = new System.Drawing.Point(384, 111);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 298);
@@ -60,7 +66,7 @@
             this.txtUsuario.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.Location = new System.Drawing.Point(26, 71);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(265, 31);
+            this.txtUsuario.Size = new System.Drawing.Size(269, 31);
             this.txtUsuario.TabIndex = 11;
             // 
             // txtClave
@@ -69,7 +75,7 @@
             this.txtClave.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtClave.Location = new System.Drawing.Point(26, 160);
             this.txtClave.Name = "txtClave";
-            this.txtClave.Size = new System.Drawing.Size(265, 31);
+            this.txtClave.Size = new System.Drawing.Size(251, 31);
             this.txtClave.TabIndex = 10;
             // 
             // label2
@@ -128,6 +134,33 @@
             this.btnInicio.TabIndex = 12;
             this.btnInicio.TabStop = false;
             // 
+            // pbMostrar
+            // 
+            this.pbMostrar.BackColor = System.Drawing.Color.Transparent;
+            this.pbMostrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbMostrar.Image = ((System.Drawing.Image)(resources.GetObject("pbMostrar.Image")));
+            this.pbMostrar.Location = new System.Drawing.Point(283, 160);
+            this.pbMostrar.Name = "pbMostrar";
+            this.pbMostrar.Size = new System.Drawing.Size(30, 30);
+            this.pbMostrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMostrar.TabIndex = 12;
+            this.pbMostrar.TabStop = false;
+            this.pbMostrar.Click += new System.EventHandler(this.pbMostrar_Click);
+            // 
+            // pbOcultar
+            // 
+            this.pbOcultar.BackColor = System.Drawing.Color.Transparent;
+            this.pbOcultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbOcultar.BackgroundImage")));
+            this.pbOcultar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbOcultar.Image = ((System.Drawing.Image)(resources.GetObject("pbOcultar.Image")));
+            this.pbOcultar.Location = new System.Drawing.Point(283, 160);
+            this.pbOcultar.Name = "pbOcultar";
+            this.pbOcultar.Size = new System.Drawing.Size(30, 30);
+            this.pbOcultar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbOcultar.TabIndex = 13;
+            this.pbOcultar.TabStop = false;
+            this.pbOcultar.Click += new System.EventHandler(this.pbOcultar_Click);
+            // 
             // Login
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -144,6 +177,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMostrar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbOcultar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,6 +194,8 @@
         private System.Windows.Forms.PictureBox btnInicio;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtClave;
+        private System.Windows.Forms.PictureBox pbMostrar;
+        private System.Windows.Forms.PictureBox pbOcultar;
     }
 }
 

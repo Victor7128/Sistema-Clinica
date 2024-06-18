@@ -42,7 +42,7 @@
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
-            this.lblFecha.Location = new System.Drawing.Point(340, 261);
+            this.lblFecha.Location = new System.Drawing.Point(337, 286);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(110, 36);
             this.lblFecha.TabIndex = 3;
@@ -53,7 +53,7 @@
             this.lblHora.AutoSize = true;
             this.lblHora.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
-            this.lblHora.Location = new System.Drawing.Point(326, 146);
+            this.lblHora.Location = new System.Drawing.Point(323, 171);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(326, 115);
             this.lblHora.TabIndex = 2;
@@ -65,9 +65,9 @@
             // 
             // btnInicio
             // 
-            this.btnInicio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnInicio.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnInicio.Image = ((System.Drawing.Image)(resources.GetObject("btnInicio.Image")));
-            this.btnInicio.Location = new System.Drawing.Point(69, 121);
+            this.btnInicio.Location = new System.Drawing.Point(66, 146);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(241, 221);
             this.btnInicio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
