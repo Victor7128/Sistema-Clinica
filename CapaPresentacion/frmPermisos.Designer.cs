@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class Menu
+    partial class frmPermisos
     {
         /// <summary>
         /// Required designer variable.
@@ -28,36 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelContainer = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // panelContainer
+            // label1
             // 
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 0);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(827, 504);
-            this.panelContainer.TabIndex = 5;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(247, 225);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(227, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Administrar Permisos de acceso a las pestañas";
             // 
-            // Menu
+            // frmPermisos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 504);
-            this.Controls.Add(this.panelContainer);
-            this.IsMdiContainer = true;
-            this.MaximizeBox = false;
-            this.Name = "Menu";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.Menu_Load);
+            this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Name = "frmPermisos";
+            this.Text = "Permisos";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panelContainer;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class Cronograma : Form
+    public partial class frmUsuarios : Form
     {
-        public Cronograma()
+        public frmUsuarios()
         {
             InitializeComponent();
         }

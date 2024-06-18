@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class Historial
+    partial class frmHistorial
     {
         /// <summary>
         /// Required designer variable.
@@ -176,14 +176,14 @@
             this.FECHA_LIMITE.Name = "FECHA_LIMITE";
             this.FECHA_LIMITE.Width = 125;
             // 
-            // Historial
+            // frmHistorial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 504);
+            this.ClientSize = new System.Drawing.Size(827, 504);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Historial";
+            this.Name = "frmHistorial";
             this.Text = "Historial";
             this.panel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);

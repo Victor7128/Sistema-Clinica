@@ -30,11 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtClave = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnIngresar = new System.Windows.Forms.Button();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
             this.lblHora = new System.Windows.Forms.Label();
             this.btnInicio = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
@@ -44,15 +44,33 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtUsuario);
             this.panel1.Controls.Add(this.txtClave);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnIngresar);
-            this.panel1.Controls.Add(this.txtUsuario);
             this.panel1.Location = new System.Drawing.Point(384, 111);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 298);
             this.panel1.TabIndex = 14;
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsuario.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsuario.Location = new System.Drawing.Point(26, 71);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(265, 31);
+            this.txtUsuario.TabIndex = 11;
+            // 
+            // txtClave
+            // 
+            this.txtClave.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtClave.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtClave.Location = new System.Drawing.Point(26, 160);
+            this.txtClave.Name = "txtClave";
+            this.txtClave.Size = new System.Drawing.Size(265, 31);
+            this.txtClave.TabIndex = 10;
             // 
             // label2
             // 
@@ -64,17 +82,6 @@
             this.label2.Size = new System.Drawing.Size(119, 22);
             this.label2.TabIndex = 9;
             this.label2.Text = "Contraseña";
-            // 
-            // txtClave
-            // 
-            this.txtClave.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtClave.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtClave.ForeColor = System.Drawing.Color.Black;
-            this.txtClave.Location = new System.Drawing.Point(26, 160);
-            this.txtClave.Multiline = true;
-            this.txtClave.Name = "txtClave";
-            this.txtClave.Size = new System.Drawing.Size(265, 32);
-            this.txtClave.TabIndex = 8;
             // 
             // label1
             // 
@@ -99,17 +106,6 @@
             this.btnIngresar.UseVisualStyleBackColor = true;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
-            // txtUsuario
-            // 
-            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtUsuario.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsuario.ForeColor = System.Drawing.Color.Black;
-            this.txtUsuario.Location = new System.Drawing.Point(26, 71);
-            this.txtUsuario.Multiline = true;
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(265, 32);
-            this.txtUsuario.TabIndex = 4;
-            // 
             // lblHora
             // 
             this.lblHora.AutoSize = true;
@@ -125,7 +121,7 @@
             // 
             this.btnInicio.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInicio.Image = ((System.Drawing.Image)(resources.GetObject("btnInicio.Image")));
-            this.btnInicio.Location = new System.Drawing.Point(94, 111);
+            this.btnInicio.Location = new System.Drawing.Point(73, 111);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(241, 221);
             this.btnInicio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -141,6 +137,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblHora);
             this.Controls.Add(this.btnInicio);
+            this.MaximizeBox = false;
             this.Name = "Login";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -156,12 +153,12 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtClave;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnIngresar;
-        private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.PictureBox btnInicio;
+        private System.Windows.Forms.TextBox txtUsuario;
+        private System.Windows.Forms.TextBox txtClave;
     }
 }
 

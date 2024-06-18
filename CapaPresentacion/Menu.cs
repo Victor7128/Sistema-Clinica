@@ -4,67 +4,108 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using CapaDatos;
+using CapaEntidad;
 
 namespace CapaPresentacion
 {
     public partial class Menu : Form
     {
-        public Menu()
+        private int idusuario;
+
+        public Menu(int idusuario_esperado = 0)
         {
             InitializeComponent();
+            idusuario = idusuario_esperado;
+            this.FormClosing += new FormClosingEventHandler(cerrarPrograma);
         }
-
-        private void abrir_form(object hijo)
-        {
-            if (this.Panel_content.Controls.Count > 0)
-            {
-                this.Panel_content.Controls.RemoveAt(0);
-            }
-            Form formh = hijo as Form;
-            formh.TopLevel = false;
-            formh.Dock = DockStyle.Fill;
-            this.Panel_content.Controls.Add(formh);
-            this.Panel_content.Tag = formh;
-            formh.Show();
-        }
-
-        private void btnConsultas_Click(object sender, EventArgs e)
-        {
-            abrir_form(new Consultas());
-        }
-
 
         private void Menu_Load(object sender, EventArgs e)
         {
-            btnInicio_Click(null, e);
+            List<CapaEntidad.Menu> permisos_esperados = CD_Usuario.ObtenerPermisos(idusuario);
+
+            MenuStrip menuStrip = new MenuStrip();
+
+            foreach (CapaEntidad.Menu objMenu in permisos_esperados)
+            {
+                ToolStripMenuItem menuPadre = new ToolStripMenuItem(objMenu.Nombre, null, click_en_menu, objMenu.NombreFormulario);
+                menuPadre.Tag = objMenu;
+                menuStrip.Items.Add(menuPadre);
+            }
+
+            this.MainMenuStrip = menuStrip;
+            Controls.Add(menuStrip);
+
+            Panel panelContainer = new Panel();
+            panelContainer.Name = "PanelContainer";
+            panelContainer.Dock = DockStyle.Fill;
+            Controls.Add(panelContainer);
+            Controls.SetChildIndex(menuStrip, 0);
+
+            AbrirFormulario(new Inicio());
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
+        private void click_en_menu(object sender, EventArgs e)
         {
-            abrir_form(new Registros());
+            ToolStripMenuItem menuSeleccionado = (ToolStripMenuItem)sender;
+            Assembly asm = Assembly.GetExecutingAssembly();
+            Type elemento = asm.GetType(asm.GetName().Name + "." + menuSeleccionado.Name);
+            if (elemento == null)
+            {
+                MessageBox.Show("Página no encontrada");
+            }
+            else
+            {
+                Panel panelContainer = this.Controls.Find("PanelContainer", true).FirstOrDefault() as Panel;
+                if (panelContainer != null)
+                {
+                    foreach (Control ctrl in panelContainer.Controls)
+                    {
+                        if (ctrl is Form)
+                        {
+                            ((Form)ctrl).Close();
+                        }
+                    }
+                    panelContainer.Controls.Clear();
+
+                    Form formularioCreado = (Form)Activator.CreateInstance(elemento);
+                    formularioCreado.TopLevel = false;
+                    formularioCreado.Dock = DockStyle.Fill;
+                    panelContainer.Controls.Add(formularioCreado);
+                    formularioCreado.Show();
+                }
+            }
         }
 
-        private void btnCitas_Click(object sender, EventArgs e)
+        private void AbrirFormulario(Form formulario)
         {
-            abrir_form(new Cirugias());
+            Panel panelContainer = this.Controls.Find("PanelContainer", true).FirstOrDefault() as Panel;
+            if (panelContainer != null)
+            {
+                foreach (Control ctrl in panelContainer.Controls)
+                {
+                    if (ctrl is Form)
+                    {
+                        ((Form)ctrl).Close();
+                    }
+                }
+                panelContainer.Controls.Clear();
+
+                formulario.TopLevel = false;
+                formulario.Dock = DockStyle.Fill;
+                panelContainer.Controls.Add(formulario);
+                formulario.Show();
+            }
         }
 
-        private void btnCronograma_Click(object sender, EventArgs e)
+        private void cerrarPrograma(object sender, FormClosingEventArgs e)
         {
-            abrir_form(new Cronograma());
-        }
-
-        private void btnHistorial_Click(object sender, EventArgs e)
-        {
-            abrir_form(new Historial());
-        }
-
-        private void btnInicio_Click(object sender, EventArgs e)
-        {
-            abrir_form(new Inicio());
+            Application.Exit();
         }
     }
 }

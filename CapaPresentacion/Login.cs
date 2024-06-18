@@ -27,7 +27,9 @@ namespace CapaPresentacion
 
             if(idusuario_esperado != 0)
             {
-                MessageBox.Show("Hola Bienvenido");
+                this.Hide();
+                Menu mdi = new Menu(idusuario_esperado);
+                mdi.Show();
             }
             else
             {

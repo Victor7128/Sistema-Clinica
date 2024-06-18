@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class Cronograma
+    partial class frmCronograma
     {
         /// <summary>
         /// Required designer variable.
@@ -282,11 +282,11 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Vista General para Administrador";
             // 
-            // Cronograma
+            // frmCronograma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 504);
+            this.ClientSize = new System.Drawing.Size(827, 504);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRealCamb);
@@ -294,7 +294,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Cronograma";
+            this.Name = "frmCronograma";
             this.Text = "Cronograma";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

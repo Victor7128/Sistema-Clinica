@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class Registros
+    partial class frmRegistrarPaciente
     {
         /// <summary>
         /// Required designer variable.
@@ -258,12 +258,12 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "ID Paciente";
             // 
-            // Registros
+            // frmRegistrarPaciente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(660, 504);
+            this.ClientSize = new System.Drawing.Size(827, 504);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -285,7 +285,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Registros";
+            this.Name = "frmRegistrarPaciente";
             this.Text = "Registros";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
