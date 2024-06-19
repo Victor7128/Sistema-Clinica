@@ -42,7 +42,7 @@
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
-            this.lblFecha.Location = new System.Drawing.Point(337, 286);
+            this.lblFecha.Location = new System.Drawing.Point(342, 321);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(110, 36);
             this.lblFecha.TabIndex = 3;
@@ -53,7 +53,7 @@
             this.lblHora.AutoSize = true;
             this.lblHora.Font = new System.Drawing.Font("Century Gothic", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
-            this.lblHora.Location = new System.Drawing.Point(323, 171);
+            this.lblHora.Location = new System.Drawing.Point(318, 206);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(326, 115);
             this.lblHora.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             this.btnInicio.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnInicio.Image = ((System.Drawing.Image)(resources.GetObject("btnInicio.Image")));
-            this.btnInicio.Location = new System.Drawing.Point(66, 146);
+            this.btnInicio.Location = new System.Drawing.Point(71, 181);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Size = new System.Drawing.Size(241, 221);
             this.btnInicio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -79,7 +79,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(827, 504);
+            this.ClientSize = new System.Drawing.Size(827, 573);
             this.Controls.Add(this.btnInicio);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.lblHora);

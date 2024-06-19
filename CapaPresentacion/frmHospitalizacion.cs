@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class frmConsultas : Form
+    public partial class frmHospitalizacion : Form
     {
-        public frmConsultas()
+        public frmHospitalizacion()
         {
             InitializeComponent();
         }
@@ -23,7 +23,7 @@ namespace CapaPresentacion
             lblFecha.Text = DateTime.Now.ToLongDateString();
         }
 
-        private void frmConsultas_Load(object sender, EventArgs e)
+        private void frmHospitalizacion_Load(object sender, EventArgs e)
         {
             timer1.Enabled = true;
         }

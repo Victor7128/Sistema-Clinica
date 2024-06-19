@@ -85,11 +85,23 @@
     <Compile Include="frmHistorial.Designer.cs">
       <DependentUpon>frmHistorial.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmListaCirugias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmListaCirugias.Designer.cs">
+      <DependentUpon>frmListaCirugias.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPermisos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmPermisos.Designer.cs">
       <DependentUpon>frmPermisos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportes.Designer.cs">
+      <DependentUpon>frmReportes.cs</DependentUpon>
     </Compile>
     <Compile Include="frmRoles.cs">
       <SubType>Form</SubType>
@@ -123,11 +135,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="frmRegistrarPaciente.cs">
+    <Compile Include="frmHospitalizacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmRegistrarPaciente.Designer.cs">
-      <DependentUpon>frmRegistrarPaciente.cs</DependentUpon>
+    <Compile Include="frmHospitalizacion.Designer.cs">
+      <DependentUpon>frmHospitalizacion.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="frmCirugias.resx">
       <DependentUpon>frmCirugias.cs</DependentUpon>
@@ -141,8 +153,14 @@
     <EmbeddedResource Include="frmHistorial.resx">
       <DependentUpon>frmHistorial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmListaCirugias.resx">
+      <DependentUpon>frmListaCirugias.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPermisos.resx">
       <DependentUpon>frmPermisos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReportes.resx">
+      <DependentUpon>frmReportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmRoles.resx">
       <DependentUpon>frmRoles.cs</DependentUpon>
@@ -168,8 +186,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frmRegistrarPaciente.resx">
-      <DependentUpon>frmRegistrarPaciente.cs</DependentUpon>
+    <EmbeddedResource Include="frmHospitalizacion.resx">
+      <DependentUpon>frmHospitalizacion.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
