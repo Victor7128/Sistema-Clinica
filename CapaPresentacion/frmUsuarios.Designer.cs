@@ -56,6 +56,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -74,6 +75,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.comboBox3);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.button2);
@@ -122,9 +124,9 @@
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.Black;
-            this.button2.Location = new System.Drawing.Point(640, 117);
+            this.button2.Location = new System.Drawing.Point(658, 87);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(132, 39);
+            this.button2.Size = new System.Drawing.Size(132, 30);
             this.button2.TabIndex = 19;
             this.button2.Text = "Eliminar";
             this.button2.UseVisualStyleBackColor = false;
@@ -135,9 +137,9 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(640, 72);
+            this.button1.Location = new System.Drawing.Point(658, 51);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 39);
+            this.button1.Size = new System.Drawing.Size(132, 30);
             this.button1.TabIndex = 18;
             this.button1.Text = "Editar";
             this.button1.UseVisualStyleBackColor = false;
@@ -148,9 +150,9 @@
             this.btnBuscarPaciente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscarPaciente.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarPaciente.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscarPaciente.Location = new System.Drawing.Point(640, 27);
+            this.btnBuscarPaciente.Location = new System.Drawing.Point(658, 18);
             this.btnBuscarPaciente.Name = "btnBuscarPaciente";
-            this.btnBuscarPaciente.Size = new System.Drawing.Size(132, 39);
+            this.btnBuscarPaciente.Size = new System.Drawing.Size(132, 30);
             this.btnBuscarPaciente.TabIndex = 17;
             this.btnBuscarPaciente.Text = "Nuevo";
             this.btnBuscarPaciente.UseVisualStyleBackColor = false;
@@ -360,6 +362,19 @@
             this.Column5.Name = "Column5";
             this.Column5.Width = 130;
             // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(658, 123);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(132, 30);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "Guardar";
+            this.button3.UseVisualStyleBackColor = false;
+            // 
             // frmUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -411,5 +426,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.Button button3;
     }
 }

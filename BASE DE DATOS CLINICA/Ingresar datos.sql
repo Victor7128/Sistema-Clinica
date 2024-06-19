@@ -3,7 +3,7 @@ USE Clinica
 -- Insertar nuevos registros en MENU
 INSERT INTO MENU(IdMenu, Nombre, NombreFormulario) VALUES
 (1,'Consultas','frmConsultas'),
-(2,'Registros','frmRegistrarPaciente'),
+(2,'Hospitalización','frmHospitalizacion'),
 (3,'Cirugías','frmCirugias'),
 (4,'Cronograma','frmCronograma'),
 (5,'Historial','frmHistorial'),
@@ -24,7 +24,7 @@ INSERT INTO ROL(IdRol, Nombre, Activo) VALUES
 -- Recepcionista
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (1, 1, 1, 1), -- Consultas
-(2, 1, 2, 0), -- Registros
+(2, 1, 2, 0), -- Hospitalizacion
 (3, 1, 3, 0), -- Cirugías
 (4, 1, 4, 0), -- Cronograma
 (5, 1, 5, 0), -- Historial
@@ -36,7 +36,7 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Lic. de Enfermería
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (10, 2, 1, 1), -- Consultas
-(11, 2, 2, 1), -- Registros
+(11, 2, 2, 1), -- Hospitalizacion
 (12, 2, 3, 0), -- Cirugías
 (13, 2, 4, 0), -- Cronograma
 (14, 2, 5, 0), -- Historial
@@ -48,7 +48,7 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Medico
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (19, 3, 1, 0), -- Consultas
-(20, 3, 2, 0), -- Registros
+(20, 3, 2, 0), -- Hospitalizacion
 (21, 3, 3, 1), -- Cirugías
 (22, 3, 4, 1), -- Cronograma
 (23, 3, 5, 0), -- Historial
@@ -60,7 +60,7 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Pers. de Mantenimiento
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (28, 4, 1, 0), -- Consultas
-(29, 4, 2, 0), -- Registros
+(29, 4, 2, 0), -- Hospitalizacion
 (30, 4, 3, 0), -- Cirugías
 (31, 4, 4, 1), -- Cronograma
 (32, 4, 5, 0), -- Historial
@@ -72,7 +72,7 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Administrador
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (37, 5, 1, 1), -- Consultas
-(38, 5, 2, 1), -- Registros
+(38, 5, 2, 1), -- Hospitalizacion
 (39, 5, 3, 1), -- Cirugías
 (40, 5, 4, 1), -- Cronograma
 (41, 5, 5, 1), -- Historial
