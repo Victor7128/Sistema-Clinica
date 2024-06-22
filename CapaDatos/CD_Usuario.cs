@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CapaEntidad;
 using System.Xml;
 using System.Xml.Linq;
+using CapaDatos;
 
 namespace CapaDatos
 {

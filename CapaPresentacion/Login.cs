@@ -26,7 +26,7 @@ namespace CapaPresentacion
         {
             int idusuario_esperado = CD_Usuario.Loguear(txtUsuario.Text, txtClave.Text);
 
-            if(idusuario_esperado != 0)
+            if (idusuario_esperado != 0)
             {
                 this.Hide();
                 Menu mdi = new Menu(idusuario_esperado);
@@ -47,7 +47,7 @@ namespace CapaPresentacion
         private void pbOcultar_Click(object sender, EventArgs e)
         {
             pbMostrar.BringToFront();
-            txtClave.PasswordChar = '\0';            
+            txtClave.PasswordChar = '\0';
         }
     }
 }
