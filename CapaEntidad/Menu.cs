@@ -11,4 +11,12 @@ namespace CapaEntidad
         public string Nombre { get; set; }
         public string NombreFormulario { get; set; }
     }
+
+    public class Reporte
+    {
+        public String reporte { get; set; }
+        public String area { get; set; }
+        public String turno { get; set;}
+        public DateTime fecha { get; set; }
+    }
 }
