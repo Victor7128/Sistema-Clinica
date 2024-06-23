@@ -105,23 +105,44 @@ END;
 GO
 
 -- Procedimiento almacenado para registrar hospitalización
-CREATE PROCEDURE usp_RegistrarHospitalizacion
-    @IdPaciente INT,
+CREATE PROCEDURE RegistrarHospitalizacion
+    @NombrePaciente NVARCHAR(100),
+    @DNIPaciente INT,
     @IdEstadia INT,
     @IdHabitacion INT,
-    @IdCamilla INT,
-    @IdMedico INT,
-    @FechaIngreso DATE,
-    @HoraIngreso TIME,
-    @IdHospitalizacion INT OUTPUT
+    @IdCamilla INT = NULL,
+    @FechaIngreso DATETIME,
+    @HoraIngreso TIME
 AS
 BEGIN
-    INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdMedico, FechaIngreso, HoraIngreso)
-    VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @IdMedico, @FechaIngreso, @HoraIngreso);
+    SET NOCOUNT ON;
 
-    SET @IdHospitalizacion = SCOPE_IDENTITY();
-END;
-GO
+    DECLARE @IdPaciente INT;
+
+    -- Verificar si el paciente ya existe
+    IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
+    BEGIN
+        -- Obtener el ID del paciente existente
+        SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
+    END
+    ELSE
+    BEGIN
+        -- Insertar el nuevo paciente
+        INSERT INTO Pacientes (Nombre, DNI)
+        VALUES (@NombrePaciente, @DNIPaciente);
+
+        -- Obtener el ID del nuevo paciente
+        SELECT @IdPaciente = SCOPE_IDENTITY();
+    END
+
+    -- Insertar la hospitalización
+    INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
+VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @FechaIngreso, @HoraIngreso);
+
+    -- Devolver el ID de la nueva hospitalización
+    SELECT SCOPE_IDENTITY() AS IdHospitalizacion;
+END
+go
 
 -- Procedimiento almacenado para actualizar hospitalización
 CREATE PROCEDURE usp_ActualizarHospitalizacion

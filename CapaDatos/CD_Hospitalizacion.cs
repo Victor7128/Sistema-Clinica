@@ -162,7 +162,7 @@ namespace CapaDatos
             return idPaciente;
         }
 
-        public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idHabitacion, int? idCamilla, int idUsuarioMedico)
+        public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idHabitacion, int? idCamilla)
         {
             int idHospitalizacion = 0;
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
@@ -182,8 +182,8 @@ namespace CapaDatos
                 SELECT @IdPaciente = SCOPE_IDENTITY();
             END
 
-            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdMedico, FechaIngreso, HoraIngreso)
-            VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @IdUsuarioMedico, GETDATE(), GETDATE());
+            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
+            VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, GETDATE(), GETDATE());
 
             SELECT SCOPE_IDENTITY();";
 
@@ -194,7 +194,6 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
                     cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
                     cmd.Parameters.AddWithValue("@IdCamilla", (object)idCamilla ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@IdUsuarioMedico", idUsuarioMedico);
 
                     try
                     {

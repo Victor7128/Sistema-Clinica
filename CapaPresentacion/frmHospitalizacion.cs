@@ -30,60 +30,51 @@ namespace CapaPresentacion
 
         private void btnRegistrarEntrada_Click(object sender, EventArgs e)
         {
-
-            // Recopilar los datos del formulario
-            string nombrePaciente = txtNombrePaciente.Text;
-
-            // Validar y convertir el DNI
-            if (!int.TryParse(txtDniPaciente.Text, out int dniPaciente))
+            try
             {
-                MessageBox.Show("El DNI debe ser un número entero.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                // Recopilar los datos del formulario
+                string nombrePaciente = txtNombrePaciente.Text;
 
-            // Obtener los valores seleccionados de los ComboBox
-            if (!int.TryParse(cboEstadia.SelectedValue.ToString(), out int idEstadia))
+                // Validar y convertir el DNI
+                if (!int.TryParse(txtDniPaciente.Text, out int dniPaciente))
+                {
+                    MessageBox.Show("El DNI debe ser un número entero.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Obtener los valores seleccionados de los ComboBox
+                if (!int.TryParse(cboEstadia.SelectedValue.ToString(), out int idEstadia))
+                {
+                    MessageBox.Show("Seleccione una estadía válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (!int.TryParse(cboHabitacion.SelectedValue.ToString(), out int idHabitacion))
+                {
+                    MessageBox.Show("Seleccione una habitación válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int? idCamilla = null;
+                if (cboCamilla.SelectedValue != null && int.TryParse(cboCamilla.SelectedValue.ToString(), out int camillaValue))
+                {
+                    idCamilla = camillaValue;
+                }
+
+                // Registrar la hospitalización con los datos recopilados
+                int idHospitalizacion = CD_Hospitalizacion.RegistrarHospitalizacion(nombrePaciente, dniPaciente, idEstadia, idHabitacion, idCamilla);
+
+                // Mostrar mensaje de éxito
+                MessageBox.Show("Hospitalización registrada con éxito. ID: " + idHospitalizacion, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Limpiar campos después del registro
+                LimpiarCampos();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Seleccione una estadía válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // Mostrar mensaje de error
+                MessageBox.Show("Error al registrar la hospitalización: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            if (!int.TryParse(cboHabitacion.SelectedValue.ToString(), out int idHabitacion))
-            {
-                MessageBox.Show("Seleccione una habitación válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            int? idCamilla = null;
-            if (cboCamilla.SelectedValue != null && int.TryParse(cboCamilla.SelectedValue.ToString(), out int camillaValue))
-            {
-                idCamilla = camillaValue;
-            }
-
-            // Obtener el ID del médico seleccionado
-            if (cboMedico.SelectedValue == null || !int.TryParse(cboMedico.SelectedValue.ToString(), out int idUsuarioMedico))
-            {
-                MessageBox.Show("Seleccione un médico válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Registrar la hospitalización con los datos recopilados
-            int idHospitalizacion = CD_Hospitalizacion.RegistrarHospitalizacion(nombrePaciente, dniPaciente, idEstadia, idHabitacion, idCamilla, idUsuarioMedico);
-
-            // Mostrar mensaje de éxito
-            MessageBox.Show("Hospitalización registrada con éxito. ID: " + idHospitalizacion, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Limpiar campos después del registro
-            LimpiarCampos();
-            //try
-            //{
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Mostrar mensaje de error
-            //    MessageBox.Show("Error al registrar la hospitalización: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
         }
 
         private void btnGuardarCambios_Click(object sender, EventArgs e)
@@ -116,10 +107,6 @@ namespace CapaPresentacion
                 cboCamilla.DisplayMember = "Nombre";
                 cboCamilla.ValueMember = "IdCamilla";
 
-                cboMedico.DataSource = CD_Hospitalizacion.ObtenerMedicos();
-                cboMedico.DisplayMember = "Nombres"; // Nombre de la columna que quieres mostrar (por ejemplo, Nombres)
-                cboMedico.ValueMember = "IdUsuario";
-
                 LimpiarCampos();
             }
             catch (Exception ex)
@@ -136,7 +123,6 @@ namespace CapaPresentacion
             cboHabitacion.SelectedIndex = -1;
             cboTipoHabitacion.SelectedIndex = -1;
             cboCamilla.SelectedIndex = -1;
-            cboMedico.SelectedIndex = -1;
         }
 
         private void frmHospitalizacion_Load(object sender, EventArgs e)

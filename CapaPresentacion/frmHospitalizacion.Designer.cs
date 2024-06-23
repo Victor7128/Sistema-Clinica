@@ -47,8 +47,6 @@
             this.cboTipoHabitacion = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cboHabitacion = new System.Windows.Forms.ComboBox();
-            this.cboMedico = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtDniPaciente = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,9 +59,9 @@
             // dgvHospitalizacion
             // 
             this.dgvHospitalizacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHospitalizacion.Location = new System.Drawing.Point(12, 317);
+            this.dgvHospitalizacion.Location = new System.Drawing.Point(12, 259);
             this.dgvHospitalizacion.Name = "dgvHospitalizacion";
-            this.dgvHospitalizacion.Size = new System.Drawing.Size(803, 253);
+            this.dgvHospitalizacion.Size = new System.Drawing.Size(803, 297);
             this.dgvHospitalizacion.TabIndex = 36;
             // 
             // label1
@@ -106,7 +104,7 @@
             this.btnRegistrarEntrada.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRegistrarEntrada.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrarEntrada.ForeColor = System.Drawing.Color.Black;
-            this.btnRegistrarEntrada.Location = new System.Drawing.Point(590, 91);
+            this.btnRegistrarEntrada.Location = new System.Drawing.Point(585, 32);
             this.btnRegistrarEntrada.Name = "btnRegistrarEntrada";
             this.btnRegistrarEntrada.Size = new System.Drawing.Size(170, 41);
             this.btnRegistrarEntrada.TabIndex = 55;
@@ -146,7 +144,7 @@
             this.btnRegistrarSalida.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRegistrarSalida.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrarSalida.ForeColor = System.Drawing.Color.Black;
-            this.btnRegistrarSalida.Location = new System.Drawing.Point(590, 185);
+            this.btnRegistrarSalida.Location = new System.Drawing.Point(585, 126);
             this.btnRegistrarSalida.Name = "btnRegistrarSalida";
             this.btnRegistrarSalida.Size = new System.Drawing.Size(170, 41);
             this.btnRegistrarSalida.TabIndex = 67;
@@ -160,7 +158,7 @@
             this.btnGuardarCambios.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarCambios.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarCambios.ForeColor = System.Drawing.Color.Black;
-            this.btnGuardarCambios.Location = new System.Drawing.Point(590, 138);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(585, 79);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(170, 41);
             this.btnGuardarCambios.TabIndex = 66;
@@ -180,8 +178,6 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cboHabitacion);
             this.groupBox1.Controls.Add(this.btnRegistrarEntrada);
-            this.groupBox1.Controls.Add(this.cboMedico);
-            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtDniPaciente);
             this.groupBox1.Controls.Add(this.label3);
@@ -191,7 +187,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
             this.groupBox1.Location = new System.Drawing.Point(12, 64);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(803, 235);
+            this.groupBox1.Size = new System.Drawing.Size(803, 189);
             this.groupBox1.TabIndex = 71;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registrar Paciente";
@@ -240,7 +236,7 @@
             // 
             this.cboTipoHabitacion.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTipoHabitacion.FormattingEnabled = true;
-            this.cboTipoHabitacion.Location = new System.Drawing.Point(565, 56);
+            this.cboTipoHabitacion.Location = new System.Drawing.Point(17, 125);
             this.cboTipoHabitacion.Name = "cboTipoHabitacion";
             this.cboTipoHabitacion.Size = new System.Drawing.Size(218, 29);
             this.cboTipoHabitacion.TabIndex = 77;
@@ -250,7 +246,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label7.Location = new System.Drawing.Point(561, 32);
+            this.label7.Location = new System.Drawing.Point(13, 101);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(157, 21);
             this.label7.TabIndex = 76;
@@ -264,26 +260,6 @@
             this.cboHabitacion.Name = "cboHabitacion";
             this.cboHabitacion.Size = new System.Drawing.Size(116, 29);
             this.cboHabitacion.TabIndex = 75;
-            // 
-            // cboMedico
-            // 
-            this.cboMedico.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboMedico.FormattingEnabled = true;
-            this.cboMedico.Location = new System.Drawing.Point(17, 125);
-            this.cboMedico.Name = "cboMedico";
-            this.cboMedico.Size = new System.Drawing.Size(253, 29);
-            this.cboMedico.TabIndex = 72;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label5.Location = new System.Drawing.Point(13, 101);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 21);
-            this.label5.TabIndex = 71;
-            this.label5.Text = "Medico";
             // 
             // label4
             // 
@@ -380,8 +356,6 @@
         private System.Windows.Forms.ComboBox cboTipoHabitacion;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox cboHabitacion;
-        private System.Windows.Forms.ComboBox cboMedico;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtDniPaciente;
         private System.Windows.Forms.Label label3;

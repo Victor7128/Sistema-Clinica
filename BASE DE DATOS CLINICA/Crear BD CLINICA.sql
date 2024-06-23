@@ -62,7 +62,7 @@ CREATE TABLE TipoHabitacion (
 -- Tabla Camillas
 CREATE TABLE Camillas (
     IdCamilla INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(100) NOT NULL
+    Nombre INT NOT NULL
 );
 
 -- Tabla Hospitalizaciones
@@ -72,7 +72,7 @@ CREATE TABLE Hospitalizaciones (
     IdEstadia INT NOT NULL,
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
-    IdMedico INT NOT NULL,
+    IdMedico INT NULL,
     FechaIngreso DATE NOT NULL,
     HoraIngreso TIME NOT NULL,
     FechaSalida DATE NULL,
@@ -91,3 +91,4 @@ inner JOIN ROL r ON u.IdRol = r.IdRol
 ORDER BY u.IdUsuario
 
 select Nombres from USUARIOS where IdRol = 3
+

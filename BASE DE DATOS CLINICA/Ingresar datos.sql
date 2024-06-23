@@ -99,6 +99,8 @@ VALUES (1, 'Hab. Priv. + AC'),
        (3, 'Hab. Comp. + AC'),
        (4, 'Hab. Com. + Ventilador');
 
+	  
+
 -- Insertar registros en la tabla Habitación
 INSERT INTO Habitaciones (Nombre)
 VALUES ('101'),
@@ -154,5 +156,5 @@ VALUES ('101'),
 
 -- Insertar registros iniciales en la tabla Camilla
 INSERT INTO Camillas (Nombre)
-VALUES ('1'),
-       ('2');
+VALUES (1),
+       (2);
