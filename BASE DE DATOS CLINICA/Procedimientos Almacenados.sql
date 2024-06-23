@@ -1,4 +1,4 @@
-use Clinica
+use Prueba
 
 create procedure usp_LoginUsuario(
 @Usuario varchar(60),
@@ -45,3 +45,26 @@ begin
     where US.IdUsuario = @IdUsuario
     for xml path(''), root('PERMISOS');
 end
+--------------------------------------------
+CREATE PROCEDURE usp_RegistrarUsuario
+    @Nombres NVARCHAR(100),
+    @Usuario NVARCHAR(50),
+    @Clave NVARCHAR(50),
+    @IdRol INT,
+    @IdUsuario INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        INSERT INTO USUARIOS (Nombres, Usuario, Clave, IdRol) -- Cambiado a USUARIOS
+        VALUES (@Nombres, @Usuario, @Clave, @IdRol);
+
+        SET @IdUsuario = SCOPE_IDENTITY();
+    END TRY
+    BEGIN CATCH
+        SET @IdUsuario = 0;
+    END CATCH
+END
+
+

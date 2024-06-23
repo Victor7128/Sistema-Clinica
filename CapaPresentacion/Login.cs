@@ -20,6 +20,7 @@ namespace CapaPresentacion
         {
             InitializeComponent();
             txtClave.PasswordChar = '*';
+            txtUsuario.Focus();
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)

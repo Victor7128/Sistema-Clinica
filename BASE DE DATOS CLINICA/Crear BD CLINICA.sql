@@ -24,6 +24,11 @@ CREATE TABLE PERMISO (
     Activo BIT
 );
 
+CREATE TABLE ESPECIALIDAD (
+    IdEspecialidad INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL
+);
+
 -- Tabla USUARIOS
 CREATE TABLE USUARIOS (
     IdUsuario INT PRIMARY KEY,
@@ -32,3 +37,8 @@ CREATE TABLE USUARIOS (
     Clave VARCHAR(50),
     IdRol INT REFERENCES ROL(IdRol)
 );
+
+--SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
+--FROM USUARIOS u
+--inner JOIN ROL r ON u.IdRol = r.IdRol
+--ORDER BY u.IdUsuario

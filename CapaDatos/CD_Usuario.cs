@@ -80,5 +80,128 @@ namespace CapaDatos
             }
             return permisos;
         }
+
+        public static DataTable ObtenerUsuariosConRoles()
+        {
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                string query = @"select u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre as Rol from USUARIOS u inner join ROL r on u.IdRol = r.IdRol";
+
+                SqlDataAdapter adapter = new SqlDataAdapter(query, cn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                return dt;
+            }
+        }
+
+        public static DataTable ObtenerRoles()
+        {
+            DataTable dtRoles = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                string query = "SELECT IdRol, Nombre FROM ROL ORDER BY Nombre"; // Asegúrate de incluir IdRol
+                SqlCommand cmd = new SqlCommand(query, cn);
+
+                try
+                {
+                    cn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    dtRoles.Load(reader);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener roles: " + ex.Message);
+                }
+            }
+
+            return dtRoles;
+        }
+
+        public DataTable ObtenerUsuarios()
+        {
+            DataTable dtUsuarios = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                string query = @"SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol FROM USUARIOS u inner JOIN ROL r ON u.IdRol = r.IdRol ORDER BY u.IdUsuario";
+                SqlCommand cmd = new SqlCommand(query, cn);
+
+                try
+                {
+                    cn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    dtUsuarios.Load(reader);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener usuarios: " + ex.Message);
+                }
+            }
+
+            return dtUsuarios;
+        }
+
+        public int RegistrarUsuario(string nombres, string usuario, string clave, int idRol)
+        {
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                SqlCommand cmd = new SqlCommand("usp_RegistrarUsuario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                // Parámetros del procedimiento almacenado
+                cmd.Parameters.AddWithValue("@Nombres", nombres);
+                cmd.Parameters.AddWithValue("@Usuario", usuario);
+                cmd.Parameters.AddWithValue("@Clave", clave);
+                cmd.Parameters.AddWithValue("@IdRol", idRol);
+
+                // Parámetro de salida para obtener el IdUsuario generado
+                SqlParameter outputIdParameter = new SqlParameter();
+                outputIdParameter.ParameterName = "@IdUsuario";
+                outputIdParameter.SqlDbType = SqlDbType.Int;
+                outputIdParameter.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(outputIdParameter);
+
+                try
+                {
+                    cn.Open(); // Asegúrate de abrir la conexión
+                    cmd.ExecuteNonQuery();
+
+                    // Obtener el IdUsuario generado
+                    int idUsuarioGenerado = Convert.ToInt32(cmd.Parameters["@IdUsuario"].Value);
+
+                    return idUsuarioGenerado;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al registrar usuario: " + ex.Message);
+                    return 0;
+                }
+            }
+        }
+
+        public bool EliminarUsuario(int idUsuario)
+        {
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                SqlCommand cmd = new SqlCommand("usp_EliminarUsuario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
+
+                try
+                {
+                    cn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0; // Devuelve true si se eliminó al menos una fila
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al eliminar usuario: " + ex.Message);
+                    return false;
+                }
+            }
+        }
     }
 }

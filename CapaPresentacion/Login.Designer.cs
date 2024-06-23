@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pbOcultar = new System.Windows.Forms.PictureBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtClave = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnIngresar = new System.Windows.Forms.Button();
+            this.pbMostrar = new System.Windows.Forms.PictureBox();
             this.lblHora = new System.Windows.Forms.Label();
             this.btnInicio = new System.Windows.Forms.PictureBox();
-            this.pbMostrar = new System.Windows.Forms.PictureBox();
-            this.pbOcultar = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMostrar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOcultar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMostrar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -59,6 +59,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(323, 298);
             this.panel1.TabIndex = 14;
+            // 
+            // pbOcultar
+            // 
+            this.pbOcultar.BackColor = System.Drawing.Color.Transparent;
+            this.pbOcultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbOcultar.BackgroundImage")));
+            this.pbOcultar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbOcultar.Image = ((System.Drawing.Image)(resources.GetObject("pbOcultar.Image")));
+            this.pbOcultar.Location = new System.Drawing.Point(283, 160);
+            this.pbOcultar.Name = "pbOcultar";
+            this.pbOcultar.Size = new System.Drawing.Size(30, 30);
+            this.pbOcultar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbOcultar.TabIndex = 13;
+            this.pbOcultar.TabStop = false;
+            this.pbOcultar.Click += new System.EventHandler(this.pbOcultar_Click);
             // 
             // txtUsuario
             // 
@@ -112,6 +126,19 @@
             this.btnIngresar.UseVisualStyleBackColor = true;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
             // 
+            // pbMostrar
+            // 
+            this.pbMostrar.BackColor = System.Drawing.Color.Transparent;
+            this.pbMostrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbMostrar.Image = ((System.Drawing.Image)(resources.GetObject("pbMostrar.Image")));
+            this.pbMostrar.Location = new System.Drawing.Point(283, 160);
+            this.pbMostrar.Name = "pbMostrar";
+            this.pbMostrar.Size = new System.Drawing.Size(30, 30);
+            this.pbMostrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbMostrar.TabIndex = 12;
+            this.pbMostrar.TabStop = false;
+            this.pbMostrar.Click += new System.EventHandler(this.pbMostrar_Click);
+            // 
             // lblHora
             // 
             this.lblHora.AutoSize = true;
@@ -134,33 +161,6 @@
             this.btnInicio.TabIndex = 12;
             this.btnInicio.TabStop = false;
             // 
-            // pbMostrar
-            // 
-            this.pbMostrar.BackColor = System.Drawing.Color.Transparent;
-            this.pbMostrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbMostrar.Image = ((System.Drawing.Image)(resources.GetObject("pbMostrar.Image")));
-            this.pbMostrar.Location = new System.Drawing.Point(283, 160);
-            this.pbMostrar.Name = "pbMostrar";
-            this.pbMostrar.Size = new System.Drawing.Size(30, 30);
-            this.pbMostrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbMostrar.TabIndex = 12;
-            this.pbMostrar.TabStop = false;
-            this.pbMostrar.Click += new System.EventHandler(this.pbMostrar_Click);
-            // 
-            // pbOcultar
-            // 
-            this.pbOcultar.BackColor = System.Drawing.Color.Transparent;
-            this.pbOcultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbOcultar.BackgroundImage")));
-            this.pbOcultar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbOcultar.Image = ((System.Drawing.Image)(resources.GetObject("pbOcultar.Image")));
-            this.pbOcultar.Location = new System.Drawing.Point(283, 160);
-            this.pbOcultar.Name = "pbOcultar";
-            this.pbOcultar.Size = new System.Drawing.Size(30, 30);
-            this.pbOcultar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbOcultar.TabIndex = 13;
-            this.pbOcultar.TabStop = false;
-            this.pbOcultar.Click += new System.EventHandler(this.pbOcultar_Click);
-            // 
             // Login
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -176,9 +176,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMostrar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbOcultar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMostrar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnInicio)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
