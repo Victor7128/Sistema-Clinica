@@ -135,6 +135,12 @@
     <Compile Include="frmHospitalizacion.Designer.cs">
       <DependentUpon>frmHospitalizacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistrarSalida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarSalida.Designer.cs">
+      <DependentUpon>RegistrarSalida.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmCirugias.resx">
       <DependentUpon>frmCirugias.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +185,9 @@
     </Compile>
     <EmbeddedResource Include="frmHospitalizacion.resx">
       <DependentUpon>frmHospitalizacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarSalida.resx">
+      <DependentUpon>RegistrarSalida.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
