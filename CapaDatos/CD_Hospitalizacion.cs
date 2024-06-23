@@ -115,7 +115,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "select IdTipoHabitacion,Nombre from TipoHabitacion";
+                string query = "SELECT IdTipoHabitacion, Nombre FROM TipoHabitacion";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -129,6 +129,68 @@ namespace CapaDatos
                     catch (Exception ex)
                     {
                         throw new Exception("Error al obtener tipos de habitación: " + ex.Message);
+                    }
+                }
+            }
+            return dt;
+        }
+
+        public static DataTable ObtenerPacientesHospitalizados()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                string query = @"
+                    SELECT
+                        ho.IdHospitalizacion AS ID_Hospitalizacion,
+                        p.Nombre AS Nombre_Paciente,
+                        p.DNI AS Dni_Paciente,
+                        e.Nombre AS Estadia,
+                        c.Nombre AS Camilla,
+                        h.Nombre AS Habitacion,
+                        th.Nombre AS Tipo_Habitacion,
+                        ho.FechaIngreso AS FechaIngreso,
+                        ho.HoraIngreso AS HoraIngreso,
+                        ho.FechaSalida AS FechaSalida,
+                        ho.HoraSalida AS HoraSalida
+                    FROM 
+                        Hospitalizaciones ho
+                    INNER JOIN 
+                        Pacientes p ON ho.IdPaciente = p.IdPaciente
+                    LEFT JOIN 
+                        Estadias e ON ho.IdEstadia = e.IdEstadia
+                    LEFT JOIN 
+                        Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
+                    LEFT JOIN 
+                        TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
+                    LEFT JOIN 
+                        Camillas c ON ho.IdCamilla = c.IdCamilla
+                    GROUP BY
+                        ho.IdHospitalizacion,
+                        p.Nombre,
+                        p.DNI,
+                        e.Nombre,
+                        c.Nombre,
+                        h.Nombre,
+                        th.Nombre,
+                        ho.FechaIngreso,
+                        ho.HoraIngreso,
+                        ho.FechaSalida,
+                        ho.HoraSalida;";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    try
+                    {
+                        cn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener pacientes hospitalizados: " + ex.Message);
                     }
                 }
             }
@@ -162,36 +224,38 @@ namespace CapaDatos
             return idPaciente;
         }
 
-        public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idHabitacion, int? idCamilla)
+        public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idTipoHabitacion, int idHabitacion, int? idCamilla)
         {
             int idHospitalizacion = 0;
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
                 string query = @"
-            DECLARE @IdPaciente INT;
+DECLARE @IdPaciente INT;
 
-            IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
-            BEGIN
-                SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
-            END
-            ELSE
-            BEGIN
-                INSERT INTO Pacientes (Nombre, DNI)
-                VALUES (@NombrePaciente, @DNIPaciente);
+IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
+BEGIN
+    SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
+END
+ELSE
+BEGIN
+    INSERT INTO Pacientes (Nombre, DNI)
+    VALUES (@NombrePaciente, @DNIPaciente);
 
-                SELECT @IdPaciente = SCOPE_IDENTITY();
-            END
+    SELECT @IdPaciente = SCOPE_IDENTITY();
+END
 
-            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
-            VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, GETDATE(), GETDATE());
+-- Insertar la hospitalización con IdTipoHabitacion
+INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdTipoHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
+VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdTipoHabitacion, @IdCamilla, GETDATE(), GETDATE());
 
-            SELECT SCOPE_IDENTITY();";
+SELECT SCOPE_IDENTITY();";
 
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@NombrePaciente", nombrePaciente);
                     cmd.Parameters.AddWithValue("@DNIPaciente", dniPaciente);
                     cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
+                    cmd.Parameters.AddWithValue("@IdTipoHabitacion", idTipoHabitacion);
                     cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
                     cmd.Parameters.AddWithValue("@IdCamilla", (object)idCamilla ?? DBNull.Value);
 
@@ -209,6 +273,7 @@ namespace CapaDatos
             return idHospitalizacion;
         }
 
+        
 
     }
 }

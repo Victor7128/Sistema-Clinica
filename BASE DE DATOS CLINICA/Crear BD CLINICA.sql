@@ -49,7 +49,7 @@ CREATE TABLE Estadias (
 
 -- Tabla Habitaciones
 CREATE TABLE Habitaciones (
-    IdHabitacion INT IDENTITY(1,1) PRIMARY KEY,
+    IdHabitacion INT PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL
 );
 
@@ -73,6 +73,7 @@ CREATE TABLE Hospitalizaciones (
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
     IdMedico INT NULL,
+    IdTipoHabitacion INT NULL, -- Nueva columna para relacionar con TipoHabitacion
     FechaIngreso DATE NOT NULL,
     HoraIngreso TIME NOT NULL,
     FechaSalida DATE NULL,
@@ -81,8 +82,10 @@ CREATE TABLE Hospitalizaciones (
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
     FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
-    FOREIGN KEY (IdMedico) REFERENCES USUARIOS(IdUsuario)
+    FOREIGN KEY (IdMedico) REFERENCES USUARIOS(IdUsuario),
+    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion) -- Restricción de clave externa
 );
+
 
 
 SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
@@ -92,3 +95,41 @@ ORDER BY u.IdUsuario
 
 select Nombres from USUARIOS where IdRol = 3
 
+
+
+SELECT
+    ho.IdHospitalizacion AS ID_Hospitalizacion,
+    p.Nombre AS Nombre_Paciente,
+    p.DNI AS Dni_Paciente,
+    e.Nombre AS Estadia,
+    c.Nombre AS Camilla,
+    h.Nombre AS Habitacion,
+    th.Nombre AS Tipo_Habitacion,
+    ho.FechaIngreso AS FechaIngreso,
+    ho.HoraIngreso AS HoraIngreso,
+    ho.FechaSalida AS FechaSalida,
+    ho.HoraSalida AS HoraSalida
+FROM 
+    Hospitalizaciones ho
+INNER JOIN 
+    Pacientes p ON ho.IdPaciente = p.IdPaciente
+LEFT JOIN 
+    Estadias e ON ho.IdEstadia = e.IdEstadia
+LEFT JOIN 
+    Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
+LEFT JOIN 
+    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
+LEFT JOIN 
+    Camillas c ON ho.IdCamilla = c.IdCamilla
+GROUP BY
+    ho.IdHospitalizacion,
+    p.Nombre,
+    p.DNI,
+    e.Nombre,
+    c.Nombre,
+    h.Nombre,
+    th.Nombre,
+    ho.FechaIngreso,
+    ho.HoraIngreso,
+    ho.FechaSalida,
+    ho.HoraSalida;

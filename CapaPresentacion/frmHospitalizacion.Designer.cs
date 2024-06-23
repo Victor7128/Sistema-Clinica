@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.dgvHospitalizacion = new System.Windows.Forms.DataGridView();
+            this.dgvPacientes = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHora = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
@@ -52,17 +52,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtNombrePaciente = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHospitalizacion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dgvHospitalizacion
+            // dgvPacientes
             // 
-            this.dgvHospitalizacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHospitalizacion.Location = new System.Drawing.Point(12, 259);
-            this.dgvHospitalizacion.Name = "dgvHospitalizacion";
-            this.dgvHospitalizacion.Size = new System.Drawing.Size(803, 297);
-            this.dgvHospitalizacion.TabIndex = 36;
+            this.dgvPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPacientes.Location = new System.Drawing.Point(12, 259);
+            this.dgvPacientes.Name = "dgvPacientes";
+            this.dgvPacientes.Size = new System.Drawing.Size(803, 297);
+            this.dgvPacientes.TabIndex = 36;
+            this.dgvPacientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellClick);
             // 
             // label1
             // 
@@ -324,12 +325,12 @@
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.lblHora);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dgvHospitalizacion);
+            this.Controls.Add(this.dgvPacientes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHospitalizacion";
             this.Text = "Registros";
             this.Load += new System.EventHandler(this.frmHospitalizacion_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvHospitalizacion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -338,7 +339,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView dgvHospitalizacion;
+        private System.Windows.Forms.DataGridView dgvPacientes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Label lblFecha;
