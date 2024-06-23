@@ -227,7 +227,5 @@ namespace CapaDatos
                 }
             }
         }
-
-
     }
 }
