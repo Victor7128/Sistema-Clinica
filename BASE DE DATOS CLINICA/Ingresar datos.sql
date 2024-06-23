@@ -76,10 +76,10 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 
 -- Insertar registros en USUARIOS
 INSERT INTO USUARIOS(Nombres, Usuario, Clave, IdRol, Activo) VALUES
-('Luis Alvinagorta', 'Luis', 'administrador', 5, 1), -- Recepcionista
-('Gary Bocanegra', 'Gary', 'administrador', 5, 1), -- Licenciado de Enfermería
-('Matías Guevara', 'Matías', 'administrador', 5, 1), -- Médico
-('Manuel Ortiz', 'Manuel', 'administrador', 5, 1), -- Mantenimiento
+('Luis Alvinagorta', 'Luis', 'recepcionista', 1, 1), -- Recepcionista
+('Gary Bocanegra', 'Gary', 'licenciado', 2, 1), -- Licenciado de Enfermería
+('Matías Guevara', 'Matías', 'medico', 3, 1), -- Médico
+('Manuel Ortiz', 'Manuel', 'mantenimiento', 4, 1), -- Mantenimiento
 ('Victor Tuesta', 'Victor', 'administrador', 5, 1); -- Administrador
 
 -- Insertar registros por defecto en Estadias
