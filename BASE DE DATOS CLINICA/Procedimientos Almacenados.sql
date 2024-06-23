@@ -101,5 +101,48 @@ BEGIN
         THROW;
     END CATCH
 END
+-------------------------------------------
+-- Registrar Hospitalizacion
+CREATE PROCEDURE usp_RegistrarHospitalizacion
+    @IdPaciente INT,
+    @IdEstadia INT,
+    @IdHabitacion INT,
+    @IdCamilla INT,
+    @IdMedico INT,
+    @FechaIngreso DATETIME,
+    @Estado NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdMedico, FechaIngreso, Estado)
+    VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @IdMedico, @FechaIngreso, @Estado);
 
+    SELECT SCOPE_IDENTITY() AS IdHospitalizacion;
+END
+---------------------------------
+CREATE PROCEDURE usp_ActualizarHospitalizacion
+    @IdHospitalizacion INT,
+    @IdPaciente INT,
+    @IdEstadia INT,
+    @IdHabitacion INT,
+    @IdCamilla INT,
+    @IdMedico INT,
+    @FechaIngreso DATETIME,
+    @FechaSalida DATETIME,
+    @Estado NVARCHAR(50)
+AS
+BEGIN
+    UPDATE Hospitalizaciones
+    SET IdPaciente = @IdPaciente,
+        IdEstadia = @IdEstadia,
+        IdHabitacion = @IdHabitacion,
+        IdCamilla = @IdCamilla,
+        IdMedico = @IdMedico,
+        FechaIngreso = @FechaIngreso,
+        FechaSalida = @FechaSalida,
+        Estado = @Estado
+    WHERE IdHospitalizacion = @IdHospitalizacion;
+
+    SELECT @@ROWCOUNT AS RowsAffected;
+END
+----------------------------------
 

@@ -56,7 +56,7 @@ CREATE TABLE Habitaciones (
 -- Tabla Camillas
 CREATE TABLE Camillas (
     IdCamilla INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(100) NOT NULL
+    Nombre INT NOT NULL
 );
 
 -- Tabla Hospitalizaciones

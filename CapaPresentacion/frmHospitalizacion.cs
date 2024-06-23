@@ -156,10 +156,21 @@ namespace CapaPresentacion
         {
             try
             {
-                cboEstadia.DataSource = CD_Hospitalizacion.ObtenerEstadias();
+                // Cargar ComboBox de Estadias con días del 1 al 30
+                DataTable dtEstadias = new DataTable();
+                dtEstadias.Columns.Add("IdEstadia", typeof(int));
+                dtEstadias.Columns.Add("Nombre", typeof(int));
+
+                for (int i = 1; i <= 30; i++)
+                {
+                    dtEstadias.Rows.Add(i, i);
+                }
+
                 cboEstadia.DisplayMember = "Nombre";
                 cboEstadia.ValueMember = "IdEstadia";
+                cboEstadia.DataSource = dtEstadias;
 
+                // Resto de la carga de ComboBoxes
                 cboHabitacion.DataSource = CD_Hospitalizacion.ObtenerHabitaciones();
                 cboHabitacion.DisplayMember = "Nombre";
                 cboHabitacion.ValueMember = "IdHabitacion";
@@ -168,10 +179,9 @@ namespace CapaPresentacion
                 cboCamilla.DisplayMember = "Nombre";
                 cboCamilla.ValueMember = "IdCamilla";
 
-                // Modificar para cargar médicos con nombres
                 cboMedico.DataSource = CD_Hospitalizacion.ObtenerMedicos();
-                cboMedico.DisplayMember = "Nombres"; // Mostrar nombres de los médicos
-                cboMedico.ValueMember = "IdUsuario"; // Usar IdUsuario como valor seleccionado
+                cboMedico.DisplayMember = "Nombres";
+                cboMedico.ValueMember = "IdUsuario";
 
                 LimpiarComboboxes();
             }

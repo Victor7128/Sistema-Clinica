@@ -82,3 +82,9 @@ INSERT INTO USUARIOS(Nombres, Usuario, Clave, IdRol) VALUES
 ('Matías Guevara', 'Matías', 'medico', 3), -- Medico
 ('Manuel Ortiz', 'Manuel', 'mantenimiento', 4), -- Mantenimiento
 ('Victor Tuesta', 'Victor', 'administrador', 5); -- Administrador
+
+-- Inserta números del 1 al 30 en la tabla Estadias
+INSERT INTO Estadias (Nombre)
+VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10),
+       (11), (12), (13), (14), (15), (16), (17), (18), (19), (20),
+       (21), (22), (23), (24), (25), (26), (27), (28), (29), (30)
