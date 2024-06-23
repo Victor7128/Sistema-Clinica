@@ -81,5 +81,49 @@ namespace CapaDatos
 
             return dtCirugias;
         }
+
+        public static DataTable ObtenerCirugiasConEstado()
+        {
+            DataTable dtCirugias = new DataTable();
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                SqlCommand cmd = new SqlCommand("usp_ObtenerCirugiasConEstado", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    cn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dtCirugias);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al obtener las cirugías con estado.", ex);
+                }
+            }
+            return dtCirugias;
+        }
+
+        public static void ActualizarCirugia(int idCirugia, string tipoCirugia, string sala, DateTime fechaCirugia)
+        {
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                SqlCommand cmd = new SqlCommand("usp_ActualizarCirugia", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdCirugia", idCirugia);
+                cmd.Parameters.AddWithValue("@TipoCirugia", tipoCirugia);
+                cmd.Parameters.AddWithValue("@Sala", sala);
+                cmd.Parameters.AddWithValue("@FechaCirugia", fechaCirugia);
+
+                try
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al actualizar cirugía.", ex);
+                }
+            }
+        }
     }
 }

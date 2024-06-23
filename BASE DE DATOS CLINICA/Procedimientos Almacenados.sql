@@ -145,4 +145,57 @@ BEGIN
     SELECT @@ROWCOUNT AS RowsAffected;
 END
 ----------------------------------
-
+CREATE PROCEDURE usp_AgregarCirugia
+    @TipoCirugia NVARCHAR(100),
+    @IdPaciente INT,
+    @NombrePaciente NVARCHAR(100),
+    @Sala NVARCHAR(50),
+    @Turno NVARCHAR(20),
+    @FechaCirugia DATETIME
+AS
+BEGIN
+    INSERT INTO Cirugias (TipoCirugia, IdPaciente, NombrePaciente, Sala, Turno, FechaCirugia)
+    VALUES (@TipoCirugia, @IdPaciente, @NombrePaciente, @Sala, @Turno, @FechaCirugia);
+END
+----------------------------------
+CREATE PROCEDURE usp_ObtenerCirugias
+AS
+BEGIN
+    SELECT c.IdCirugia, c.TipoCirugia, p.Nombre AS NombrePaciente, c.Sala, c.Turno, c.FechaCirugia
+    FROM Cirugias c
+    INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
+END
+----------------------------------
+CREATE PROCEDURE usp_ObtenerCirugiasConEstado
+AS
+BEGIN
+    SELECT 
+        c.IdCirugia, 
+        c.TipoCirugia, 
+        p.Nombre AS Paciente, 
+        c.Sala, 
+        c.FechaCirugia,
+        CASE 
+            WHEN c.FechaCirugia = CAST(GETDATE() AS DATE) THEN 'Activo'
+            WHEN c.FechaCirugia > CAST(GETDATE() AS DATE) THEN 'Pendiente'
+            ELSE 'Finalizada'
+        END AS Estado
+    FROM Cirugias c
+    JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
+END
+----------------------------------
+CREATE PROCEDURE usp_ActualizarCirugia
+    @IdCirugia INT,
+    @TipoCirugia NVARCHAR(100),
+    @Sala NVARCHAR(50),
+    @FechaCirugia DATETIME
+AS
+BEGIN
+    UPDATE Cirugias
+    SET TipoCirugia = @TipoCirugia,
+        Sala = @Sala,
+        FechaCirugia = @FechaCirugia
+    WHERE IdCirugia = @IdCirugia;
+END
+GO
+----------------------------------

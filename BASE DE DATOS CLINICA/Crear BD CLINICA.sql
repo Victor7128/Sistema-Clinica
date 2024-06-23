@@ -69,11 +69,23 @@ CREATE TABLE Hospitalizaciones (
     IdMedico INT NOT NULL,
     FechaIngreso DATETIME NOT NULL,
     FechaSalida DATETIME NULL,
+	Estado NVARCHAR(50)
     FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
     FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
     FOREIGN KEY (IdMedico) REFERENCES Usuarios(IdUsuario)
+);
+
+CREATE TABLE Cirugias (
+    IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
+    TipoCirugia NVARCHAR(100) NOT NULL,
+    IdPaciente INT NOT NULL,
+    NombrePaciente NVARCHAR(100) NOT NULL, -- Nueva columna para el nombre del paciente
+    Sala NVARCHAR(50) NOT NULL,
+    Turno NVARCHAR(20) NOT NULL,
+    FechaCirugia DATETIME NOT NULL,
+    CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente)
 );
 
 SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol

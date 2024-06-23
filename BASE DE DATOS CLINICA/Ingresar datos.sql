@@ -83,6 +83,13 @@ INSERT INTO USUARIOS(Nombres, Usuario, Clave, IdRol) VALUES
 ('Manuel Ortiz', 'Manuel', 'mantenimiento', 4), -- Mantenimiento
 ('Victor Tuesta', 'Victor', 'administrador', 5); -- Administrador
 
+INSERT INTO Pacientes (Nombre, DNI)
+VALUES ('Juan Perez', '12345678'),
+       ('María Gómez', '87654321'),
+       ('Pedro Rodriguez', '45678912');
+
+SELECT * FROM Pacientes;
+
 -- Inserta números del 1 al 30 en la tabla Estadias
 INSERT INTO Estadias (Nombre)
 VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10),
