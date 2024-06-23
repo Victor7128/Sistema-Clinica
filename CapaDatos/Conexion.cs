@@ -9,7 +9,7 @@ namespace CapaDatos
 {
     public class Conexion
     {
-        public static string cn = "Data Source=LAPTOP-LERQCFR6;Initial Catalog=Clinica;Integrated Security=True;";
+        public static string cn = "Data Source=.;Initial Catalog=Clinica;Integrated Security=True;Encrypt=False;";
     }
 
     public class Conexion_2
@@ -17,7 +17,7 @@ namespace CapaDatos
         public static SqlConnection Conectar()
         {
 
-            SqlConnection  cm = new SqlConnection("Data Source=LAPTOP-LERQCFR6;Initial Catalog=Clinica;Integrated Security=True;");
+            SqlConnection  cm = new SqlConnection("Data Source=.;Initial Catalog=Clinica;Integrated Security=True;Encrypt=False;");
             cm.Open();
             return cm;
         }  

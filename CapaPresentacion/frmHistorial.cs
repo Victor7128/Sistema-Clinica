@@ -90,6 +90,7 @@ namespace CapaPresentacion
             MessageBox.Show("datos actualizados correctamente");
             dataGridView1.DataSource = llenar_grid();
 
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
