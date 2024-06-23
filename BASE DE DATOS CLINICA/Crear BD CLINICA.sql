@@ -24,7 +24,7 @@ CREATE TABLE PERMISO (
     Activo BIT
 );
 
--- Tabla USUARIOS (Incluyendo M�dicos)
+-- Tabla USUARIOS (Incluyendo Médicos)
 CREATE TABLE USUARIOS (
     IdUsuario INT IDENTITY(1,1) PRIMARY KEY,
     Nombres NVARCHAR(50),
@@ -38,18 +38,24 @@ CREATE TABLE USUARIOS (
 CREATE TABLE Pacientes (
     IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL,
-    DNI NVARCHAR(20) NOT NULL
+    DNI INT NOT NULL
 );
 
 -- Tabla Estadias
 CREATE TABLE Estadias (
-    IdEstadia INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(100) NOT NULL
+    IdEstadia INT PRIMARY KEY,
+    Nombre NVARCHAR(50) NOT NULL
 );
 
 -- Tabla Habitaciones
 CREATE TABLE Habitaciones (
-    IdHabitacion INT IDENTITY(1,1) PRIMARY KEY,
+    IdHabitacion INT PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL
+);
+
+-- Tabla TipoHabitaciones
+CREATE TABLE TipoHabitacion (
+    IdTipoHabitacion INT PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL
 );
 
@@ -66,16 +72,23 @@ CREATE TABLE Hospitalizaciones (
     IdEstadia INT NOT NULL,
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
-    IdMedico INT NOT NULL,
-    FechaIngreso DATETIME NOT NULL,
-    FechaSalida DATETIME NULL,
-	Estado NVARCHAR(50)
+
+    IdMedico INT NULL,
+    IdTipoHabitacion INT NULL, -- Nueva columna para relacionar con TipoHabitacion
+    FechaIngreso DATE NOT NULL,
+    HoraIngreso TIME NOT NULL,
+    FechaSalida DATE NULL,
+    HoraSalida TIME NULL,
+    Estado NVARCHAR(50)
+
     FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
     FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
-    FOREIGN KEY (IdMedico) REFERENCES Usuarios(IdUsuario)
+    FOREIGN KEY (IdMedico) REFERENCES USUARIOS(IdUsuario),
+    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion) -- Restricción de clave externa
 );
+
 
 CREATE TABLE Cirugias (
     IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
@@ -88,7 +101,49 @@ CREATE TABLE Cirugias (
     CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente)
 );
 
+
 SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
 FROM USUARIOS u
 inner JOIN ROL r ON u.IdRol = r.IdRol
 ORDER BY u.IdUsuario
+
+select Nombres from USUARIOS where IdRol = 3
+
+
+
+SELECT
+    ho.IdHospitalizacion AS ID_Hospitalizacion,
+    p.Nombre AS Nombre_Paciente,
+    p.DNI AS Dni_Paciente,
+    e.Nombre AS Estadia,
+    c.Nombre AS Camilla,
+    h.Nombre AS Habitacion,
+    th.Nombre AS Tipo_Habitacion,
+    ho.FechaIngreso AS FechaIngreso,
+    ho.HoraIngreso AS HoraIngreso,
+    ho.FechaSalida AS FechaSalida,
+    ho.HoraSalida AS HoraSalida
+FROM 
+    Hospitalizaciones ho
+INNER JOIN 
+    Pacientes p ON ho.IdPaciente = p.IdPaciente
+LEFT JOIN 
+    Estadias e ON ho.IdEstadia = e.IdEstadia
+LEFT JOIN 
+    Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
+LEFT JOIN 
+    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
+LEFT JOIN 
+    Camillas c ON ho.IdCamilla = c.IdCamilla
+GROUP BY
+    ho.IdHospitalizacion,
+    p.Nombre,
+    p.DNI,
+    e.Nombre,
+    c.Nombre,
+    h.Nombre,
+    th.Nombre,
+    ho.FechaIngreso,
+    ho.HoraIngreso,
+    ho.FechaSalida,
+    ho.HoraSalida;

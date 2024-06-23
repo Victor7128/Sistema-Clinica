@@ -15,7 +15,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdEstadia, Nombre FROM Estadias ORDER BY Nombre";
+                string query = "SELECT IdEstadia, Nombre FROM Estadias";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -40,7 +40,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdHabitacion, Nombre FROM Habitaciones ORDER BY Nombre";
+                string query = "SELECT IdHabitacion, Nombre FROM Habitaciones";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -65,7 +65,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdCamilla, Nombre FROM Camillas ORDER BY Nombre";
+                string query = "SELECT IdCamilla, Nombre FROM Camillas";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -90,7 +90,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = @"SELECT IdUsuario, Nombres FROM Usuarios WHERE IdRol = (SELECT IdRol FROM ROL WHERE Nombre = 'Medico')";
+                string query = @"select Nombres from USUARIOS where IdRol = 3";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -110,18 +110,12 @@ namespace CapaDatos
             return dt;
         }
 
-        public static DataTable ObtenerHospitalizaciones()
+        public static DataTable ObtenerTipoHabitacion()
         {
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = @"SELECT h.IdHospitalizacion, p.Nombre as Paciente, p.DNI, e.Nombre as Estadia, hab.Nombre as Habitacion, c.Nombre as Camilla, u.Nombres as Medico, h.FechaIngreso, h.FechaSalida
-                                 FROM Hospitalizaciones h 
-                                 JOIN Pacientes p ON h.IdPaciente = p.IdPaciente
-                                 JOIN Estadias e ON h.IdEstadia = e.IdEstadia 
-                                 JOIN Habitaciones hab ON h.IdHabitacion = hab.IdHabitacion 
-                                 JOIN Camillas c ON h.IdCamilla = c.IdCamilla 
-                                 JOIN Usuarios u ON h.IdMedico = u.IdUsuario";
+                string query = "SELECT IdTipoHabitacion, Nombre FROM TipoHabitacion";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -134,93 +128,152 @@ namespace CapaDatos
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener hospitalizaciones: " + ex.Message);
+                        throw new Exception("Error al obtener tipos de habitación: " + ex.Message);
                     }
                 }
             }
             return dt;
         }
 
-        public static int RegistrarHospitalizacion(string nombre, string dni, int idEstadia, int idHabitacion, int idCamilla, int idMedico)
+        public static DataTable ObtenerPacientesHospitalizados()
         {
+            DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                SqlCommand cmd = new SqlCommand("usp_RegistrarHospitalizacion", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                string query = @"
+                    SELECT
+                        ho.IdHospitalizacion AS ID_Hospitalizacion,
+                        p.Nombre AS Nombre_Paciente,
+                        p.DNI AS Dni_Paciente,
+                        e.Nombre AS Estadia,
+                        c.Nombre AS Camilla,
+                        h.Nombre AS Habitacion,
+                        th.Nombre AS Tipo_Habitacion,
+                        ho.FechaIngreso AS FechaIngreso,
+                        ho.HoraIngreso AS HoraIngreso,
+                        ho.FechaSalida AS FechaSalida,
+                        ho.HoraSalida AS HoraSalida
+                    FROM 
+                        Hospitalizaciones ho
+                    INNER JOIN 
+                        Pacientes p ON ho.IdPaciente = p.IdPaciente
+                    LEFT JOIN 
+                        Estadias e ON ho.IdEstadia = e.IdEstadia
+                    LEFT JOIN 
+                        Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
+                    LEFT JOIN 
+                        TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
+                    LEFT JOIN 
+                        Camillas c ON ho.IdCamilla = c.IdCamilla
+                    GROUP BY
+                        ho.IdHospitalizacion,
+                        p.Nombre,
+                        p.DNI,
+                        e.Nombre,
+                        c.Nombre,
+                        h.Nombre,
+                        th.Nombre,
+                        ho.FechaIngreso,
+                        ho.HoraIngreso,
+                        ho.FechaSalida,
+                        ho.HoraSalida;";
 
-                cmd.Parameters.AddWithValue("@Nombre", nombre);
-                cmd.Parameters.AddWithValue("@DNI", dni);
-                cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
-                cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
-                cmd.Parameters.AddWithValue("@IdCamilla", idCamilla);
-                cmd.Parameters.AddWithValue("@IdMedico", idMedico);
-
-                SqlParameter outputIdParameter = new SqlParameter();
-                outputIdParameter.ParameterName = "@IdHospitalizacion";
-                outputIdParameter.SqlDbType = SqlDbType.Int;
-                outputIdParameter.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(outputIdParameter);
-
-                try
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                    int idHospitalizacionGenerado = Convert.ToInt32(cmd.Parameters["@IdHospitalizacion"].Value);
-                    return idHospitalizacionGenerado;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al registrar hospitalizacion: " + ex.Message);
+                    try
+                    {
+                        cn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al obtener pacientes hospitalizados: " + ex.Message);
+                    }
                 }
             }
+            return dt;
         }
 
-        public static bool ActualizarHospitalizacion(int idHospitalizacion, string nombre, string dni, int idEstadia, int idHabitacion, int idCamilla, int idMedico)
+        public static int RegistrarPaciente(string nombre, int dni)
         {
+            int idPaciente = 0;
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                SqlCommand cmd = new SqlCommand("usp_ActualizarHospitalizacion", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@IdHospitalizacion", idHospitalizacion);
-                cmd.Parameters.AddWithValue("@Nombre", nombre);
-                cmd.Parameters.AddWithValue("@DNI", dni);
-                cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
-                cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
-                cmd.Parameters.AddWithValue("@IdCamilla", idCamilla);
-                cmd.Parameters.AddWithValue("@IdMedico", idMedico);
-
-                try
+                string query = @"INSERT INTO Pacientes (Nombre, DNI)
+                         VALUES (@Nombre, @DNI);
+                         SELECT SCOPE_IDENTITY();";
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al actualizar hospitalizacion: " + ex.Message);
+                    cmd.Parameters.AddWithValue("@Nombre", nombre);
+                    cmd.Parameters.AddWithValue("@DNI", dni);
+
+                    try
+                    {
+                        cn.Open();
+                        idPaciente = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al registrar el paciente: " + ex.Message);
+                    }
                 }
             }
+            return idPaciente;
         }
 
-        public static bool EliminarHospitalizacion(int idHospitalizacion)
+        public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idTipoHabitacion, int idHabitacion, int? idCamilla)
         {
+            int idHospitalizacion = 0;
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                SqlCommand cmd = new SqlCommand("DELETE FROM Hospitalizaciones WHERE IdHospitalizacion = @IdHospitalizacion", cn);
-                cmd.Parameters.AddWithValue("@IdHospitalizacion", idHospitalizacion);
+                string query = @"
+DECLARE @IdPaciente INT;
 
-                try
+IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
+BEGIN
+    SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
+END
+ELSE
+BEGIN
+    INSERT INTO Pacientes (Nombre, DNI)
+    VALUES (@NombrePaciente, @DNIPaciente);
+
+    SELECT @IdPaciente = SCOPE_IDENTITY();
+END
+
+-- Insertar la hospitalización con IdTipoHabitacion
+INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdTipoHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
+VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdTipoHabitacion, @IdCamilla, GETDATE(), GETDATE());
+
+SELECT SCOPE_IDENTITY();";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al eliminar hospitalizacion: " + ex.Message);
+                    cmd.Parameters.AddWithValue("@NombrePaciente", nombrePaciente);
+                    cmd.Parameters.AddWithValue("@DNIPaciente", dniPaciente);
+                    cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
+                    cmd.Parameters.AddWithValue("@IdTipoHabitacion", idTipoHabitacion);
+                    cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
+                    cmd.Parameters.AddWithValue("@IdCamilla", (object)idCamilla ?? DBNull.Value);
+
+                    try
+                    {
+                        cn.Open();
+                        idHospitalizacion = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al registrar la hospitalización: " + ex.Message);
+                    }
                 }
             }
+            return idHospitalizacion;
         }
+
+        
+
     }
 }

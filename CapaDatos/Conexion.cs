@@ -12,15 +12,4 @@ namespace CapaDatos
         public static string cn = "Data Source=(local)\\SQLEXPRESS;Initial Catalog=Clinica;Integrated Security=True;Encrypt=False;";
 
     }
-
-    public class Conexion_2
-    {
-        public static SqlConnection Conectar()
-        {
-
-            SqlConnection  cm = new SqlConnection("Data Source=(local)\\SQLEXPRESS;Initial Catalog=Clinica;Integrated Security=True;Encrypt=False;");
-            cm.Open();
-            return cm;
-        }  
-    }
 }

@@ -1,51 +1,48 @@
 use Clinica
 
-create procedure usp_LoginUsuario(
-@Usuario varchar(60),
-@Clave varchar(60),
-@IdUsuario int output
-)
-as
-Begin
-	set @IdUsuario = 0
-	if exists (
-	select * from USUARIOS
-	where Usuario collate Latin1_General_CS_AS = @Usuario
-	and Clave collate Latin1_General_CS_AS = @Clave
-	)
+-- Procedimiento almacenado para login de usuarios
+CREATE PROCEDURE usp_LoginUsuario
+    @Usuario VARCHAR(60),
+    @Clave VARCHAR(60),
+    @IdUsuario INT OUTPUT
+AS
+BEGIN
+    SET @IdUsuario = 0;
+    IF EXISTS (
+        SELECT * FROM USUARIOS
+        WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario
+          AND Clave COLLATE Latin1_General_CS_AS = @Clave
+    )
+    BEGIN
+        SELECT @IdUsuario = IdUsuario FROM USUARIOS
+        WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario
+          AND Clave COLLATE Latin1_General_CS_AS = @Clave;
+    END
+END;
+GO
 
-	set @IdUsuario = (
-	select IdUsuario from USUARIOS
-	where Usuario collate Latin1_General_CS_AS = @Usuario
-	and Clave collate Latin1_General_CS_AS = @Clave
-	)
-end
+-- Procedimiento almacenado para obtener permisos de usuario
+CREATE PROCEDURE usp_ObtenerPermisos
+    @IdUsuario INT
+AS
+BEGIN
+    SELECT (
+        SELECT 
+            M.Nombre,
+            M.NombreFormulario
+        FROM
+            PERMISO P
+        JOIN ROL R ON R.IdRol = P.IdRol
+        JOIN MENU M ON M.IdMenu = P.IdMenu
+        WHERE P.IdRol = (SELECT IdRol FROM USUARIOS WHERE IdUsuario = @IdUsuario)
+          AND P.Activo = 1
+        FOR XML PATH('Menu'), TYPE
+    ) AS 'DetalleMenu'
+    FOR XML PATH(''), ROOT('PERMISOS');
+END;
+GO
 
-----------------------------------------------
-
-create procedure usp_ObtenerPermisos(
-    @IdUsuario int
-)
-as
-begin
-    select
-        (
-            select 
-                M.Nombre,
-                M.NombreFormulario
-            from
-                PERMISO P
-            join ROL R on R.IdRol = P.IdRol
-            join MENU M on M.IdMenu = P.IdMenu
-            join USUARIOS U on U.IdRol = P.IdRol
-            where U.IdUsuario = US.IdUsuario and P.Activo = 1
-            for xml path('Menu'), type
-        ) as 'DetalleMenu'
-    from USUARIOS US
-    where US.IdUsuario = @IdUsuario
-    for xml path(''), root('PERMISOS');
-end
---------------------------------------------
+-- Procedimiento almacenado para registrar usuario
 CREATE PROCEDURE usp_RegistrarUsuario
     @Nombres NVARCHAR(100),
     @Usuario NVARCHAR(50),
@@ -57,16 +54,18 @@ BEGIN
     SET NOCOUNT ON;
 
     BEGIN TRY
-        INSERT INTO USUARIOS (Nombres, Usuario, Clave, IdRol) -- Cambiado a USUARIOS
-        VALUES (@Nombres, @Usuario, @Clave, @IdRol);
+        INSERT INTO USUARIOS (Nombres, Usuario, Clave, IdRol, Activo)
+        VALUES (@Nombres, @Usuario, @Clave, @IdRol, 1);
 
         SET @IdUsuario = SCOPE_IDENTITY();
     END TRY
     BEGIN CATCH
         SET @IdUsuario = 0;
     END CATCH
-END
---------------------------------------------------------
+END;
+GO
+
+-- Procedimiento almacenado para eliminar usuario
 CREATE PROCEDURE usp_EliminarUsuario
     @IdUsuario INT
 AS
@@ -79,8 +78,10 @@ BEGIN
     BEGIN CATCH
         PRINT 'Error al eliminar usuario.';
     END CATCH
-END
--------------------------------------------------
+END;
+GO
+
+-- Procedimiento almacenado para actualizar usuario
 CREATE PROCEDURE usp_ActualizarUsuario
     @IdUsuario INT,
     @Nombres NVARCHAR(100),
@@ -100,37 +101,57 @@ BEGIN
     BEGIN CATCH
         THROW;
     END CATCH
-END
--------------------------------------------
--- Registrar Hospitalizacion
-CREATE PROCEDURE usp_RegistrarHospitalizacion
-    @IdPaciente INT,
+END;
+GO
+
+-- Procedimiento almacenado para registrar hospitalización
+CREATE PROCEDURE RegistrarHospitalizacion
+    @NombrePaciente NVARCHAR(100),
+    @DNIPaciente INT,
     @IdEstadia INT,
     @IdHabitacion INT,
-    @IdCamilla INT,
-    @IdMedico INT,
+    @IdCamilla INT = NULL,
     @FechaIngreso DATETIME,
-    @Estado NVARCHAR(50)
+    @HoraIngreso TIME
 AS
 BEGIN
-    INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdMedico, FechaIngreso, Estado)
-    VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @IdMedico, @FechaIngreso, @Estado);
+    SET NOCOUNT ON;
 
+    DECLARE @IdPaciente INT;
+
+    -- Verificar si el paciente ya existe
+    IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
+    BEGIN
+        -- Obtener el ID del paciente existente
+        SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
+    END
+    ELSE
+    BEGIN
+        -- Insertar el nuevo paciente
+        INSERT INTO Pacientes (Nombre, DNI)
+        VALUES (@NombrePaciente, @DNIPaciente);
+
+        -- Obtener el ID del nuevo paciente
+        SELECT @IdPaciente = SCOPE_IDENTITY();
+    END
+
+    -- Insertar la hospitalización
+    INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
+VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @FechaIngreso, @HoraIngreso);
+
+    -- Devolver el ID de la nueva hospitalización
     SELECT SCOPE_IDENTITY() AS IdHospitalizacion;
 END
----------------------------------
+go
+
+-- Procedimiento almacenado para actualizar hospitalización
 CREATE PROCEDURE usp_ActualizarHospitalizacion
     @IdHospitalizacion INT,
-    @IdPaciente INT,
-    @IdEstadia INT,
-    @IdHabitacion INT,
-    @IdCamilla INT,
-    @IdMedico INT,
-    @FechaIngreso DATETIME,
-    @FechaSalida DATETIME,
-    @Estado NVARCHAR(50)
+    @FechaSalida DATE,
+    @HoraSalida TIME
 AS
 BEGIN
+
     UPDATE Hospitalizaciones
     SET IdPaciente = @IdPaciente,
         IdEstadia = @IdEstadia,
@@ -184,18 +205,4 @@ BEGIN
     JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
 END
 ----------------------------------
-CREATE PROCEDURE usp_ActualizarCirugia
-    @IdCirugia INT,
-    @TipoCirugia NVARCHAR(100),
-    @Sala NVARCHAR(50),
-    @FechaCirugia DATETIME
-AS
-BEGIN
-    UPDATE Cirugias
-    SET TipoCirugia = @TipoCirugia,
-        Sala = @Sala,
-        FechaCirugia = @FechaCirugia
-    WHERE IdCirugia = @IdCirugia;
-END
-GO
-----------------------------------
+
