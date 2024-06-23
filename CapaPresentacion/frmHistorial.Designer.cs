@@ -43,12 +43,12 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txtEstudios = new System.Windows.Forms.TextBox();
+            this.txtResultados = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.txtEnfermedadesh = new System.Windows.Forms.TextBox();
+            this.txtConsume = new System.Windows.Forms.TextBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtCirugiasPrevias = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.txtEnfermedadesc = new System.Windows.Forms.TextBox();
             this.txtAlergias = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -104,6 +104,7 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Paciente";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // txtDireccion
             // 
@@ -184,6 +185,7 @@
             // dateTimePicker1
             // 
             this.dateTimePicker1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(157, 70);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 28);
@@ -221,12 +223,12 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox11);
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.txtEstudios);
+            this.groupBox2.Controls.Add(this.txtResultados);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.textBox10);
-            this.groupBox2.Controls.Add(this.textBox9);
+            this.groupBox2.Controls.Add(this.txtEnfermedadesh);
+            this.groupBox2.Controls.Add(this.txtConsume);
             this.groupBox2.Controls.Add(this.checkBox3);
             this.groupBox2.Controls.Add(this.checkBox4);
             this.groupBox2.Controls.Add(this.label12);
@@ -234,7 +236,7 @@
             this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.txtCirugiasPrevias);
-            this.groupBox2.Controls.Add(this.textBox7);
+            this.groupBox2.Controls.Add(this.txtEnfermedadesc);
             this.groupBox2.Controls.Add(this.txtAlergias);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
@@ -248,22 +250,20 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos Medicos";
             // 
-            // textBox11
+            // txtEstudios
             // 
-            this.textBox11.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(828, 116);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(144, 28);
-            this.textBox11.TabIndex = 19;
+            this.txtEstudios.Location = new System.Drawing.Point(828, 76);
+            this.txtEstudios.Name = "txtEstudios";
+            this.txtEstudios.Size = new System.Drawing.Size(144, 32);
+            this.txtEstudios.TabIndex = 20;
             // 
-            // comboBox1
+            // txtResultados
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(828, 79);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(144, 29);
-            this.comboBox1.TabIndex = 18;
+            this.txtResultados.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResultados.Location = new System.Drawing.Point(828, 116);
+            this.txtResultados.Name = "txtResultados";
+            this.txtResultados.Size = new System.Drawing.Size(144, 28);
+            this.txtResultados.TabIndex = 19;
             // 
             // label14
             // 
@@ -287,21 +287,21 @@
             this.label13.TabIndex = 16;
             this.label13.Text = "Estudios Lab.";
             // 
-            // textBox10
+            // txtEnfermedadesh
             // 
-            this.textBox10.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(385, 117);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(216, 28);
-            this.textBox10.TabIndex = 15;
+            this.txtEnfermedadesh.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEnfermedadesh.Location = new System.Drawing.Point(385, 117);
+            this.txtEnfermedadesh.Name = "txtEnfermedadesh";
+            this.txtEnfermedadesh.Size = new System.Drawing.Size(216, 28);
+            this.txtEnfermedadesh.TabIndex = 15;
             // 
-            // textBox9
+            // txtConsume
             // 
-            this.textBox9.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(385, 80);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(216, 28);
-            this.textBox9.TabIndex = 14;
+            this.txtConsume.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtConsume.Location = new System.Drawing.Point(385, 80);
+            this.txtConsume.Name = "txtConsume";
+            this.txtConsume.Size = new System.Drawing.Size(216, 28);
+            this.txtConsume.TabIndex = 14;
             // 
             // checkBox3
             // 
@@ -381,13 +381,13 @@
             this.txtCirugiasPrevias.Size = new System.Drawing.Size(143, 28);
             this.txtCirugiasPrevias.TabIndex = 7;
             // 
-            // textBox7
+            // txtEnfermedadesc
             // 
-            this.textBox7.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(828, 36);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(144, 28);
-            this.textBox7.TabIndex = 6;
+            this.txtEnfermedadesc.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEnfermedadesc.Location = new System.Drawing.Point(828, 36);
+            this.txtEnfermedadesc.Name = "txtEnfermedadesc";
+            this.txtEnfermedadesc.Size = new System.Drawing.Size(144, 28);
+            this.txtEnfermedadesc.TabIndex = 6;
             // 
             // txtAlergias
             // 
@@ -439,6 +439,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(891, 270);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // button1
             // 
@@ -451,6 +452,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "Consultar";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -463,6 +465,7 @@
             this.button2.TabIndex = 6;
             this.button2.Text = "Agregar";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -475,6 +478,7 @@
             this.button3.TabIndex = 7;
             this.button3.Text = "Modificar";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // frmHistorial
             // 
@@ -493,6 +497,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmHistorial";
             this.Text = "Historial";
+            this.Load += new System.EventHandler(this.frmHistorial_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -523,7 +528,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox txtEnfermedadesc;
         private System.Windows.Forms.TextBox txtAlergias;
         private System.Windows.Forms.TextBox txtCirugiasPrevias;
         private System.Windows.Forms.CheckBox checkBox2;
@@ -531,16 +536,16 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox txtEnfermedadesh;
+        private System.Windows.Forms.TextBox txtConsume;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txtResultados;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txtEstudios;
     }
 }
