@@ -34,6 +34,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtClave = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnGuardarUsuarios = new System.Windows.Forms.Button();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.btnAgregarUsuario = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -44,7 +45,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
-            this.btnGuardarUsuarios = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtIdUsuario = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -72,6 +72,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtClave);
             this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.btnGuardarUsuarios);
             this.groupBox1.Controls.Add(this.txtUsuario);
             this.groupBox1.Controls.Add(this.btnAgregarUsuario);
             this.groupBox1.Controls.Add(this.label4);
@@ -126,6 +127,20 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Contraseña:";
             // 
+            // btnGuardarUsuarios
+            // 
+            this.btnGuardarUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.btnGuardarUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardarUsuarios.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarUsuarios.ForeColor = System.Drawing.Color.Black;
+            this.btnGuardarUsuarios.Location = new System.Drawing.Point(495, 114);
+            this.btnGuardarUsuarios.Name = "btnGuardarUsuarios";
+            this.btnGuardarUsuarios.Size = new System.Drawing.Size(94, 54);
+            this.btnGuardarUsuarios.TabIndex = 28;
+            this.btnGuardarUsuarios.Text = "Guardar Cambios";
+            this.btnGuardarUsuarios.UseVisualStyleBackColor = false;
+            this.btnGuardarUsuarios.Click += new System.EventHandler(this.btnGuardarUsuarios_Click);
+            // 
             // txtUsuario
             // 
             this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -141,9 +156,9 @@
             this.btnAgregarUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarUsuario.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarUsuario.ForeColor = System.Drawing.Color.Black;
-            this.btnAgregarUsuario.Location = new System.Drawing.Point(495, 51);
+            this.btnAgregarUsuario.Location = new System.Drawing.Point(495, 36);
             this.btnAgregarUsuario.Name = "btnAgregarUsuario";
-            this.btnAgregarUsuario.Size = new System.Drawing.Size(94, 96);
+            this.btnAgregarUsuario.Size = new System.Drawing.Size(94, 66);
             this.btnAgregarUsuario.TabIndex = 25;
             this.btnAgregarUsuario.Text = "Nuevo";
             this.btnAgregarUsuario.UseVisualStyleBackColor = false;
@@ -186,7 +201,6 @@
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.dgvUsuarios);
-            this.groupBox2.Controls.Add(this.btnGuardarUsuarios);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
             this.groupBox2.Location = new System.Drawing.Point(19, 240);
@@ -237,22 +251,7 @@
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.Size = new System.Drawing.Size(784, 257);
             this.dgvUsuarios.TabIndex = 0;
-            this.dgvUsuarios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvUsuarios_CellFormatting);
-            this.dgvUsuarios.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellValueChanged);
-            // 
-            // btnGuardarUsuarios
-            // 
-            this.btnGuardarUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.btnGuardarUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardarUsuarios.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarUsuarios.ForeColor = System.Drawing.Color.Black;
-            this.btnGuardarUsuarios.Location = new System.Drawing.Point(603, 22);
-            this.btnGuardarUsuarios.Name = "btnGuardarUsuarios";
-            this.btnGuardarUsuarios.Size = new System.Drawing.Size(175, 30);
-            this.btnGuardarUsuarios.TabIndex = 28;
-            this.btnGuardarUsuarios.Text = "Guardar Cambios";
-            this.btnGuardarUsuarios.UseVisualStyleBackColor = false;
-            this.btnGuardarUsuarios.Click += new System.EventHandler(this.btnGuardarUsuarios_Click);
+            this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
             // 
             // groupBox3
             // 
@@ -306,6 +305,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 573);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
