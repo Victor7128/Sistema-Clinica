@@ -19,6 +19,8 @@ namespace CapaPresentacion
         public frmUsuarios()
         {
             InitializeComponent();
+            ConfigurarDataGridViewUsuarios();
+            CargarUsuarios();
         }
 
         private void btnAgregarUsuario_Click(object sender, EventArgs e)
@@ -129,6 +131,19 @@ namespace CapaPresentacion
             }
         }
 
+        private DataTable ObtenerRoles()
+        {
+            try
+            {
+                return CD_Usuario.ObtenerRoles();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al obtener roles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return new DataTable(); // Retornar un DataTable vacío en caso de error
+            }
+        }
+
         private void btnEliminarUsuario_Click(object sender, EventArgs e)
         {
             if (int.TryParse(txtIdUsuario.Text, out int idUsuario))
@@ -161,6 +176,159 @@ namespace CapaPresentacion
                 MessageBox.Show("Ingrese un IdUsuario válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void btnGuardarUsuarios_Click(object sender, EventArgs e)
+        {
+            // Recargar los usuarios en el DataGridView después de guardar cambios
+            CargarUsuarios();
+            MessageBox.Show("Cambios guardados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dgvUsuarios_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvUsuarios.Columns[e.ColumnIndex].Name == "Rol")
+            {
+                DataGridViewComboBoxCell comboBoxCell = dgvUsuarios.Rows[e.RowIndex].Cells["Rol"] as DataGridViewComboBoxCell;
+
+                if (comboBoxCell != null)
+                {
+                    comboBoxCell.DataSource = ObtenerRoles(); // Obtener roles disponibles
+
+                    if (e.Value != null)
+                    {
+                        int idRolSeleccionado;
+                        if (int.TryParse(e.Value.ToString(), out idRolSeleccionado))
+                        {
+                            comboBoxCell.ValueMember = "IdRol";
+                            comboBoxCell.DisplayMember = "Nombre";
+                            comboBoxCell.Value = idRolSeleccionado;
+                        }
+                        else
+                        {
+                            comboBoxCell.Value = DBNull.Value; // Limpiar la celda si el valor no es válido
+                        }
+                    }
+                    else
+                    {
+                        comboBoxCell.Value = DBNull.Value; // Limpiar la celda si el valor es null
+                    }
+                }
+            }
+        }
+
+        private void ConfigurarDataGridViewUsuarios()
+        {
+            // Configurar el DataGridView para mostrar los usuarios
+            dgvUsuarios.AutoGenerateColumns = false;
+
+            // Columnas necesarias
+            DataGridViewTextBoxColumn colIdUsuario = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "IdUsuario",
+                HeaderText = "IdUsuario",
+                Name = "IdUsuario",
+                Width = 50,
+                ReadOnly = true // IdUsuario no editable
+            };
+
+            DataGridViewTextBoxColumn colNombres = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Nombres",
+                HeaderText = "Nombres",
+                Name = "Nombres",
+                Width = 200,
+                ReadOnly = false // Permitir edición en Nombres
+            };
+
+            DataGridViewTextBoxColumn colUsuario = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Usuario",
+                HeaderText = "Usuario",
+                Name = "Usuario",
+                Width = 150,
+                ReadOnly = false // Permitir edición en Usuario
+            };
+
+            DataGridViewTextBoxColumn colClave = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Clave",
+                HeaderText = "Clave",
+                Name = "Clave",
+                Width = 150,
+                ReadOnly = false // Permitir edición en Clave
+            };
+
+            DataGridViewComboBoxColumn colRol = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "IdRol",
+                HeaderText = "Rol",
+                Name = "Rol",
+                Width = 150,
+                DisplayMember = "Nombre",
+                ValueMember = "IdRol",
+                ReadOnly = false // Permitir edición en Rol
+            };
+
+            // Agregar columnas al DataGridView
+            dgvUsuarios.Columns.AddRange(new DataGridViewColumn[] { colIdUsuario, colNombres, colUsuario, colClave, colRol });
+
+            // Evento para manejar la edición de celdas manualmente
+            dgvUsuarios.CellValueChanged += dgvUsuarios_CellValueChanged;
+        }
+
+        private void dgvUsuarios_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvUsuarios.Rows[e.RowIndex];
+
+                int idUsuario = Convert.ToInt32(row.Cells["IdUsuario"].Value);
+                string nombres = Convert.ToString(row.Cells["Nombres"].Value);
+                string usuario = Convert.ToString(row.Cells["Usuario"].Value);
+                string clave = Convert.ToString(row.Cells["Clave"].Value);
+                int idRol;
+
+                // Obtener idRol desde la celda del DataGridView
+                if (row.Cells["Rol"].Value != null)
+                {
+                    if (int.TryParse(row.Cells["Rol"].Value.ToString(), out idRol))
+                    {
+                        try
+                        {
+                            // Validar que los datos sean correctos antes de intentar actualizar
+                            if (idUsuario > 0 && !string.IsNullOrEmpty(nombres) && !string.IsNullOrEmpty(usuario) && !string.IsNullOrEmpty(clave) && idRol > 0)
+                            {
+                                // Llamar al método de actualización en CD_Usuario
+                                CD_Usuario.ActualizarUsuario(idUsuario, nombres, usuario, clave, idRol);
+                                MessageBox.Show("Usuario actualizado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Por favor, complete todos los campos requeridos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al actualizar usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            // Recargar usuarios después de una actualización exitosa
+                            CargarUsuarios();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("IdRol no es un valor numérico válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("IdRol no puede ser nulo o vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
 
 
     }

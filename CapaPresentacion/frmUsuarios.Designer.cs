@@ -44,7 +44,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnGuardarUsuarios = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtIdUsuario = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -186,7 +186,7 @@
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.dgvUsuarios);
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.btnGuardarUsuarios);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
             this.groupBox2.Location = new System.Drawing.Point(19, 240);
@@ -237,19 +237,22 @@
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.Size = new System.Drawing.Size(784, 257);
             this.dgvUsuarios.TabIndex = 0;
+            this.dgvUsuarios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvUsuarios_CellFormatting);
+            this.dgvUsuarios.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellValueChanged);
             // 
-            // button3
+            // btnGuardarUsuarios
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(603, 22);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(175, 30);
-            this.button3.TabIndex = 28;
-            this.button3.Text = "Guardar Cambios";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnGuardarUsuarios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnGuardarUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardarUsuarios.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarUsuarios.ForeColor = System.Drawing.Color.Black;
+            this.btnGuardarUsuarios.Location = new System.Drawing.Point(603, 22);
+            this.btnGuardarUsuarios.Name = "btnGuardarUsuarios";
+            this.btnGuardarUsuarios.Size = new System.Drawing.Size(175, 30);
+            this.btnGuardarUsuarios.TabIndex = 28;
+            this.btnGuardarUsuarios.Text = "Guardar Cambios";
+            this.btnGuardarUsuarios.UseVisualStyleBackColor = false;
+            this.btnGuardarUsuarios.Click += new System.EventHandler(this.btnGuardarUsuarios_Click);
             // 
             // groupBox3
             // 
@@ -338,7 +341,7 @@
         private System.Windows.Forms.TextBox txtNombreUsuario;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dgvUsuarios;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnGuardarUsuarios;
         private System.Windows.Forms.Button btnAgregarUsuario;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtIdUsuario;

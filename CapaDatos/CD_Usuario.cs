@@ -203,5 +203,30 @@ namespace CapaDatos
                 }
             }
         }
+
+        public static void ActualizarUsuario(int idUsuario, string nombres, string usuario, string clave, int idRol)
+        {
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                SqlCommand cmd = new SqlCommand("usp_ActualizarUsuario", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
+                cmd.Parameters.AddWithValue("@Nombres", nombres);
+                cmd.Parameters.AddWithValue("@Usuario", usuario);
+                cmd.Parameters.AddWithValue("@Clave", clave);
+                cmd.Parameters.AddWithValue("@IdRol", idRol);
+
+                try
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al actualizar usuario.", ex);
+                }
+            }
+        }
+
     }
 }

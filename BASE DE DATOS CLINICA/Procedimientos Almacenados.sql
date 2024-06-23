@@ -1,4 +1,4 @@
-use Prueba
+use Clinica
 
 create procedure usp_LoginUsuario(
 @Usuario varchar(60),
@@ -64,6 +64,41 @@ BEGIN
     END TRY
     BEGIN CATCH
         SET @IdUsuario = 0;
+    END CATCH
+END
+--------------------------------------------------------
+CREATE PROCEDURE usp_EliminarUsuario
+    @IdUsuario INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        DELETE FROM USUARIOS WHERE IdUsuario = @IdUsuario;
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error al eliminar usuario.';
+    END CATCH
+END
+-------------------------------------------------
+CREATE PROCEDURE usp_ActualizarUsuario
+    @IdUsuario INT,
+    @Nombres NVARCHAR(100),
+    @Usuario NVARCHAR(50),
+    @IdRol INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+        UPDATE USUARIOS
+        SET Nombres = @Nombres,
+            Usuario = @Usuario,
+            IdRol = @IdRol
+        WHERE IdUsuario = @IdUsuario;
+    END TRY
+    BEGIN CATCH
+        THROW;
     END CATCH
 END
 
