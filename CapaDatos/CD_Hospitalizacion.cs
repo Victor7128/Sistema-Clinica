@@ -90,7 +90,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = @"SELECT IdUsuario, Nombres FROM Usuarios WHERE IdRol = (SELECT IdRol FROM ROL WHERE Nombre = 'Medico')";
+                string query = @"select Nombres from USUARIOS where IdRol = 3";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -110,18 +110,12 @@ namespace CapaDatos
             return dt;
         }
 
-        public static DataTable ObtenerHospitalizaciones()
+        public static DataTable ObtenerTipoHabitacion()
         {
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = @"SELECT h.IdHospitalizacion, p.Nombre as Paciente, p.DNI, e.Nombre as Estadia, hab.Nombre as Habitacion, c.Nombre as Camilla, u.Nombres as Medico, h.FechaIngreso, h.FechaSalida
-                                 FROM Hospitalizaciones h 
-                                 JOIN Pacientes p ON h.IdPaciente = p.IdPaciente
-                                 JOIN Estadias e ON h.IdEstadia = e.IdEstadia 
-                                 JOIN Habitaciones hab ON h.IdHabitacion = hab.IdHabitacion 
-                                 JOIN Camillas c ON h.IdCamilla = c.IdCamilla 
-                                 JOIN Usuarios u ON h.IdMedico = u.IdUsuario";
+                string query = "select IdTipoHabitacion,Nombre from TipoHabitacion";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -134,92 +128,88 @@ namespace CapaDatos
                     }
                     catch (Exception ex)
                     {
-                        throw new Exception("Error al obtener hospitalizaciones: " + ex.Message);
+                        throw new Exception("Error al obtener tipos de habitación: " + ex.Message);
                     }
                 }
             }
             return dt;
         }
 
-        public static int RegistrarHospitalizacion(string nombre, string dni, int idEstadia, int idHabitacion, int idCamilla, int idMedico, DateTime fechaIngreso, TimeSpan horaIngreso)
+        public static int RegistrarPaciente(string nombre, int dni)
         {
+            int idPaciente = 0;
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                SqlCommand cmd = new SqlCommand("usp_RegistrarHospitalizacion", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@Nombre", nombre);
-                cmd.Parameters.AddWithValue("@DNI", dni);
-                cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
-                cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
-                cmd.Parameters.AddWithValue("@IdCamilla", idCamilla);
-                cmd.Parameters.AddWithValue("@IdMedico", idMedico);
-                cmd.Parameters.AddWithValue("@FechaIngreso", fechaIngreso);
-                cmd.Parameters.AddWithValue("@HoraIngreso", horaIngreso);
-
-                SqlParameter outputIdParameter = new SqlParameter();
-                outputIdParameter.ParameterName = "@IdHospitalizacion";
-                outputIdParameter.SqlDbType = SqlDbType.Int;
-                outputIdParameter.Direction = ParameterDirection.Output;
-                cmd.Parameters.Add(outputIdParameter);
-
-                try
+                string query = @"INSERT INTO Pacientes (Nombre, DNI)
+                         VALUES (@Nombre, @DNI);
+                         SELECT SCOPE_IDENTITY();";
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cn.Open();
-                    cmd.ExecuteNonQuery();
-                    return Convert.ToInt32(cmd.Parameters["@IdHospitalizacion"].Value);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al registrar hospitalización: " + ex.Message);
-                    return 0;
+                    cmd.Parameters.AddWithValue("@Nombre", nombre);
+                    cmd.Parameters.AddWithValue("@DNI", dni);
+
+                    try
+                    {
+                        cn.Open();
+                        idPaciente = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al registrar el paciente: " + ex.Message);
+                    }
                 }
             }
+            return idPaciente;
         }
 
-        public static bool ActualizarHospitalizacion(int idHospitalizacion, DateTime? fechaSalida, TimeSpan? horaSalida)
+        public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idHabitacion, int? idCamilla, int idUsuarioMedico)
         {
+            int idHospitalizacion = 0;
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                SqlCommand cmd = new SqlCommand("usp_ActualizarHospitalizacion", cn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                string query = @"
+            DECLARE @IdPaciente INT;
 
-                cmd.Parameters.AddWithValue("@IdHospitalizacion", idHospitalizacion);
-                cmd.Parameters.AddWithValue("@FechaSalida", (object)fechaSalida ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@HoraSalida", (object)horaSalida ?? DBNull.Value);
+            IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
+            BEGIN
+                SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
+            END
+            ELSE
+            BEGIN
+                INSERT INTO Pacientes (Nombre, DNI)
+                VALUES (@NombrePaciente, @DNIPaciente);
 
-                try
+                SELECT @IdPaciente = SCOPE_IDENTITY();
+            END
+
+            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdMedico, FechaIngreso, HoraIngreso)
+            VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @IdUsuarioMedico, GETDATE(), GETDATE());
+
+            SELECT SCOPE_IDENTITY();";
+
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al actualizar hospitalización: " + ex.Message);
-                    return false;
+                    cmd.Parameters.AddWithValue("@NombrePaciente", nombrePaciente);
+                    cmd.Parameters.AddWithValue("@DNIPaciente", dniPaciente);
+                    cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
+                    cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
+                    cmd.Parameters.AddWithValue("@IdCamilla", (object)idCamilla ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@IdUsuarioMedico", idUsuarioMedico);
+
+                    try
+                    {
+                        cn.Open();
+                        idHospitalizacion = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Error al registrar la hospitalización: " + ex.Message);
+                    }
                 }
             }
+            return idHospitalizacion;
         }
 
-        public static bool EliminarHospitalizacion(int idHospitalizacion)
-        {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
-            {
-                SqlCommand cmd = new SqlCommand("DELETE FROM Hospitalizaciones WHERE IdHospitalizacion = @IdHospitalizacion", cn);
-                cmd.Parameters.AddWithValue("@IdHospitalizacion", idHospitalizacion);
 
-                try
-                {
-                    cn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al eliminar hospitalizacion: " + ex.Message);
-                }
-            }
-        }
     }
 }

@@ -38,7 +38,7 @@ CREATE TABLE USUARIOS (
 CREATE TABLE Pacientes (
     IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL,
-    DNI NVARCHAR(20) NOT NULL
+    DNI INT NOT NULL
 );
 
 -- Tabla Estadias
@@ -89,3 +89,5 @@ SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
 FROM USUARIOS u
 inner JOIN ROL r ON u.IdRol = r.IdRol
 ORDER BY u.IdUsuario
+
+select Nombres from USUARIOS where IdRol = 3
