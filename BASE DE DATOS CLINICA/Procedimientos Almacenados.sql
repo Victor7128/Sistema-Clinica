@@ -104,7 +104,7 @@ BEGIN
 END;
 GO
 
--- Procedimiento almacenado para registrar hospitalizaci髇
+-- Procedimiento almacenado para registrar hospitalizaci贸n
 CREATE PROCEDURE RegistrarHospitalizacion
     @NombrePaciente NVARCHAR(100),
     @DNIPaciente INT,
@@ -135,33 +135,74 @@ BEGIN
         SELECT @IdPaciente = SCOPE_IDENTITY();
     END
 
-    -- Insertar la hospitalizaci髇
+    -- Insertar la hospitalizaci贸n
     INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
 VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @FechaIngreso, @HoraIngreso);
 
-    -- Devolver el ID de la nueva hospitalizaci髇
+    -- Devolver el ID de la nueva hospitalizaci贸n
     SELECT SCOPE_IDENTITY() AS IdHospitalizacion;
 END
 go
 
--- Procedimiento almacenado para actualizar hospitalizaci髇
+-- Procedimiento almacenado para actualizar hospitalizaci贸n
 CREATE PROCEDURE usp_ActualizarHospitalizacion
     @IdHospitalizacion INT,
     @FechaSalida DATE,
     @HoraSalida TIME
 AS
 BEGIN
-    BEGIN TRANSACTION;
-    BEGIN TRY
-        UPDATE Hospitalizaciones
-        SET FechaSalida = @FechaSalida, HoraSalida = @HoraSalida
-        WHERE IdHospitalizacion = @IdHospitalizacion;
 
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END CATCH
-END;
-GO
+    UPDATE Hospitalizaciones
+    SET IdPaciente = @IdPaciente,
+        IdEstadia = @IdEstadia,
+        IdHabitacion = @IdHabitacion,
+        IdCamilla = @IdCamilla,
+        IdMedico = @IdMedico,
+        FechaIngreso = @FechaIngreso,
+        FechaSalida = @FechaSalida,
+        Estado = @Estado
+    WHERE IdHospitalizacion = @IdHospitalizacion;
+
+    SELECT @@ROWCOUNT AS RowsAffected;
+END
+----------------------------------
+CREATE PROCEDURE usp_AgregarCirugia
+    @TipoCirugia NVARCHAR(100),
+    @IdPaciente INT,
+    @NombrePaciente NVARCHAR(100),
+    @Sala NVARCHAR(50),
+    @Turno NVARCHAR(20),
+    @FechaCirugia DATETIME
+AS
+BEGIN
+    INSERT INTO Cirugias (TipoCirugia, IdPaciente, NombrePaciente, Sala, Turno, FechaCirugia)
+    VALUES (@TipoCirugia, @IdPaciente, @NombrePaciente, @Sala, @Turno, @FechaCirugia);
+END
+----------------------------------
+CREATE PROCEDURE usp_ObtenerCirugias
+AS
+BEGIN
+    SELECT c.IdCirugia, c.TipoCirugia, p.Nombre AS NombrePaciente, c.Sala, c.Turno, c.FechaCirugia
+    FROM Cirugias c
+    INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
+END
+----------------------------------
+CREATE PROCEDURE usp_ObtenerCirugiasConEstado
+AS
+BEGIN
+    SELECT 
+        c.IdCirugia, 
+        c.TipoCirugia, 
+        p.Nombre AS Paciente, 
+        c.Sala, 
+        c.FechaCirugia,
+        CASE 
+            WHEN c.FechaCirugia = CAST(GETDATE() AS DATE) THEN 'Activo'
+            WHEN c.FechaCirugia > CAST(GETDATE() AS DATE) THEN 'Pendiente'
+            ELSE 'Finalizada'
+        END AS Estado
+    FROM Cirugias c
+    JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
+END
+----------------------------------
+

@@ -24,7 +24,7 @@ CREATE TABLE PERMISO (
     Activo BIT
 );
 
--- Tabla USUARIOS (Incluyendo Médicos)
+-- Tabla USUARIOS (Incluyendo MÃ©dicos)
 CREATE TABLE USUARIOS (
     IdUsuario INT IDENTITY(1,1) PRIMARY KEY,
     Nombres NVARCHAR(50),
@@ -72,20 +72,34 @@ CREATE TABLE Hospitalizaciones (
     IdEstadia INT NOT NULL,
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
+
     IdMedico INT NULL,
     IdTipoHabitacion INT NULL, -- Nueva columna para relacionar con TipoHabitacion
     FechaIngreso DATE NOT NULL,
     HoraIngreso TIME NOT NULL,
     FechaSalida DATE NULL,
     HoraSalida TIME NULL,
+    Estado NVARCHAR(50)
+
     FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
     FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
     FOREIGN KEY (IdMedico) REFERENCES USUARIOS(IdUsuario),
-    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion) -- Restricción de clave externa
+    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion) -- RestricciÃ³n de clave externa
 );
 
+
+CREATE TABLE Cirugias (
+    IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
+    TipoCirugia NVARCHAR(100) NOT NULL,
+    IdPaciente INT NOT NULL,
+    NombrePaciente NVARCHAR(100) NOT NULL, -- Nueva columna para el nombre del paciente
+    Sala NVARCHAR(50) NOT NULL,
+    Turno NVARCHAR(20) NOT NULL,
+    FechaCirugia DATETIME NOT NULL,
+    CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente)
+);
 
 
 SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
@@ -118,7 +132,7 @@ LEFT JOIN
 LEFT JOIN 
     Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
 LEFT JOIN 
-    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
+    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- RelaciÃ³n con TipoHabitacion
 LEFT JOIN 
     Camillas c ON ho.IdCamilla = c.IdCamilla
 GROUP BY

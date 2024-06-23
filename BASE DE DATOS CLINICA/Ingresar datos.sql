@@ -2,8 +2,8 @@ USE Clinica
 
 INSERT INTO MENU(IdMenu, Nombre, NombreFormulario) VALUES
 (1, 'Consultas', 'frmConsultas'),
-(2, 'Hospitalización', 'frmHospitalizacion'),
-(3, 'Cirugías', 'frmCirugias'),
+(2, 'HospitalizaciÃ³n', 'frmHospitalizacion'),
+(3, 'CirugÃ­as', 'frmCirugias'),
 (4, 'Cronograma', 'frmCronograma'),
 (5, 'Historial', 'frmHistorial'),
 (6, 'Usuarios', 'frmUsuarios'),
@@ -13,8 +13,8 @@ INSERT INTO MENU(IdMenu, Nombre, NombreFormulario) VALUES
 -- Insertar registros en ROL
 INSERT INTO ROL(IdRol, Nombre, Activo) VALUES
 (1, 'Recepcionista', 1),
-(2, 'Lic. de Enfermería', 1),
-(3, 'Médico', 1),
+(2, 'Lic. de EnfermerÃ­a', 1),
+(3, 'MÃ©dico', 1),
 (4, 'Personal de Mantenimiento', 1),
 (5, 'Administrador', 1);
 
@@ -22,30 +22,30 @@ INSERT INTO ROL(IdRol, Nombre, Activo) VALUES
 -- Recepcionista
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (1, 1, 1, 1), -- Consultas
-(2, 1, 2, 0), -- Hospitalización
-(3, 1, 3, 0), -- Cirugías
+(2, 1, 2, 0), -- HospitalizaciÃ³n
+(3, 1, 3, 0), -- CirugÃ­as
 (4, 1, 4, 0), -- Cronograma
 (5, 1, 5, 0), -- Historial
 (6, 1, 6, 0), -- Usuarios
 (7, 1, 7, 0), -- Permisos
 (8, 1, 8, 0); -- Reportes
 
--- Lic. de Enfermería
+-- Lic. de EnfermerÃ­a
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (9, 2, 1, 1), -- Consultas
-(10, 2, 2, 1), -- Hospitalización
-(11, 2, 3, 0), -- Cirugías
+(10, 2, 2, 1), -- HospitalizaciÃ³n
+(11, 2, 3, 0), -- CirugÃ­as
 (12, 2, 4, 0), -- Cronograma
 (13, 2, 5, 0), -- Historial
 (14, 2, 6, 0), -- Usuarios
 (15, 2, 7, 0), -- Permisos
 (16, 2, 8, 0); -- Reportes
 
--- Médico
+-- MÃ©dico
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (17, 3, 1, 0), -- Consultas
-(18, 3, 2, 0), -- Hospitalización
-(19, 3, 3, 1), -- Cirugías
+(18, 3, 2, 0), -- HospitalizaciÃ³n
+(19, 3, 3, 1), -- CirugÃ­as
 (20, 3, 4, 1), -- Cronograma
 (21, 3, 5, 0), -- Historial
 (22, 3, 6, 0), -- Usuarios
@@ -55,8 +55,8 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Personal de Mantenimiento
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (25, 4, 1, 0), -- Consultas
-(26, 4, 2, 0), -- Hospitalización
-(27, 4, 3, 0), -- Cirugías
+(26, 4, 2, 0), -- HospitalizaciÃ³n
+(27, 4, 3, 0), -- CirugÃ­as
 (28, 4, 4, 1), -- Cronograma
 (29, 4, 5, 0), -- Historial
 (30, 4, 6, 0), -- Usuarios
@@ -66,8 +66,8 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Administrador
 INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 (33, 5, 1, 1), -- Consultas
-(34, 5, 2, 1), -- Hospitalización
-(35, 5, 3, 1), -- Cirugías
+(34, 5, 2, 1), -- HospitalizaciÃ³n
+(35, 5, 3, 1), -- CirugÃ­as
 (36, 5, 4, 1), -- Cronograma
 (37, 5, 5, 1), -- Historial
 (38, 5, 6, 1), -- Usuarios
@@ -77,8 +77,8 @@ INSERT INTO PERMISO(IdPermiso, IdRol, IdMenu, Activo) VALUES
 -- Insertar registros en USUARIOS
 INSERT INTO USUARIOS(Nombres, Usuario, Clave, IdRol, Activo) VALUES
 ('Luis Alvinagorta', 'Luis', 'recepcionista', 1, 1), -- Recepcionista
-('Gary Bocanegra', 'Gary', 'licenciado', 2, 1), -- Licenciado de Enfermería
-('Matías Guevara', 'Matías', 'medico', 3, 1), -- Médico
+('Gary Bocanegra', 'Gary', 'licenciado', 2, 1), -- Licenciado de EnfermerÃ­a
+('MatÃ­as Guevara', 'MatÃ­as', 'medico', 3, 1), -- MÃ©dico
 ('Manuel Ortiz', 'Manuel', 'mantenimiento', 4, 1), -- Mantenimiento
 ('Victor Tuesta', 'Victor', 'administrador', 5, 1); -- Administrador
 
@@ -92,7 +92,7 @@ VALUES (2, '2'),
        (7, '7'),
        (8, 'Indefinido');
 
--- Insertar registros en Tipo de Habitación
+-- Insertar registros en Tipo de HabitaciÃ³n
 INSERT INTO TipoHabitacion (IdTipoHabitacion, Nombre)
 VALUES (1, 'Hab. Priv. + AC'),
        (2, 'Hab. Priv. + Ventilador'),
@@ -101,7 +101,7 @@ VALUES (1, 'Hab. Priv. + AC'),
 
 	  
 
--- Insertar registros en la tabla Habitación
+-- Insertar registros en la tabla HabitaciÃ³n
 INSERT INTO Habitaciones (IdHabitacion, Nombre)
 VALUES 
     (1, '101'),
