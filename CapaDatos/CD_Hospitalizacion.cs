@@ -15,7 +15,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdEstadia, Nombre FROM Estadias ORDER BY Nombre";
+                string query = "SELECT IdEstadia, Nombre FROM Estadias";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -40,7 +40,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdHabitacion, Nombre FROM Habitaciones ORDER BY Nombre";
+                string query = "SELECT IdHabitacion, Nombre FROM Habitaciones";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -65,7 +65,7 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdCamilla, Nombre FROM Camillas ORDER BY Nombre";
+                string query = "SELECT IdCamilla, Nombre FROM Camillas";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     try
@@ -141,7 +141,7 @@ namespace CapaDatos
             return dt;
         }
 
-        public static int RegistrarHospitalizacion(string nombre, string dni, int idEstadia, int idHabitacion, int idCamilla, int idMedico)
+        public static int RegistrarHospitalizacion(string nombre, string dni, int idEstadia, int idHabitacion, int idCamilla, int idMedico, DateTime fechaIngreso, TimeSpan horaIngreso)
         {
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
@@ -154,6 +154,8 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
                 cmd.Parameters.AddWithValue("@IdCamilla", idCamilla);
                 cmd.Parameters.AddWithValue("@IdMedico", idMedico);
+                cmd.Parameters.AddWithValue("@FechaIngreso", fechaIngreso);
+                cmd.Parameters.AddWithValue("@HoraIngreso", horaIngreso);
 
                 SqlParameter outputIdParameter = new SqlParameter();
                 outputIdParameter.ParameterName = "@IdHospitalizacion";
@@ -165,17 +167,17 @@ namespace CapaDatos
                 {
                     cn.Open();
                     cmd.ExecuteNonQuery();
-                    int idHospitalizacionGenerado = Convert.ToInt32(cmd.Parameters["@IdHospitalizacion"].Value);
-                    return idHospitalizacionGenerado;
+                    return Convert.ToInt32(cmd.Parameters["@IdHospitalizacion"].Value);
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error al registrar hospitalizacion: " + ex.Message);
+                    Console.WriteLine("Error al registrar hospitalización: " + ex.Message);
+                    return 0;
                 }
             }
         }
 
-        public static bool ActualizarHospitalizacion(int idHospitalizacion, string nombre, string dni, int idEstadia, int idHabitacion, int idCamilla, int idMedico)
+        public static bool ActualizarHospitalizacion(int idHospitalizacion, DateTime? fechaSalida, TimeSpan? horaSalida)
         {
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
@@ -183,12 +185,8 @@ namespace CapaDatos
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@IdHospitalizacion", idHospitalizacion);
-                cmd.Parameters.AddWithValue("@Nombre", nombre);
-                cmd.Parameters.AddWithValue("@DNI", dni);
-                cmd.Parameters.AddWithValue("@IdEstadia", idEstadia);
-                cmd.Parameters.AddWithValue("@IdHabitacion", idHabitacion);
-                cmd.Parameters.AddWithValue("@IdCamilla", idCamilla);
-                cmd.Parameters.AddWithValue("@IdMedico", idMedico);
+                cmd.Parameters.AddWithValue("@FechaSalida", (object)fechaSalida ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@HoraSalida", (object)horaSalida ?? DBNull.Value);
 
                 try
                 {
@@ -198,7 +196,8 @@ namespace CapaDatos
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error al actualizar hospitalizacion: " + ex.Message);
+                    Console.WriteLine("Error al actualizar hospitalización: " + ex.Message);
+                    return false;
                 }
             }
         }

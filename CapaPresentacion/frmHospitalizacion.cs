@@ -21,7 +21,7 @@ namespace CapaPresentacion
             ConfigurarDataGridViewHospitalizacion();
             CargarHospitalizaciones();
             CargarComboboxes();
-            timer1.Enabled = true;  // Iniciar el timer al cargar el formulario
+            timer1.Enabled = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -30,147 +30,138 @@ namespace CapaPresentacion
             lblFecha.Text = DateTime.Now.ToLongDateString();
         }
 
+        private void btnRegistrarEntrada_Click(object sender, EventArgs e)
+        {
+            //int idPaciente = 1; // Se necesita obtener el IdPaciente desde la base de datos basado en el DNI
+            //int idEstadia = ObtenerIdSeleccionado(cboEstadia);
+            //int idHabitacion = ObtenerIdSeleccionado(cboHabitacion);
+            //int idCamilla = ObtenerIdSeleccionado(cboCamilla);
+            //int idMedico = ObtenerIdSeleccionado(cboMedico);
+
+            //if (idEstadia == 0 || idHabitacion == 0 || idCamilla == 0 || idMedico == 0)
+            //{
+            //    MessageBox.Show("Todos los campos son requeridos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            //DateTime fechaIngreso = DateTime.Now.Date;
+            //TimeSpan horaIngreso = DateTime.Now.TimeOfDay;
+
+            //try
+            //{
+            //    int idHospitalizacionGenerado = CD_Hospitalizacion.RegistrarHospitalizacion(idPaciente, idEstadia, idHabitacion, idCamilla, idMedico, fechaIngreso, horaIngreso);
+            //    if (idHospitalizacionGenerado > 0)
+            //    {
+            //        MessageBox.Show("Hospitalización agregada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        LimpiarCampos();
+            //        CargarHospitalizaciones();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No se pudo agregar la hospitalización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error al agregar hospitalización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
         private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
-            if (dgvHospitalizacion.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione una hospitalización para actualizar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (dgvHospitalizacion.SelectedRows.Count == 0)
+            //{
+            //    MessageBox.Show("Seleccione una hospitalización para actualizar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            DataGridViewRow row = dgvHospitalizacion.SelectedRows[0];
-            int idHospitalizacion = Convert.ToInt32(row.Cells["IdHospitalizacion"].Value);
-            string nombre = txtNombrePacienteH.Text.Trim();
-            string dni = txtDNI.Text.Trim();
-            int idEstadia = ObtenerIdSeleccionado(cboEstadia);
-            int idHabitacion = ObtenerIdSeleccionado(cboHabitacion);
-            int idCamilla = ObtenerIdSeleccionado(cboCamilla);
-            int idMedico = ObtenerIdSeleccionado(cboMedico);
+            //DataGridViewRow row = dgvHospitalizacion.SelectedRows[0];
+            //int idHospitalizacion = Convert.ToInt32(row.Cells["IdHospitalizacion"].Value);
+            //int idEstadia = ObtenerIdSeleccionado(cboEstadia);
+            //int idHabitacion = ObtenerIdSeleccionado(cboHabitacion);
+            //int idCamilla = ObtenerIdSeleccionado(cboCamilla);
+            //int idMedico = ObtenerIdSeleccionado(cboMedico);
 
-            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(dni) || idEstadia == 0 || idHabitacion == 0 || idCamilla == 0 || idMedico == 0)
-            {
-                MessageBox.Show("Todos los campos son requeridos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (idEstadia == 0 || idHabitacion == 0 || idCamilla == 0 || idMedico == 0)
+            //{
+            //    MessageBox.Show("Todos los campos son requeridos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            try
-            {
-                bool resultado = CD_Hospitalizacion.ActualizarHospitalizacion(idHospitalizacion, nombre, dni, idEstadia, idHabitacion, idCamilla, idMedico);
-                if (resultado)
-                {
-                    MessageBox.Show("Hospitalización actualizada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
-                    CargarHospitalizaciones();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo actualizar la hospitalización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al actualizar hospitalización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //try
+            //{
+            //    bool resultado = CD_Hospitalizacion.ActualizarHospitalizacion(idHospitalizacion, null, null);
+            //    if (resultado)
+            //    {
+            //        MessageBox.Show("Hospitalización actualizada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        LimpiarCampos();
+            //        CargarHospitalizaciones();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No se pudo actualizar la hospitalización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error al actualizar hospitalización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void btnRegistrarSalida_Click(object sender, EventArgs e)
         {
-            if (dgvHospitalizacion.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Seleccione una hospitalización para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (dgvHospitalizacion.SelectedRows.Count == 0)
+            //{
+            //    MessageBox.Show("Seleccione una hospitalización para registrar salida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
 
-            int idHospitalizacion = Convert.ToInt32(dgvHospitalizacion.SelectedRows[0].Cells["IdHospitalizacion"].Value);
+            //DataGridViewRow row = dgvHospitalizacion.SelectedRows[0];
+            //int idHospitalizacion = Convert.ToInt32(row.Cells["IdHospitalizacion"].Value);
 
-            try
-            {
-                bool resultado = CD_Hospitalizacion.EliminarHospitalizacion(idHospitalizacion);
-                if (resultado)
-                {
-                    MessageBox.Show("Hospitalización eliminada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
-                    CargarHospitalizaciones();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo eliminar la hospitalización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al eliminar hospitalización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+            //DateTime fechaSalida = DateTime.Now.Date;
+            //TimeSpan horaSalida = DateTime.Now.TimeOfDay;
 
-        private void btnRegistrarEntrada_Click(object sender, EventArgs e)
-        {
-            string nombre = txtNombrePacienteH.Text.Trim();
-            string dni = txtDNI.Text.Trim();
-            int idEstadia = ObtenerIdSeleccionado(cboEstadia);
-            int idHabitacion = ObtenerIdSeleccionado(cboHabitacion);
-            int idCamilla = ObtenerIdSeleccionado(cboCamilla);
-            int idMedico = ObtenerIdSeleccionado(cboMedico);
-
-            if (string.IsNullOrEmpty(nombre) || string.IsNullOrEmpty(dni) || idEstadia == 0 || idHabitacion == 0 || idCamilla == 0 || idMedico == 0)
-            {
-                MessageBox.Show("Todos los campos son requeridos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                int idHospitalizacionGenerado = CD_Hospitalizacion.RegistrarHospitalizacion(nombre, dni, idEstadia, idHabitacion, idCamilla, idMedico);
-                if (idHospitalizacionGenerado > 0)
-                {
-                    MessageBox.Show("Hospitalización agregada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LimpiarCampos();
-                    CargarHospitalizaciones();
-                }
-                else
-                {
-                    MessageBox.Show("No se pudo agregar la hospitalización.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al agregar hospitalización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //try
+            //{
+            //    bool resultado = CD_Hospitalizacion.ActualizarHospitalizacion(idHospitalizacion, fechaSalida, horaSalida);
+            //    if (resultado)
+            //    {
+            //        MessageBox.Show("Salida registrada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        LimpiarCampos();
+            //        CargarHospitalizaciones();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No se pudo registrar la salida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error al registrar salida: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void dgvHospitalizacion_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvHospitalizacion.SelectedRows.Count > 0)
-            {
-                DataGridViewRow row = dgvHospitalizacion.SelectedRows[0];
-                txtNombrePacienteH.Text = row.Cells["Nombre"].Value.ToString();
-                txtDNI.Text = row.Cells["DNI"].Value.ToString();
-                cboEstadia.SelectedValue = row.Cells["IdEstadia"].Value;
-                cboHabitacion.SelectedValue = row.Cells["IdHabitacion"].Value;
-                cboCamilla.SelectedValue = row.Cells["IdCamilla"].Value;
-                cboMedico.SelectedValue = row.Cells["IdMedico"].Value;
-            }
+            //if (dgvHospitalizacion.SelectedRows.Count > 0)
+            //{
+            //    DataGridViewRow row = dgvHospitalizacion.SelectedRows[0];
+            //    cboEstadia.SelectedValue = row.Cells["IdEstadia"].Value;
+            //    cboHabitacion.SelectedValue = row.Cells["IdHabitacion"].Value;
+            //    cboCamilla.SelectedValue = row.Cells["IdCamilla"].Value;
+            //    cboMedico.SelectedValue = row.Cells["IdMedico"].Value;
+            //}
         }
 
         private void CargarComboboxes()
         {
             try
             {
-                // Cargar ComboBox de Estadias con días del 1 al 30
-                DataTable dtEstadias = new DataTable();
-                dtEstadias.Columns.Add("IdEstadia", typeof(int));
-                dtEstadias.Columns.Add("Nombre", typeof(int));
-
-                for (int i = 1; i <= 30; i++)
-                {
-                    dtEstadias.Rows.Add(i, i);
-                }
-
+                cboEstadia.DataSource = CD_Hospitalizacion.ObtenerEstadias();
                 cboEstadia.DisplayMember = "Nombre";
                 cboEstadia.ValueMember = "IdEstadia";
-                cboEstadia.DataSource = dtEstadias;
 
-                // Resto de la carga de ComboBoxes
                 cboHabitacion.DataSource = CD_Hospitalizacion.ObtenerHabitaciones();
                 cboHabitacion.DisplayMember = "Nombre";
                 cboHabitacion.ValueMember = "IdHabitacion";
@@ -217,14 +208,7 @@ namespace CapaPresentacion
 
         private void CargarHospitalizaciones()
         {
-            try
-            {
-                dgvHospitalizacion.DataSource = CD_Hospitalizacion.ObtenerHospitalizaciones();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar hospitalizaciones: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            dgvHospitalizacion.DataSource = CD_Hospitalizacion.ObtenerHospitalizaciones();
         }
 
         private void ConfigurarDataGridViewHospitalizacion()
@@ -232,26 +216,79 @@ namespace CapaPresentacion
             dgvHospitalizacion.AutoGenerateColumns = false;
             dgvHospitalizacion.Columns.Clear();
 
-            dgvHospitalizacion.Columns.AddRange(
-                new DataGridViewTextBoxColumn { DataPropertyName = "IdHospitalizacion", HeaderText = "IdHospitalizacion", Name = "IdHospitalizacion", Width = 50, ReadOnly = true },
-                new DataGridViewTextBoxColumn { DataPropertyName = "Nombre", HeaderText = "Nombre", Name = "Nombre", Width = 200, ReadOnly = true },
-                new DataGridViewTextBoxColumn { DataPropertyName = "DNI", HeaderText = "DNI", Name = "DNI", Width = 100, ReadOnly = true },
-                new DataGridViewTextBoxColumn { DataPropertyName = "Estadia", HeaderText = "Estadia", Name = "Estadia", Width = 100, ReadOnly = true },
-                new DataGridViewTextBoxColumn { DataPropertyName = "Habitacion", HeaderText = "Habitacion", Name = "Habitacion", Width = 100, ReadOnly = true },
-                new DataGridViewTextBoxColumn { DataPropertyName = "Camilla", HeaderText = "Camilla", Name = "Camilla", Width = 100, ReadOnly = true },
-                new DataGridViewTextBoxColumn { DataPropertyName = "Medico", HeaderText = "Medico", Name = "Medico", Width = 200, ReadOnly = true }
-            );
+            DataGridViewTextBoxColumn colIdHospitalizacion = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "IdHospitalizacion",
+                HeaderText = "ID",
+                Name = "IdHospitalizacion",
+                Width = 50,
+                ReadOnly = true
+            };
 
-            dgvHospitalizacion.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvHospitalizacion.MultiSelect = false;
-            dgvHospitalizacion.ReadOnly = true;
+            DataGridViewTextBoxColumn colNombre = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Nombre",
+                HeaderText = "Nombre",
+                Name = "Nombre",
+                Width = 200,
+                ReadOnly = true
+            };
 
-            dgvHospitalizacion.SelectionChanged += dgvHospitalizacion_SelectionChanged;
+            DataGridViewTextBoxColumn colDNI = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "DNI",
+                HeaderText = "DNI",
+                Name = "DNI",
+                Width = 100,
+                ReadOnly = true
+            };
+
+            DataGridViewTextBoxColumn colFechaIngreso = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FechaIngreso",
+                HeaderText = "Fecha de Ingreso",
+                Name = "FechaIngreso",
+                Width = 100,
+                ReadOnly = true
+            };
+
+            DataGridViewTextBoxColumn colHoraIngreso = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "HoraIngreso",
+                HeaderText = "Hora de Ingreso",
+                Name = "HoraIngreso",
+                Width = 100,
+                ReadOnly = true
+            };
+
+            DataGridViewTextBoxColumn colFechaSalida = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FechaSalida",
+                HeaderText = "Fecha de Salida",
+                Name = "FechaSalida",
+                Width = 100,
+                ReadOnly = true
+            };
+
+            DataGridViewTextBoxColumn colHoraSalida = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "HoraSalida",
+                HeaderText = "Hora de Salida",
+                Name = "HoraSalida",
+                Width = 100,
+                ReadOnly = true
+            };
+
+            dgvHospitalizacion.Columns.AddRange(new DataGridViewColumn[]
+            {
+        colIdHospitalizacion, colNombre, colDNI, colFechaIngreso, colHoraIngreso, colFechaSalida, colHoraSalida
+            });
         }
 
         private void frmHospitalizacion_Load(object sender, EventArgs e)
         {
-
+            dgvHospitalizacion.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvHospitalizacion.MultiSelect = false;
         }
     }
 }
