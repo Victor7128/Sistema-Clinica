@@ -35,10 +35,6 @@
             this.txtApellidoBuscar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvPaciente = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblHora = new System.Windows.Forms.Label();
@@ -76,6 +72,7 @@
             this.btnBuscarPaciente.TabIndex = 11;
             this.btnBuscarPaciente.Text = "Buscar";
             this.btnBuscarPaciente.UseVisualStyleBackColor = true;
+            this.btnBuscarPaciente.Click += new System.EventHandler(this.btnBuscarPaciente_Click);
             // 
             // txtApellidoBuscar
             // 
@@ -102,39 +99,10 @@
             this.dgvPaciente.BackgroundColor = System.Drawing.Color.White;
             this.dgvPaciente.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvPaciente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPaciente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4});
             this.dgvPaciente.Location = new System.Drawing.Point(73, 213);
             this.dgvPaciente.Name = "dgvPaciente";
             this.dgvPaciente.Size = new System.Drawing.Size(642, 332);
             this.dgvPaciente.TabIndex = 8;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Nombre del Paciente";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 250;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Habitación";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 150;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Camilla";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Deuda";
-            this.Column4.Name = "Column4";
             // 
             // label1
             // 
@@ -209,10 +177,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvPaciente;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.Label lblFecha;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Timer timer1;

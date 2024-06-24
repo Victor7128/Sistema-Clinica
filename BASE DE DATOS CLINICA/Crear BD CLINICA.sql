@@ -145,3 +145,14 @@ GROUP BY
     ho.HoraIngreso,
     ho.FechaSalida,
     ho.HoraSalida;
+
+SELECT 
+                          p.Nombre AS NombrePaciente,
+                            p.DNI,
+                            h.Nombre AS NombreHabitacion,
+                            c.Nombre AS NombreCamilla
+                        FROM 
+                            Pacientes p
+                            INNER JOIN Habitaciones h ON p.IdPaciente = h.IdHabitacion
+                            INNER JOIN Camillas c ON h.IdHabitacion = c.IdCamilla
+                       

@@ -159,3 +159,21 @@ VALUES
 INSERT INTO Camillas (Nombre)
 VALUES (1),
        (2);
+
+INSERT INTO Pacientes (Nombre, DNI) VALUES 
+('Juan Pérez', 12345678),
+('María López', 87654321),
+('Carlos Ruiz', 11223344),
+('Ana Martínez', 44332211),
+('Pedro Sánchez', 55667788);
+
+
+SELECT 
+    p.Nombre AS NombrePaciente,
+    p.DNI,
+    h.Nombre AS NombreHabitacion,
+    c.Nombre AS NombreCamilla
+FROM 
+    Pacientes p
+    INNER JOIN Habitaciones h ON p.IdPaciente = h.IdHabitacion
+    INNER JOIN Camillas c ON h.IdHabitacion = c.IdCamilla;
