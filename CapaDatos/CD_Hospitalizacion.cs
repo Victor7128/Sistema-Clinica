@@ -272,8 +272,5 @@ SELECT SCOPE_IDENTITY();";
             }
             return idHospitalizacion;
         }
-
-        
-
     }
 }

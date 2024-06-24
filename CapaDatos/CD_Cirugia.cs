@@ -32,7 +32,6 @@ namespace CapaDatos
             return dtPacientes;
         }
 
-
         public static void AgregarCirugia(string tipoCirugia, int idPaciente, string nombrePaciente, string sala, string turno, DateTime fechaCirugia)
         {
             using (SqlConnection cn = new SqlConnection(Conexion.cn))

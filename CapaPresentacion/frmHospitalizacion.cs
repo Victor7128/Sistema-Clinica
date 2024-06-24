@@ -114,7 +114,11 @@ namespace CapaPresentacion
             try
             {
                 DataTable dtPacientes = CD_Hospitalizacion.ObtenerPacientesHospitalizados();
+                dgvPacientes.DataSource = null;
+                dgvPacientes.Rows.Clear();
+                dgvPacientes.Columns.Clear();
                 dgvPacientes.DataSource = dtPacientes;
+                dgvPacientes.Columns["Nombre_Paciente"].HeaderText = "Nombre_Paciente";
             }
             catch (Exception ex)
             {
@@ -139,31 +143,33 @@ namespace CapaPresentacion
             timer1.Enabled = true;
         }
 
-        private void dgvPacientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvPacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dgvPacientes.Rows[e.RowIndex];
 
-                // Mostrar datos del paciente seleccionado en los controles del formulario
-                txtNombrePaciente.Text = row.Cells["NombrePaciente"].Value.ToString();
-                txtDniPaciente.Text = row.Cells["DNIPaciente"].Value.ToString();
+                // Mostrar datos en los TextBox
+                txtNombrePaciente.Text = row.Cells["Nombre_Paciente"].Value.ToString();
+                txtDniPaciente.Text = row.Cells["Dni_Paciente"].Value.ToString();
 
-                // Seleccionar los valores correspondientes en los ComboBoxes
-                cboEstadia.SelectedValue = (int)row.Cells["IdEstadia"].Value;
-                cboTipoHabitacion.SelectedValue = (int)row.Cells["IdTipoHabitacion"].Value;
-                cboHabitacion.SelectedValue = (int)row.Cells["IdHabitacion"].Value;
+                // Seleccionar la estadía correspondiente en el ComboBox cboEstadia
+                string estadia = row.Cells["Estadia"].Value.ToString();
+                cboEstadia.SelectedItem = cboEstadia.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == estadia);
 
-                // Verificar si hay camilla seleccionada
-                if (row.Cells["IdCamilla"].Value != DBNull.Value)
-                {
-                    cboCamilla.SelectedValue = (int)row.Cells["IdCamilla"].Value;
-                }
-                else
-                {
-                    cboCamilla.SelectedIndex = -1;
-                }
+                // Seleccionar la camilla correspondiente en el ComboBox cboCamilla
+                string camilla = row.Cells["Camilla"].Value.ToString();
+                cboCamilla.SelectedItem = cboCamilla.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == camilla);
+
+                // Seleccionar el tipo de habitación correspondiente en el ComboBox cboTipoHabitacion
+                string tipoHabitacion = row.Cells["Tipo_Habitacion"].Value.ToString();
+                cboTipoHabitacion.SelectedItem = cboTipoHabitacion.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == tipoHabitacion);
+
+                // Seleccionar la habitación correspondiente en el ComboBox cboHabitacion
+                string habitacion = row.Cells["Habitacion"].Value.ToString();
+                cboHabitacion.SelectedItem = cboHabitacion.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == habitacion);
             }
         }
+
     }
 }

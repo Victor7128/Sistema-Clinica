@@ -63,7 +63,7 @@
             this.dgvPacientes.Name = "dgvPacientes";
             this.dgvPacientes.Size = new System.Drawing.Size(803, 297);
             this.dgvPacientes.TabIndex = 36;
-            this.dgvPacientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellClick);
+            this.dgvPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellContentClick);
             // 
             // label1
             // 
@@ -217,7 +217,7 @@
             // 
             this.cboCamilla.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCamilla.FormattingEnabled = true;
-            this.cboCamilla.Location = new System.Drawing.Point(437, 125);
+            this.cboCamilla.Location = new System.Drawing.Point(442, 125);
             this.cboCamilla.Name = "cboCamilla";
             this.cboCamilla.Size = new System.Drawing.Size(88, 29);
             this.cboCamilla.TabIndex = 79;
@@ -227,7 +227,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label8.Location = new System.Drawing.Point(433, 101);
+            this.label8.Location = new System.Drawing.Point(438, 101);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 21);
             this.label8.TabIndex = 78;

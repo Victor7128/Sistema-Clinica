@@ -72,7 +72,6 @@ CREATE TABLE Hospitalizaciones (
     IdEstadia INT NOT NULL,
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
-
     IdMedico INT NULL,
     IdTipoHabitacion INT NULL, -- Nueva columna para relacionar con TipoHabitacion
     FechaIngreso DATE NOT NULL,
@@ -80,7 +79,6 @@ CREATE TABLE Hospitalizaciones (
     FechaSalida DATE NULL,
     HoraSalida TIME NULL,
     Estado NVARCHAR(50)
-
     FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),

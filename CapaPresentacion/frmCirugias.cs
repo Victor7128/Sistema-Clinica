@@ -24,6 +24,7 @@ namespace CapaPresentacion
             // Cargar pacientes al DataGridView1
             dataGridView1.DataSource = CD_Cirugia.ObtenerPacientes(txtApellidoBuscar.Text);
         }
+
         private void btnBuscarPaciente_Click(object sender, EventArgs e)
         {
             CargarDatos();
