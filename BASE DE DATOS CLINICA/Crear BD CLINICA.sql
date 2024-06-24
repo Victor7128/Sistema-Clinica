@@ -36,10 +36,12 @@ CREATE TABLE USUARIOS (
 
 -- Tabla Pacientes
 CREATE TABLE Pacientes (
-    IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(100) NOT NULL,
-    DNI INT NOT NULL
+    IdPaciente INT PRIMARY KEY,
+	Codigo varchar(5),
+    Nombre VARCHAR(100),
+    DNI INT
 );
+
 
 -- Tabla Estadias
 CREATE TABLE Estadias (
@@ -68,7 +70,7 @@ CREATE TABLE Camillas (
 -- Tabla Hospitalizaciones
 CREATE TABLE Hospitalizaciones (
     IdHospitalizacion INT IDENTITY(1,1) PRIMARY KEY,
-    IdPaciente INT NOT NULL,
+    IdPaciente INT not null,
     IdEstadia INT NOT NULL,
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
@@ -111,12 +113,13 @@ select Nombres from USUARIOS where IdRol = 3
 
 SELECT
     ho.IdHospitalizacion AS ID_Hospitalizacion,
-    p.Nombre AS Nombre_Paciente,
-    p.DNI AS Dni_Paciente,
+	p.Codigo as Codigo,
+    p.Nombre AS Nombre,
+    p.DNI AS Dni,
     e.Nombre AS Estadia,
     c.Nombre AS Camilla,
     h.Nombre AS Habitacion,
-    th.Nombre AS Tipo_Habitacion,
+    th.Nombre AS TipoHabitacion,
     ho.FechaIngreso AS FechaIngreso,
     ho.HoraIngreso AS HoraIngreso,
     ho.FechaSalida AS FechaSalida,
@@ -135,6 +138,7 @@ LEFT JOIN
     Camillas c ON ho.IdCamilla = c.IdCamilla
 GROUP BY
     ho.IdHospitalizacion,
+	p.Codigo,
     p.Nombre,
     p.DNI,
     e.Nombre,

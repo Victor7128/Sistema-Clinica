@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class Conexion
+    public class Conexion1
     {
         public static string cn = "Data Source =.; Initial Catalog = Clinica; Integrated Security = True; Encrypt=False;";
         

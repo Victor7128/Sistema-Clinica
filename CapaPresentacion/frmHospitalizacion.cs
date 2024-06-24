@@ -4,17 +4,21 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaDatos;
 using CapaEntidad;
+using CapaNegocio;
 
 namespace CapaPresentacion
 {
     public partial class frmHospitalizacion : Form
     {
+        ClassEntidad objent = new ClassEntidad();
+        ClassNegocio objneg = new ClassNegocio();
+
         public frmHospitalizacion()
         {
             InitializeComponent();
@@ -26,82 +30,59 @@ namespace CapaPresentacion
             lblFecha.Text = DateTime.Now.ToLongDateString();
         }
 
-        private void btnRegistrarEntrada_Click(object sender, EventArgs e)
+        void mantenedor(String accion)
+        {
+            // Asignación de valores desde controles al objeto entidad
+            objent.Codigo = txtCodigo.Text;
+            objent.Nombre = txtNombre.Text;
+            objent.DNI = Convert.ToInt32(txtDni.Text);
+            objent.IdEstadia = Convert.ToInt32(cboEstadia.SelectedValue); // Corregido: usar SelectedValue para obtener el valor seleccionado del ComboBox
+            objent.IdCamilla = Convert.ToInt32(cboCamilla.SelectedValue); // Corregido: usar SelectedValue para obtener el valor seleccionado del ComboBox
+            objent.IdHabitacion = Convert.ToInt32(cboHabitacion.SelectedValue); // Corregido: usar SelectedValue para obtener el valor seleccionado del ComboBox
+            objent.IdTipoHabitacion = Convert.ToInt32(cboTipoHabitacion.SelectedValue); // Corregido: usar SelectedValue para obtener el valor seleccionado del ComboBox
+            objent.FechaIngreso = DateTime.Now.Date; // Ejemplo: fecha actual
+            objent.HoraIngreso = DateTime.Now.TimeOfDay; // Ejemplo: hora actual
+            objent.accion = accion;
+
+            // Llamar al método de negocio para el mantenimiento de pacientes
+            string mensaje = objneg.N_mantenedor_paciente(objent);
+
+            // Mostrar mensaje de resultado
+            MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        void Limpiar()
+        {
+            txtNombre.Text = "";
+            txtDni.Text = "";
+            cboEstadia.SelectedIndex = -1;
+            cboHabitacion.SelectedIndex = -1;
+            cboTipoHabitacion.SelectedIndex = -1;
+            cboCamilla.SelectedIndex = -1;
+            dgvPacientes.DataSource = objneg.N_listar_pacientes();
+        }
+
+        void CargarComboboxes()
         {
             try
             {
-                if (string.IsNullOrEmpty(txtNombrePaciente.Text))
-                {
-                    MessageBox.Show("Ingrese el nombre del paciente.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (!int.TryParse(txtDniPaciente.Text, out int dniPaciente))
-                {
-                    MessageBox.Show("El DNI debe ser un número entero.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (!int.TryParse(cboEstadia.SelectedValue.ToString(), out int idEstadia))
-                {
-                    MessageBox.Show("Seleccione una estadía válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (!int.TryParse(cboTipoHabitacion.SelectedValue.ToString(), out int idTipoHabitacion))
-                {
-                    MessageBox.Show("Seleccione un tipo de habitación válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (!int.TryParse(cboHabitacion.SelectedValue.ToString(), out int idHabitacion))
-                {
-                    MessageBox.Show("Seleccione una habitación válida.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                int? idCamilla = null;
-                if (cboCamilla.SelectedValue != null && int.TryParse(cboCamilla.SelectedValue.ToString(), out int camillaValue))
-                {
-                    idCamilla = camillaValue;
-                }
-                int idHospitalizacion = CD_Hospitalizacion.RegistrarHospitalizacion(txtNombrePaciente.Text, dniPaciente, idEstadia, idTipoHabitacion, idHabitacion, idCamilla);
-                MessageBox.Show($"Hospitalización registrada con éxito. ID: {idHospitalizacion}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LimpiarCampos();
-                CargarPacientesHospitalizados();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al registrar la hospitalización: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnGuardarCambios_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnRegistrarSalida_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void CargarComboboxes()
-        {
-            try
-            {
-                cboEstadia.DataSource = CD_Hospitalizacion.ObtenerEstadias();
+                cboEstadia.DataSource = objneg.N_listar_estadias();
                 cboEstadia.DisplayMember = "Nombre";
                 cboEstadia.ValueMember = "IdEstadia";
 
-                cboHabitacion.DataSource = CD_Hospitalizacion.ObtenerHabitaciones();
+                cboHabitacion.DataSource = objneg.N_listar_habitaciones();
                 cboHabitacion.DisplayMember = "Nombre";
                 cboHabitacion.ValueMember = "IdHabitacion";
 
-                cboTipoHabitacion.DataSource = CD_Hospitalizacion.ObtenerTipoHabitacion();
+                cboTipoHabitacion.DataSource = objneg.N_listar_tipo_habitacion();
                 cboTipoHabitacion.DisplayMember = "Nombre";
                 cboTipoHabitacion.ValueMember = "IdTipoHabitacion";
 
-                cboCamilla.DataSource = CD_Hospitalizacion.ObtenerCamillas();
+                cboCamilla.DataSource = objneg.N_listar_camillas();
                 cboCamilla.DisplayMember = "Nombre";
                 cboCamilla.ValueMember = "IdCamilla";
 
-                LimpiarCampos();
+                Limpiar();
             }
             catch (Exception ex)
             {
@@ -109,67 +90,93 @@ namespace CapaPresentacion
             }
         }
 
-        private void CargarPacientesHospitalizados()
-        {
-            try
-            {
-                DataTable dtPacientes = CD_Hospitalizacion.ObtenerPacientesHospitalizados();
-                dgvPacientes.DataSource = null;
-                dgvPacientes.Rows.Clear();
-                dgvPacientes.Columns.Clear();
-                dgvPacientes.DataSource = dtPacientes;
-                dgvPacientes.Columns["Nombre_Paciente"].HeaderText = "Nombre_Paciente";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar pacientes hospitalizados: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LimpiarCampos()
-        {
-            txtNombrePaciente.Clear();
-            txtDniPaciente.Clear();
-            cboEstadia.SelectedIndex = -1;
-            cboHabitacion.SelectedIndex = -1;
-            cboTipoHabitacion.SelectedIndex = -1;
-            cboCamilla.SelectedIndex = -1;
-        }
 
         private void frmHospitalizacion_Load(object sender, EventArgs e)
         {
-            CargarPacientesHospitalizados();
             CargarComboboxes();
             timer1.Enabled = true;
+            dgvPacientes.DataSource = objneg.N_listar_pacientes();
         }
 
         private void dgvPacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+
+            int fila = dgvPacientes.CurrentCell.RowIndex;
+            txtCodigo.Text = dgvPacientes[0, fila].Value.ToString();
+            txtNombre.Text = dgvPacientes[1, fila].Value.ToString();
+            txtDni.Text = dgvPacientes[2,fila].Value.ToString();
+            cboEstadia.SelectedItem = dgvPacientes[3, fila].Value.ToString();
+            cboCamilla.SelectedItem = dgvPacientes[4,fila].Value.ToString();            
+            cboHabitacion.SelectedItem = dgvPacientes[5,fila].Value.ToString();
+            cboTipoHabitacion.SelectedItem = dgvPacientes[6, fila].Value.ToString();
+
+        }
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBuscar.Text != "")
             {
-                DataGridViewRow row = dgvPacientes.Rows[e.RowIndex];
-
-                // Mostrar datos en los TextBox
-                txtNombrePaciente.Text = row.Cells["Nombre_Paciente"].Value.ToString();
-                txtDniPaciente.Text = row.Cells["Dni_Paciente"].Value.ToString();
-
-                // Seleccionar la estadía correspondiente en el ComboBox cboEstadia
-                string estadia = row.Cells["Estadia"].Value.ToString();
-                cboEstadia.SelectedItem = cboEstadia.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == estadia);
-
-                // Seleccionar la camilla correspondiente en el ComboBox cboCamilla
-                string camilla = row.Cells["Camilla"].Value.ToString();
-                cboCamilla.SelectedItem = cboCamilla.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == camilla);
-
-                // Seleccionar el tipo de habitación correspondiente en el ComboBox cboTipoHabitacion
-                string tipoHabitacion = row.Cells["Tipo_Habitacion"].Value.ToString();
-                cboTipoHabitacion.SelectedItem = cboTipoHabitacion.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == tipoHabitacion);
-
-                // Seleccionar la habitación correspondiente en el ComboBox cboHabitacion
-                string habitacion = row.Cells["Habitacion"].Value.ToString();
-                cboHabitacion.SelectedItem = cboHabitacion.Items.Cast<DataRowView>().FirstOrDefault(item => item["Nombre"].ToString() == habitacion);
+                objent.Nombre = txtBuscar.Text;
+                DataTable dt = new DataTable();
+                dt = objneg.N_buscar_pacientes(objent);
+                dgvPacientes.DataSource = dt;
+            }
+            else
+            {
+                dgvPacientes.DataSource = objneg.N_listar_pacientes();
             }
         }
 
+        private void registrarEntradaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(txtCodigo.Text == "")
+            {
+                if(MessageBox.Show("¿Deseas registrar a " + txtNombre.Text + "?","Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    mantenedor("1");
+                    Limpiar();
+                }
+            }            
+        }
+
+        private void modificarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(txtCodigo.Text != "")
+            {
+                if (MessageBox.Show("¿Deseas modificar a " + txtNombre.Text + "?", "Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    mantenedor("2");
+                    Limpiar();
+                }
+            }
+        }
+
+        private void registrarSalidaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (txtCodigo.Text != "")
+            {
+                if (MessageBox.Show("¿Deseas registrar salida a " + txtNombre.Text + "?", "Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    mantenedor("3");
+                    Limpiar();
+                }
+            }
+        }
+
+        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (txtCodigo.Text != "")
+            {
+                if (MessageBox.Show("¿Deseas eliminar a " + txtNombre.Text + "?", "Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    mantenedor("");
+                    Limpiar();
+                }
+            }
+        }
     }
 }

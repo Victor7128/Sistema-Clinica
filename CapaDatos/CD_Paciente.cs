@@ -14,7 +14,7 @@ namespace CapaDatos
         {
             DataTable dtPacientes = new DataTable();
 
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Apellido";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, cn);

@@ -13,7 +13,7 @@ namespace CapaDatos
         public static DataTable ObtenerEstadias()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdEstadia, Nombre FROM Estadias";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -38,7 +38,7 @@ namespace CapaDatos
         public static DataTable ObtenerHabitaciones()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdHabitacion, Nombre FROM Habitaciones";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -63,7 +63,7 @@ namespace CapaDatos
         public static DataTable ObtenerCamillas()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdCamilla, Nombre FROM Camillas";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -88,7 +88,7 @@ namespace CapaDatos
         public static DataTable ObtenerMedicos()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = @"select Nombres from USUARIOS where IdRol = 3";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -113,7 +113,7 @@ namespace CapaDatos
         public static DataTable ObtenerTipoHabitacion()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdTipoHabitacion, Nombre FROM TipoHabitacion";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -138,7 +138,7 @@ namespace CapaDatos
         public static DataTable ObtenerPacientesHospitalizados()
         {
             DataTable dt = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = @"
                     SELECT
@@ -200,7 +200,7 @@ namespace CapaDatos
         public static int RegistrarPaciente(string nombre, int dni)
         {
             int idPaciente = 0;
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = @"INSERT INTO Pacientes (Nombre, DNI)
                          VALUES (@Nombre, @DNI);
@@ -227,7 +227,7 @@ namespace CapaDatos
         public static int RegistrarHospitalizacion(string nombrePaciente, int dniPaciente, int idEstadia, int idTipoHabitacion, int idHabitacion, int? idCamilla)
         {
             int idHospitalizacion = 0;
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = @"
 DECLARE @IdPaciente INT;

@@ -13,7 +13,7 @@ namespace CapaDatos
         public static DataTable ObtenerPacientes(string apellido)
         {
             DataTable dtPacientes = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdPaciente, Nombre FROM Pacientes WHERE Nombre LIKE @Nombre + '%'";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, cn);
@@ -34,7 +34,7 @@ namespace CapaDatos
 
         public static void AgregarCirugia(string tipoCirugia, int idPaciente, string nombrePaciente, string sala, string turno, DateTime fechaCirugia)
         {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_AgregarCirugia", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -61,7 +61,7 @@ namespace CapaDatos
         {
             DataTable dtCirugias = new DataTable();
 
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_ObtenerCirugias", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -84,7 +84,7 @@ namespace CapaDatos
         public static DataTable ObtenerCirugiasConEstado()
         {
             DataTable dtCirugias = new DataTable();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_ObtenerCirugiasConEstado", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -104,7 +104,7 @@ namespace CapaDatos
 
         public static void ActualizarCirugia(int idCirugia, string tipoCirugia, string sala, DateTime fechaCirugia)
         {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_ActualizarCirugia", cn);
                 cmd.CommandType = CommandType.StoredProcedure;

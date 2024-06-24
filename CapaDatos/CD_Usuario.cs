@@ -18,7 +18,7 @@ namespace CapaDatos
         public static int Loguear(string usuario, string clave)
         {
             int idusuario = 0;
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 try
                 {
@@ -45,7 +45,7 @@ namespace CapaDatos
         public static List<Menu> ObtenerPermisos(int P_IdUsuario)
         {
             List<Menu> permisos = new List<Menu>();
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 try
                 {
@@ -83,7 +83,7 @@ namespace CapaDatos
 
         public static DataTable ObtenerUsuariosConRoles()
         {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = @"select u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre as Rol from USUARIOS u inner join ROL r on u.IdRol = r.IdRol";
 
@@ -99,7 +99,7 @@ namespace CapaDatos
         {
             DataTable dtRoles = new DataTable();
 
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = "SELECT IdRol, Nombre FROM ROL ORDER BY Nombre"; // Asegúrate de incluir IdRol
                 SqlCommand cmd = new SqlCommand(query, cn);
@@ -123,7 +123,7 @@ namespace CapaDatos
         {
             DataTable dtUsuarios = new DataTable();
 
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 string query = @"SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol FROM USUARIOS u inner JOIN ROL r ON u.IdRol = r.IdRol ORDER BY u.IdUsuario";
                 SqlCommand cmd = new SqlCommand(query, cn);
@@ -145,7 +145,7 @@ namespace CapaDatos
 
         public int RegistrarUsuario(string nombres, string usuario, string clave, int idRol)
         {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_RegistrarUsuario", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -183,7 +183,7 @@ namespace CapaDatos
 
         public bool EliminarUsuario(int idUsuario)
         {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_EliminarUsuario", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -206,7 +206,7 @@ namespace CapaDatos
 
         public static void ActualizarUsuario(int idUsuario, string nombres, string usuario, string clave, int idRol)
         {
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            using (SqlConnection cn = new SqlConnection(Conexion1.cn))
             {
                 SqlCommand cmd = new SqlCommand("usp_ActualizarUsuario", cn);
                 cmd.CommandType = CommandType.StoredProcedure;

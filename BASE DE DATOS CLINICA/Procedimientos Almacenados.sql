@@ -105,66 +105,115 @@ END;
 GO
 
 -- Procedimiento almacenado para registrar hospitalización
-CREATE PROCEDURE RegistrarHospitalizacion
-    @NombrePaciente NVARCHAR(100),
-    @DNIPaciente INT,
-    @IdEstadia INT,
-    @IdHabitacion INT,
-    @IdCamilla INT = NULL,
-    @FechaIngreso DATETIME,
-    @HoraIngreso TIME
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    DECLARE @IdPaciente INT;
-
-    -- Verificar si el paciente ya existe
-    IF EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNIPaciente)
-    BEGIN
-        -- Obtener el ID del paciente existente
-        SELECT @IdPaciente = IdPaciente FROM Pacientes WHERE DNI = @DNIPaciente;
-    END
-    ELSE
-    BEGIN
-        -- Insertar el nuevo paciente
-        INSERT INTO Pacientes (Nombre, DNI)
-        VALUES (@NombrePaciente, @DNIPaciente);
-
-        -- Obtener el ID del nuevo paciente
-        SELECT @IdPaciente = SCOPE_IDENTITY();
-    END
-
-    -- Insertar la hospitalización
-    INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, FechaIngreso, HoraIngreso)
-VALUES (@IdPaciente, @IdEstadia, @IdHabitacion, @IdCamilla, @FechaIngreso, @HoraIngreso);
-
-    -- Devolver el ID de la nueva hospitalización
-    SELECT SCOPE_IDENTITY() AS IdHospitalizacion;
-END
+create proc sp_listar_pacientes
+as
+SELECT
+    ho.IdHospitalizacion AS ID_Hospitalizacion,
+	p.Codigo as Codigo,
+    p.Nombre AS Nombre,
+    p.DNI AS Dni,
+    e.Nombre AS Estadia,
+    c.Nombre AS Camilla,
+    h.Nombre AS Habitacion,
+    th.Nombre AS TipoHabitacion,
+    ho.FechaIngreso AS FechaIngreso,
+    ho.HoraIngreso AS HoraIngreso,
+    ho.FechaSalida AS FechaSalida,
+    ho.HoraSalida AS HoraSalida
+FROM 
+    Hospitalizaciones ho
+INNER JOIN 
+    Pacientes p ON ho.IdPaciente = p.IdPaciente
+LEFT JOIN 
+    Estadias e ON ho.IdEstadia = e.IdEstadia
+LEFT JOIN 
+    Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
+LEFT JOIN 
+    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
+LEFT JOIN 
+    Camillas c ON ho.IdCamilla = c.IdCamilla
+GROUP BY
+    ho.IdHospitalizacion,
+	p.Codigo,
+    p.Nombre,
+    p.DNI,
+    e.Nombre,
+    c.Nombre,
+    h.Nombre,
+    th.Nombre,
+    ho.FechaIngreso,
+    ho.HoraIngreso,
+    ho.FechaSalida,
+    ho.HoraSalida;
 go
-
--- Procedimiento almacenado para actualizar hospitalización
-CREATE PROCEDURE usp_ActualizarHospitalizacion
-    @IdHospitalizacion INT,
-    @FechaSalida DATE,
-    @HoraSalida TIME
+----------------------------------
+create proc sp_buscar_pacientes
+@nombre varchar(50)
+as
+select codigo, nombre, dni from Pacientes where nombre like @nombre + '%'
+go
+----------------------------------
+CREATE PROCEDURE sp_mantenedor_pacientes
+    @codigo VARCHAR(5),
+    @nombre VARCHAR(100),
+    @DNI INT,
+    @TipoHabitacion INT,
+    @Habitacion INT,
+    @Camilla INT,
+    @Estadia INT,
+    @accion VARCHAR(50) OUTPUT
 AS
 BEGIN
+    IF (@accion = '1')
+    BEGIN
+        DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5);
+        
+        -- Generar nuevo código para el paciente
+        SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
+        SET @codmax = ISNULL(@codmax, 'P0000');
+        SET @codnuevo = 'P' + RIGHT(RIGHT(@codmax, 4) + 10001, 4);
 
-    UPDATE Hospitalizaciones
-    SET IdPaciente = @IdPaciente,
-        IdEstadia = @IdEstadia,
-        IdHabitacion = @IdHabitacion,
-        IdCamilla = @IdCamilla,
-        IdMedico = @IdMedico,
-        FechaIngreso = @FechaIngreso,
-        FechaSalida = @FechaSalida,
-        Estado = @Estado
-    WHERE IdHospitalizacion = @IdHospitalizacion;
+        -- Insertar nuevo paciente en la tabla Pacientes
+        INSERT INTO Pacientes (Codigo, Nombre, DNI)
+        VALUES (@codnuevo, @nombre, @DNI);
 
-    SELECT @@ROWCOUNT AS RowsAffected;
+        -- Obtener el ID del paciente insertado
+        DECLARE @IdPaciente INT;
+        SET @IdPaciente = SCOPE_IDENTITY();
+
+        -- Insertar hospitalización en la tabla Hospitalizaciones
+        INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
+        VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, GETDATE(), GETDATE());
+
+        -- Configurar mensaje de salida
+        SET @accion = 'Se agregó el paciente: ' + @nombre;
+    END
+    ELSE IF (@accion = '2')
+    BEGIN
+        -- Actualizar datos del paciente en la tabla Pacientes
+        UPDATE Pacientes SET Nombre = @nombre, DNI = @DNI WHERE Codigo = @codigo;
+
+        -- Configurar mensaje de salida
+        SET @accion = 'Se modificó el paciente: ' + @nombre;
+    END
+    ELSE IF (@accion = '3')
+    BEGIN
+        -- Registrar salida del paciente en la tabla Hospitalizaciones
+        UPDATE Hospitalizaciones SET FechaSalida = GETDATE(), HoraSalida = GETDATE() WHERE IdPaciente = (SELECT IdPaciente FROM Pacientes WHERE Codigo = @codigo);
+
+        -- Configurar mensaje de salida
+        SET @accion = 'Se registró la salida del paciente: ' + @nombre;
+    END
+    ELSE IF (@accion = '4')
+    BEGIN
+        -- Eliminar paciente de la tabla Pacientes
+        DELETE FROM Pacientes WHERE Codigo = @codigo;
+
+        -- Configurar mensaje de salida
+        SET @accion = 'Se borró el paciente: ' + @nombre;
+    END
 END
+GO
 ----------------------------------
 CREATE PROCEDURE usp_AgregarCirugia
     @TipoCirugia NVARCHAR(100),
@@ -178,6 +227,7 @@ BEGIN
     INSERT INTO Cirugias (TipoCirugia, IdPaciente, NombrePaciente, Sala, Turno, FechaCirugia)
     VALUES (@TipoCirugia, @IdPaciente, @NombrePaciente, @Sala, @Turno, @FechaCirugia);
 END
+go
 ----------------------------------
 CREATE PROCEDURE usp_ObtenerCirugias
 AS
@@ -186,6 +236,7 @@ BEGIN
     FROM Cirugias c
     INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
 END
+go
 ----------------------------------
 CREATE PROCEDURE usp_ObtenerCirugiasConEstado
 AS
@@ -204,5 +255,6 @@ BEGIN
     FROM Cirugias c
     JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
 END
+go
 ----------------------------------
 
