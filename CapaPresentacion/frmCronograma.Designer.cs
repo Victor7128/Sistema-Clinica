@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
+            this.dtCronograma = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dtCronograma)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -38,9 +41,28 @@
             this.label1.ForeColor = System.Drawing.Color.Blue;
             this.label1.Location = new System.Drawing.Point(30, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 39);
+            this.label1.Size = new System.Drawing.Size(275, 49);
             this.label1.TabIndex = 1;
             this.label1.Text = "Cronograma";
+            // 
+            // dtCronograma
+            // 
+            this.dtCronograma.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtCronograma.Location = new System.Drawing.Point(39, 94);
+            this.dtCronograma.Name = "dtCronograma";
+            this.dtCronograma.RowHeadersWidth = 51;
+            this.dtCronograma.Size = new System.Drawing.Size(776, 333);
+            this.dtCronograma.TabIndex = 2;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(331, 460);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(179, 49);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Mostrar cronograma de cirugias";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmCronograma
             // 
@@ -48,10 +70,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 573);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dtCronograma);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmCronograma";
             this.Text = "Cronograma";
+            ((System.ComponentModel.ISupportInitialize)(this.dtCronograma)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -60,5 +85,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dtCronograma;
+        private System.Windows.Forms.Button button1;
     }
 }
