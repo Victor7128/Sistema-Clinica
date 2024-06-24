@@ -9,7 +9,7 @@ namespace CapaDatos
 {
     public class Conexion
     {
-        public static string cn = "Data Source=(local)\\SQLEXPRESS;Initial Catalog=Clinica;Integrated Security=True;Encrypt=False;";
+        public static string cn = @"Data Source=DESKTOP-175P6I3\SQLEXPRESS;Initial Catalog=Clinica;Integrated Security=True";
 
     }
 }
