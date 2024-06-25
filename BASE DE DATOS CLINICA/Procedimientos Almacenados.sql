@@ -286,18 +286,25 @@ EXEC usp_ObtenerUsuariosConRoles;
 
 -- Probar el procedimiento para buscar usuarios
 EXEC usp_buscar_usuarios @nombre = 'Luis';
+----
+DECLARE @accion VARCHAR(50);
+DECLARE @Nombres NVARCHAR(50) = 'Juan Perez';
+DECLARE @Usuario NVARCHAR(50) = 'juanperez';
+DECLARE @Clave NVARCHAR(50) = 'clave123';
+DECLARE @IdRol INT = 1; -- Ajusta este valor según el Id del rol que desees asociar
 
--- Probar el procedimiento para el mantenimiento de usuarios
-DECLARE @accion VARCHAR(50) = '3';
+-- Ejecutar procedimiento almacenado para insertar usuario
 EXEC usp_mantenedor_usuarios 
-    @IdUsuario = NULL, 
-    @Nombres = 'Juan Pérez', 
-    @Usuario = 'juanp', 
-    @Clave = '123', 
-    @IdRol = 2, 
-    @Activo = 1, 
+    @Nombres = @Nombres,
+    @Usuario = @Usuario,
+    @Clave = @Clave,
+    @IdRol = @IdRol,
+    @Activo = 1, -- Valor por defecto si no se utiliza en el procedimiento
     @accion = @accion OUTPUT;
-SELECT @accion;
+
+-- Mostrar mensaje de salida
+SELECT @accion AS Mensaje;
+
 
 ------------------------------------------
 -- CREATE PROCEDURE usp_AgregarCirugia

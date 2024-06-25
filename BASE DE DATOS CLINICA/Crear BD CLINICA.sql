@@ -1,6 +1,6 @@
 CREATE DATABASE Clinica
 
-USE 
+USE Clinica
 
 -- Tabla MENU
 CREATE TABLE MENU (
