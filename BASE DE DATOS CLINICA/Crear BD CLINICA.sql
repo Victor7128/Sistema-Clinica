@@ -1,6 +1,6 @@
 CREATE DATABASE Clinica
 
-USE Clinica
+USE 
 
 -- Tabla MENU
 CREATE TABLE MENU (
@@ -107,5 +107,4 @@ FROM USUARIOS u
 inner JOIN ROL r ON u.IdRol = r.IdRol
 ORDER BY u.IdUsuario
 
-select Nombres from USUARIOS where IdRol = 3
 

@@ -16,8 +16,8 @@ namespace CapaPresentacion
 {
     public partial class Menu : Form
     {
-        ClassEntidad objent = new ClassEntidad();
-        ClassNegocio objneg = new ClassNegocio();
+        EntidadLogin objent = new EntidadLogin();
+        NegocioLogin objneg = new NegocioLogin();
         private int idusuario;
 
         public Menu(int idusuario_esperado = 0)
@@ -29,11 +29,11 @@ namespace CapaPresentacion
 
         private void Menu_Load(object sender, EventArgs e)
         {
-            List<CapaEntidad.Menu> permisos_esperados = objneg.N_ObtenerPermisos(idusuario);
+            List<CapaEntidad.EntidadLogin> permisos_esperados = objneg.N_ObtenerPermisos(idusuario);
 
             MenuStrip menuStrip = new MenuStrip();
 
-            foreach (CapaEntidad.Menu objMenu in permisos_esperados)
+            foreach (CapaEntidad.EntidadLogin objMenu in permisos_esperados)
             {
                 ToolStripMenuItem menuPadre = new ToolStripMenuItem(objMenu.Nombre, null, click_en_menu, objMenu.NombreFormulario);
                 menuPadre.Tag = objMenu;

@@ -42,6 +42,11 @@
             this.cboCamilla = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cboTipoHabitacion = new System.Windows.Forms.ComboBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.registrarEntradaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarSalidaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label7 = new System.Windows.Forms.Label();
             this.cboHabitacion = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -53,14 +58,9 @@
             this.lblHora = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPacientes = new System.Windows.Forms.DataGridView();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.registrarEntradaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarSalidaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
             this.SuspendLayout();
             // 
             // label9
@@ -94,7 +94,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label5.Location = new System.Drawing.Point(15, 257);
+            this.label5.Location = new System.Drawing.Point(8, 272);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 21);
             this.label5.TabIndex = 93;
@@ -104,7 +104,7 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.Location = new System.Drawing.Point(82, 255);
+            this.txtBuscar.Location = new System.Drawing.Point(75, 270);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(253, 27);
             this.txtBuscar.TabIndex = 92;
@@ -118,6 +118,7 @@
             this.groupBox1.Controls.Add(this.cboCamilla);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.cboTipoHabitacion);
+            this.groupBox1.Controls.Add(this.menuStrip1);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cboHabitacion);
             this.groupBox1.Controls.Add(this.label4);
@@ -129,7 +130,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
             this.groupBox1.Location = new System.Drawing.Point(12, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(803, 164);
+            this.groupBox1.Size = new System.Drawing.Size(803, 193);
             this.groupBox1.TabIndex = 91;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registrar Paciente";
@@ -203,6 +204,48 @@
             this.cboTipoHabitacion.Name = "cboTipoHabitacion";
             this.cboTipoHabitacion.Size = new System.Drawing.Size(218, 29);
             this.cboTipoHabitacion.TabIndex = 77;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.registrarEntradaToolStripMenuItem,
+            this.modificarToolStripMenuItem,
+            this.registrarSalidaToolStripMenuItem,
+            this.eliminarToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(449, 166);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(467, 24);
+            this.menuStrip1.TabIndex = 94;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // registrarEntradaToolStripMenuItem
+            // 
+            this.registrarEntradaToolStripMenuItem.Name = "registrarEntradaToolStripMenuItem";
+            this.registrarEntradaToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
+            this.registrarEntradaToolStripMenuItem.Text = "Registrar Entrada";
+            this.registrarEntradaToolStripMenuItem.Click += new System.EventHandler(this.registrarEntradaToolStripMenuItem_Click);
+            // 
+            // modificarToolStripMenuItem
+            // 
+            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.modificarToolStripMenuItem.Text = "Modificar";
+            this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
+            // 
+            // registrarSalidaToolStripMenuItem
+            // 
+            this.registrarSalidaToolStripMenuItem.Name = "registrarSalidaToolStripMenuItem";
+            this.registrarSalidaToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
+            this.registrarSalidaToolStripMenuItem.Text = "Registrar Salida";
+            this.registrarSalidaToolStripMenuItem.Click += new System.EventHandler(this.registrarSalidaToolStripMenuItem_Click);
+            // 
+            // eliminarToolStripMenuItem
+            // 
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // label7
             // 
@@ -314,54 +357,12 @@
             this.dgvPacientes.AllowUserToAddRows = false;
             this.dgvPacientes.AllowUserToDeleteRows = false;
             this.dgvPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPacientes.Location = new System.Drawing.Point(12, 288);
+            this.dgvPacientes.Location = new System.Drawing.Point(12, 303);
             this.dgvPacientes.Name = "dgvPacientes";
             this.dgvPacientes.ReadOnly = true;
             this.dgvPacientes.Size = new System.Drawing.Size(803, 258);
             this.dgvPacientes.TabIndex = 87;
             this.dgvPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellContentClick);
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.registrarEntradaToolStripMenuItem,
-            this.modificarToolStripMenuItem,
-            this.registrarSalidaToolStripMenuItem,
-            this.eliminarToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 549);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(827, 24);
-            this.menuStrip1.TabIndex = 94;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // registrarEntradaToolStripMenuItem
-            // 
-            this.registrarEntradaToolStripMenuItem.Name = "registrarEntradaToolStripMenuItem";
-            this.registrarEntradaToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
-            this.registrarEntradaToolStripMenuItem.Text = "Registrar Entrada";
-            this.registrarEntradaToolStripMenuItem.Click += new System.EventHandler(this.registrarEntradaToolStripMenuItem_Click);
-            // 
-            // modificarToolStripMenuItem
-            // 
-            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
-            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
-            this.modificarToolStripMenuItem.Text = "Modificar";
-            this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
-            // 
-            // registrarSalidaToolStripMenuItem
-            // 
-            this.registrarSalidaToolStripMenuItem.Name = "registrarSalidaToolStripMenuItem";
-            this.registrarSalidaToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
-            this.registrarSalidaToolStripMenuItem.Text = "Registrar Salida";
-            this.registrarSalidaToolStripMenuItem.Click += new System.EventHandler(this.registrarSalidaToolStripMenuItem_Click);
-            // 
-            // eliminarToolStripMenuItem
-            // 
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
-            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
             // 
             // frmHospitalizacion
             // 
@@ -376,7 +377,6 @@
             this.Controls.Add(this.lblHora);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvPacientes);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -385,9 +385,9 @@
             this.Load += new System.EventHandler(this.frmHospitalizacion_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -15,8 +15,8 @@ namespace CapaPresentacion
 {
     public partial class frmHospitalizacion : Form
     {
-        ClassEntidad objent = new ClassEntidad();
-        ClassNegocio objneg = new ClassNegocio();
+        EntidadHospitalizacion objent = new EntidadHospitalizacion();
+        NegocioHospitalizacion objneg = new NegocioHospitalizacion();
 
         public frmHospitalizacion()
         {

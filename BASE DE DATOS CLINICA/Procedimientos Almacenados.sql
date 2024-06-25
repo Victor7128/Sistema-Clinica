@@ -1,9 +1,9 @@
-use CLinica
+use Clinica
 
 -- Obtener Usuarios
 CREATE PROCEDURE usp_ObtenerUsuarios
 as
-SELECT IdUsuario, Nombres, Usuario, Clave, IdRol, Activo FROM USUARIOS
+SELECT Nombres, Usuario, Clave, IdRol, Activo FROM USUARIOS
 GO
 ----------------------------------------
 -- Obtener Roles
@@ -14,10 +14,19 @@ GO
 ----------------------------------------
 CREATE PROCEDURE usp_ObtenerUsuariosConRoles
 as
-SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
+SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
 FROM USUARIOS u
 inner JOIN ROL r ON u.IdRol = r.IdRol
-ORDER BY u.IdUsuario
+GO
+----------------------------------------
+CREATE PROCEDURE usp_buscar_usuarios
+    @nombre NVARCHAR(50)
+AS
+BEGIN
+    SELECT *
+    FROM Usuarios
+    WHERE Nombres LIKE '%' + @nombre + '%';
+END;
 GO
 ----------------------------------------
 -- Procedimiento almacenado para login de usuarios
@@ -64,41 +73,56 @@ GO
 exec usp_ObtenerPermisos 5
 
 -- Procedimiento almacenado para registrar usuario
-CREATE PROCEDURE usp_RegistrarUsuario
-    @Nombres NVARCHAR(100),
-    @Usuario NVARCHAR(50),
-    @Clave NVARCHAR(50),
-    @IdRol INT,
-    @IdUsuario INT OUTPUT
+CREATE PROCEDURE usp_mantenedor_usuarios
+    @IdUsuario INT = NULL,
+    @Nombres NVARCHAR(50) = NULL,
+    @Usuario NVARCHAR(50) = NULL,
+    @Clave NVARCHAR(50) = NULL,
+    @IdRol INT = NULL,
+    @Activo BIT = 1,
+    @accion VARCHAR(50) OUTPUT
 AS
 BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRY
+    IF (@accion = '1')
+    BEGIN
+        -- Insertar nuevo usuario en la tabla USUARIOS
         INSERT INTO USUARIOS (Nombres, Usuario, Clave, IdRol, Activo)
-        VALUES (@Nombres, @Usuario, @Clave, @IdRol, 1);
+        VALUES (@Nombres, @Usuario, @Clave, @IdRol, @Activo);
 
-        SET @IdUsuario = SCOPE_IDENTITY();
-    END TRY
-    BEGIN CATCH
-        SET @IdUsuario = 0;
-    END CATCH
-END;
-GO
+        -- Configurar mensaje de salida
+        SET @accion = 'Usuario agregado: ' + @Nombres;
+    END
+    ELSE IF (@accion = '2')
+    BEGIN
+        -- Actualizar datos del usuario en la tabla USUARIOS
+        UPDATE USUARIOS
+        SET Nombres = @Nombres,
+            Usuario = @Usuario,
+            Clave = @Clave,
+            IdRol = @IdRol,
+            Activo = @Activo
+        WHERE IdUsuario = @IdUsuario;
 
--- Procedimiento almacenado para eliminar usuario
-CREATE PROCEDURE usp_EliminarUsuario
-    @IdUsuario INT
-AS
-BEGIN
-    SET NOCOUNT ON;
+        -- Actualizar el rol asociado al usuario en la tabla USUARIOS si @IdRol no es NULL
+        IF @IdRol IS NOT NULL
+        BEGIN
+            UPDATE USUARIOS
+            SET IdRol = @IdRol
+            WHERE IdUsuario = @IdUsuario;
+        END
 
-    BEGIN TRY
-        DELETE FROM USUARIOS WHERE IdUsuario = @IdUsuario;
-    END TRY
-    BEGIN CATCH
-        PRINT 'Error al eliminar usuario.';
-    END CATCH
+        -- Configurar mensaje de salida
+        SET @accion = 'Usuario modificado: ' + @Nombres;
+    END
+    ELSE IF (@accion = '3')
+    BEGIN
+        -- Eliminar usuario de la tabla USUARIOS
+        DELETE FROM USUARIOS
+        WHERE IdUsuario = @IdUsuario;
+
+        -- Configurar mensaje de salida
+        SET @accion = 'Usuario eliminado: ' + @Nombres;
+    END
 END;
 GO
 --------------------------------------------------------------------
@@ -257,8 +281,23 @@ BEGIN
 END
 GO
 ------------------------------------------
-SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Apellido
-select * from Pacientes
+-- Probar el procedimiento para obtener usuarios con roles
+EXEC usp_ObtenerUsuariosConRoles;
+
+-- Probar el procedimiento para buscar usuarios
+EXEC usp_buscar_usuarios @nombre = 'Luis';
+
+-- Probar el procedimiento para el mantenimiento de usuarios
+DECLARE @accion VARCHAR(50) = '3';
+EXEC usp_mantenedor_usuarios 
+    @IdUsuario = NULL, 
+    @Nombres = 'Juan Pérez', 
+    @Usuario = 'juanp', 
+    @Clave = '123', 
+    @IdRol = 2, 
+    @Activo = 1, 
+    @accion = @accion OUTPUT;
+SELECT @accion;
 
 ------------------------------------------
 -- CREATE PROCEDURE usp_AgregarCirugia

@@ -16,12 +16,23 @@ namespace CapaPresentacion
 {
     public partial class frmUsuarios : Form
     {
-        ClassEntidad objent = new ClassEntidad();
-        ClassNegocio objneg = new ClassNegocio();
+        EntidadUsuarios objent = new EntidadUsuarios();
+        NegocioUsuarios objneg = new NegocioUsuarios();
 
         public frmUsuarios()
         {
             InitializeComponent();
+        }
+
+        void mantenedor(String accion)
+        {
+            objent.Nombres = txtNombreUsuario.Text;
+            objent.IdRol = Convert.ToInt32(cboRol.SelectedValue);
+            objent.Usuario = txtUsuario.Text;
+            objent.Clave = txtClave.Text;
+            objent.accion = accion;
+            string men = objneg.N_mantenedor_usuario(objent);
+            MessageBox.Show(men, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         void Limpiar()
@@ -31,29 +42,50 @@ namespace CapaPresentacion
             txtUsuario.Text = "";
             txtClave.Text = "";
             txtBuscarUsuario.Text = "";
-            dgvUsuarios.DataSource = objneg.N_ObtenerUsuariosConRoles();
+            CargarUsuarios();
         }
 
-        void RellenarRol()
+        void CargarCombobox()
         {
             cboRol.DataSource = objneg.N_ObtenerRoles();
             cboRol.DisplayMember = "Nombre";
             cboRol.ValueMember = "IdRol";
         }
 
+        private void CargarUsuarios()
+        {
+            dgvUsuarios.DataSource = objneg.N_ObtenerUsuariosConRoles();
+            dgvUsuarios.Refresh();
+        }
+
         private void añadirUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("¿Deseas registrar a " + txtNombreUsuario.Text + "?", "Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                mantenedor("1");
+                Limpiar();
+            }
         }
 
         private void modificarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("¿Deseas modificar a " + txtNombreUsuario.Text + "?", "Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                mantenedor("2");
+                Limpiar();
+            }
         }
 
         private void eliminarUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("¿Deseas eliminar a " + txtNombreUsuario.Text + "?", "Mensaje",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                mantenedor("3");
+                Limpiar();
+            }
         }
 
         private void txtBuscarUsuario_TextChanged(object sender, EventArgs e)
@@ -74,6 +106,13 @@ namespace CapaPresentacion
             cboRol.Text = Rol;
             txtUsuario.Text = Usuario;
             txtClave.Text = Clave;
+        }
+
+        private void frmUsuarios_Load(object sender, EventArgs e)
+        {
+            CargarCombobox();
+            CargarUsuarios();
+            Limpiar();
         }
     }
 }

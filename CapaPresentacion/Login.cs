@@ -15,8 +15,8 @@ namespace CapaPresentacion
 {
     public partial class Login : Form
     {
-        ClassEntidad objent = new ClassEntidad();
-        ClassNegocio objneg = new ClassNegocio();
+        EntidadLogin objent = new EntidadLogin();
+        NegocioLogin objneg = new NegocioLogin();
 
         public Login()
         {
