@@ -58,6 +58,14 @@
             this.lblHora = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPacientes = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
@@ -111,7 +119,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.txtCodigo);
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.cboEstadia);
             this.groupBox1.Controls.Add(this.label14);
@@ -140,7 +156,7 @@
             this.txtCodigo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtCodigo.Enabled = false;
             this.txtCodigo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCodigo.Location = new System.Drawing.Point(19, 57);
+            this.txtCodigo.Location = new System.Drawing.Point(10, 48);
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(112, 27);
             this.txtCodigo.TabIndex = 84;
@@ -150,7 +166,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label6.Location = new System.Drawing.Point(15, 33);
+            this.label6.Location = new System.Drawing.Point(6, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(68, 21);
             this.label6.TabIndex = 83;
@@ -160,7 +176,7 @@
             // 
             this.cboEstadia.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboEstadia.FormattingEnabled = true;
-            this.cboEstadia.Location = new System.Drawing.Point(491, 115);
+            this.cboEstadia.Location = new System.Drawing.Point(530, 102);
             this.cboEstadia.Name = "cboEstadia";
             this.cboEstadia.Size = new System.Drawing.Size(88, 29);
             this.cboEstadia.TabIndex = 81;
@@ -170,7 +186,7 @@
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label14.Location = new System.Drawing.Point(487, 91);
+            this.label14.Location = new System.Drawing.Point(526, 78);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(68, 21);
             this.label14.TabIndex = 80;
@@ -180,7 +196,7 @@
             // 
             this.cboCamilla.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCamilla.FormattingEnabled = true;
-            this.cboCamilla.Location = new System.Drawing.Point(385, 114);
+            this.cboCamilla.Location = new System.Drawing.Point(424, 101);
             this.cboCamilla.Name = "cboCamilla";
             this.cboCamilla.Size = new System.Drawing.Size(88, 29);
             this.cboCamilla.TabIndex = 79;
@@ -190,7 +206,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label8.Location = new System.Drawing.Point(381, 90);
+            this.label8.Location = new System.Drawing.Point(420, 77);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(69, 21);
             this.label8.TabIndex = 78;
@@ -200,9 +216,9 @@
             // 
             this.cboTipoHabitacion.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboTipoHabitacion.FormattingEnabled = true;
-            this.cboTipoHabitacion.Location = new System.Drawing.Point(19, 114);
+            this.cboTipoHabitacion.Location = new System.Drawing.Point(10, 102);
             this.cboTipoHabitacion.Name = "cboTipoHabitacion";
-            this.cboTipoHabitacion.Size = new System.Drawing.Size(218, 29);
+            this.cboTipoHabitacion.Size = new System.Drawing.Size(273, 29);
             this.cboTipoHabitacion.TabIndex = 77;
             // 
             // menuStrip1
@@ -215,7 +231,7 @@
             this.eliminarToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(449, 166);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(467, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(347, 24);
             this.menuStrip1.TabIndex = 94;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -252,7 +268,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label7.Location = new System.Drawing.Point(15, 90);
+            this.label7.Location = new System.Drawing.Point(6, 78);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(157, 21);
             this.label7.TabIndex = 76;
@@ -262,7 +278,7 @@
             // 
             this.cboHabitacion.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboHabitacion.FormattingEnabled = true;
-            this.cboHabitacion.Location = new System.Drawing.Point(250, 115);
+            this.cboHabitacion.Location = new System.Drawing.Point(289, 102);
             this.cboHabitacion.Name = "cboHabitacion";
             this.cboHabitacion.Size = new System.Drawing.Size(116, 29);
             this.cboHabitacion.TabIndex = 75;
@@ -272,7 +288,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label4.Location = new System.Drawing.Point(247, 91);
+            this.label4.Location = new System.Drawing.Point(286, 78);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 21);
             this.label4.TabIndex = 70;
@@ -282,7 +298,7 @@
             // 
             this.txtDni.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDni.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDni.Location = new System.Drawing.Point(427, 58);
+            this.txtDni.Location = new System.Drawing.Point(352, 48);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(115, 27);
             this.txtDni.TabIndex = 69;
@@ -292,7 +308,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(426, 33);
+            this.label3.Location = new System.Drawing.Point(348, 24);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 21);
             this.label3.TabIndex = 68;
@@ -302,7 +318,7 @@
             // 
             this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNombre.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(174, 57);
+            this.txtNombre.Location = new System.Drawing.Point(128, 48);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(218, 27);
             this.txtNombre.TabIndex = 67;
@@ -312,7 +328,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label2.Location = new System.Drawing.Point(170, 33);
+            this.label2.Location = new System.Drawing.Point(124, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 21);
             this.label2.TabIndex = 66;
@@ -363,6 +379,86 @@
             this.dgvPacientes.Size = new System.Drawing.Size(803, 258);
             this.dgvPacientes.TabIndex = 87;
             this.dgvPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellContentClick);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(674, 48);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(122, 27);
+            this.textBox1.TabIndex = 95;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
+            this.label11.Location = new System.Drawing.Point(670, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(65, 21);
+            this.label11.TabIndex = 96;
+            this.label11.Text = "Celular";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
+            this.label12.Location = new System.Drawing.Point(6, 134);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(83, 21);
+            this.label12.TabIndex = 97;
+            this.label12.Text = "Dirección";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(10, 158);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(418, 27);
+            this.textBox2.TabIndex = 98;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
+            this.label13.Location = new System.Drawing.Point(471, 24);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(69, 21);
+            this.label13.TabIndex = 99;
+            this.label13.Text = "Género";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "F",
+            "M",
+            "..."});
+            this.comboBox1.Location = new System.Drawing.Point(475, 46);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(65, 29);
+            this.comboBox1.TabIndex = 100;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
+            this.label15.Location = new System.Drawing.Point(546, 24);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(100, 21);
+            this.label15.TabIndex = 101;
+            this.label15.Text = "Fecha Nac.";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Location = new System.Drawing.Point(550, 48);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(119, 24);
+            this.dateTimePicker1.TabIndex = 102;
             // 
             // frmHospitalizacion
             // 
@@ -423,5 +519,13 @@
         private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarSalidaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
