@@ -37,25 +37,27 @@ CREATE TABLE USUARIOS (
 -- Tabla Pacientes
 CREATE TABLE Pacientes (
     IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(100) NOT NULL,
-    DNI INT NOT NULL
+	Codigo varchar(5),
+    Nombre VARCHAR(100),
+    DNI INT
 );
+
 
 -- Tabla Estadias
 CREATE TABLE Estadias (
-    IdEstadia INT PRIMARY KEY,
+    IdEstadia INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(50) NOT NULL
 );
 
 -- Tabla Habitaciones
 CREATE TABLE Habitaciones (
-    IdHabitacion INT PRIMARY KEY,
+    IdHabitacion INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL
 );
 
 -- Tabla TipoHabitaciones
 CREATE TABLE TipoHabitacion (
-    IdTipoHabitacion INT PRIMARY KEY,
+    IdTipoHabitacion INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100) NOT NULL
 );
 
@@ -73,26 +75,26 @@ CREATE TABLE Hospitalizaciones (
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
     IdMedico INT NULL,
-    IdTipoHabitacion INT NULL, -- Nueva columna para relacionar con TipoHabitacion
+    IdTipoHabitacion INT NOT NULL,
     FechaIngreso DATE NOT NULL,
     HoraIngreso TIME NOT NULL,
     FechaSalida DATE NULL,
     HoraSalida TIME NULL,
-    Estado NVARCHAR(50)
+    Estado NVARCHAR(50),
     FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
     FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
     FOREIGN KEY (IdMedico) REFERENCES USUARIOS(IdUsuario),
-    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion) -- Restricción de clave externa
+    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion)
 );
 
-
+-- Tabla Cirugias
 CREATE TABLE Cirugias (
     IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
     TipoCirugia NVARCHAR(100) NOT NULL,
     IdPaciente INT NOT NULL,
-    NombrePaciente NVARCHAR(100) NOT NULL, -- Nueva columna para el nombre del paciente
+    NombrePaciente NVARCHAR(100) NOT NULL,
     Sala NVARCHAR(50) NOT NULL,
     Turno NVARCHAR(20) NOT NULL,
     FechaCirugia DATETIME NOT NULL,
@@ -107,52 +109,3 @@ ORDER BY u.IdUsuario
 
 select Nombres from USUARIOS where IdRol = 3
 
-
-
-SELECT
-    ho.IdHospitalizacion AS ID_Hospitalizacion,
-    p.Nombre AS Nombre_Paciente,
-    p.DNI AS Dni_Paciente,
-    e.Nombre AS Estadia,
-    c.Nombre AS Camilla,
-    h.Nombre AS Habitacion,
-    th.Nombre AS Tipo_Habitacion,
-    ho.FechaIngreso AS FechaIngreso,
-    ho.HoraIngreso AS HoraIngreso,
-    ho.FechaSalida AS FechaSalida,
-    ho.HoraSalida AS HoraSalida
-FROM 
-    Hospitalizaciones ho
-INNER JOIN 
-    Pacientes p ON ho.IdPaciente = p.IdPaciente
-LEFT JOIN 
-    Estadias e ON ho.IdEstadia = e.IdEstadia
-LEFT JOIN 
-    Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
-LEFT JOIN 
-    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion -- Relación con TipoHabitacion
-LEFT JOIN 
-    Camillas c ON ho.IdCamilla = c.IdCamilla
-GROUP BY
-    ho.IdHospitalizacion,
-    p.Nombre,
-    p.DNI,
-    e.Nombre,
-    c.Nombre,
-    h.Nombre,
-    th.Nombre,
-    ho.FechaIngreso,
-    ho.HoraIngreso,
-    ho.FechaSalida,
-    ho.HoraSalida;
-
-SELECT 
-                          p.Nombre AS NombrePaciente,
-                            p.DNI,
-                            h.Nombre AS NombreHabitacion,
-                            c.Nombre AS NombreCamilla
-                        FROM 
-                            Pacientes p
-                            INNER JOIN Habitaciones h ON p.IdPaciente = h.IdHabitacion
-                            INNER JOIN Camillas c ON h.IdHabitacion = c.IdCamilla
-                       

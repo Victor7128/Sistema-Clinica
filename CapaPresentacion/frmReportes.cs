@@ -1,5 +1,4 @@
-﻿using CapaDatos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,27 +16,6 @@ namespace CapaPresentacion
         public frmReportes()
         {
             InitializeComponent();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmReportes_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }

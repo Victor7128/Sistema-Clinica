@@ -72,7 +72,6 @@
             this.btnBuscarPaciente.TabIndex = 11;
             this.btnBuscarPaciente.Text = "Buscar";
             this.btnBuscarPaciente.UseVisualStyleBackColor = true;
-            this.btnBuscarPaciente.Click += new System.EventHandler(this.btnBuscarPaciente_Click);
             // 
             // txtApellidoBuscar
             // 

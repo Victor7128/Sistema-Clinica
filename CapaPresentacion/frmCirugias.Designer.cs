@@ -56,10 +56,9 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label1.Location = new System.Drawing.Point(16, 37);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(423, 49);
+            this.label1.Size = new System.Drawing.Size(337, 39);
             this.label1.TabIndex = 42;
             this.label1.Text = "REGISTRAR CIRUGÍAS";
             // 
@@ -68,10 +67,9 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label5.Location = new System.Drawing.Point(20, 122);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(15, 99);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(153, 23);
+            this.label5.Size = new System.Drawing.Size(124, 21);
             this.label5.TabIndex = 73;
             this.label5.Text = "Tipo de cirugía";
             // 
@@ -80,10 +78,9 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label6.Location = new System.Drawing.Point(20, 199);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(15, 162);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(239, 23);
+            this.label6.Size = new System.Drawing.Size(190, 21);
             this.label6.TabIndex = 75;
             this.label6.Text = "Paciente Seleccionado";
             // 
@@ -92,10 +89,9 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label2.Location = new System.Drawing.Point(512, 417);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(384, 339);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(195, 23);
+            this.label2.Size = new System.Drawing.Size(154, 21);
             this.label2.TabIndex = 77;
             this.label2.Text = "Detalles de cirugía";
             // 
@@ -103,41 +99,35 @@
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 366);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Location = new System.Drawing.Point(19, 297);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(377, 305);
+            this.dataGridView1.Size = new System.Drawing.Size(283, 248);
             this.dataGridView1.TabIndex = 79;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // txtPacSelecC
             // 
             this.txtPacSelecC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPacSelecC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPacSelecC.Location = new System.Drawing.Point(25, 229);
-            this.txtPacSelecC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPacSelecC.Location = new System.Drawing.Point(19, 186);
             this.txtPacSelecC.Name = "txtPacSelecC";
-            this.txtPacSelecC.Size = new System.Drawing.Size(377, 32);
+            this.txtPacSelecC.Size = new System.Drawing.Size(283, 27);
             this.txtPacSelecC.TabIndex = 80;
             // 
             // btnBuscarPaciente
             // 
             this.btnBuscarPaciente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscarPaciente.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarPaciente.Location = new System.Drawing.Point(288, 310);
-            this.btnBuscarPaciente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBuscarPaciente.Location = new System.Drawing.Point(216, 252);
             this.btnBuscarPaciente.Name = "btnBuscarPaciente";
-            this.btnBuscarPaciente.Size = new System.Drawing.Size(115, 37);
+            this.btnBuscarPaciente.Size = new System.Drawing.Size(86, 30);
             this.btnBuscarPaciente.TabIndex = 81;
             this.btnBuscarPaciente.Text = "Buscar";
             this.btnBuscarPaciente.UseVisualStyleBackColor = true;
-            this.btnBuscarPaciente.Click += new System.EventHandler(this.btnBuscarPaciente_Click_1);
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(517, 199);
-            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(12, 11, 12, 11);
+            this.monthCalendar1.Location = new System.Drawing.Point(388, 162);
             this.monthCalendar1.Name = "monthCalendar1";
             this.monthCalendar1.TabIndex = 82;
             // 
@@ -146,10 +136,9 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(512, 119);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(384, 97);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 23);
+            this.label3.Size = new System.Drawing.Size(43, 21);
             this.label3.TabIndex = 83;
             this.label3.Text = "Sala";
             // 
@@ -158,10 +147,9 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label4.Location = new System.Drawing.Point(643, 119);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(482, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 23);
+            this.label4.Size = new System.Drawing.Size(47, 21);
             this.label4.TabIndex = 85;
             this.label4.Text = "Hora";
             // 
@@ -171,14 +159,12 @@
             this.btnRegCirugC.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRegCirugC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegCirugC.ForeColor = System.Drawing.Color.Black;
-            this.btnRegCirugC.Location = new System.Drawing.Point(852, 199);
-            this.btnRegCirugC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRegCirugC.Location = new System.Drawing.Point(639, 162);
             this.btnRegCirugC.Name = "btnRegCirugC";
-            this.btnRegCirugC.Size = new System.Drawing.Size(212, 70);
+            this.btnRegCirugC.Size = new System.Drawing.Size(159, 57);
             this.btnRegCirugC.TabIndex = 87;
             this.btnRegCirugC.Text = "Registrar Cirugía";
             this.btnRegCirugC.UseVisualStyleBackColor = false;
-            this.btnRegCirugC.Click += new System.EventHandler(this.btnRegCirugC_Click);
             // 
             // btnMostListCirugC
             // 
@@ -186,23 +172,20 @@
             this.btnMostListCirugC.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMostListCirugC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMostListCirugC.ForeColor = System.Drawing.Color.White;
-            this.btnMostListCirugC.Location = new System.Drawing.Point(852, 277);
-            this.btnMostListCirugC.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMostListCirugC.Location = new System.Drawing.Point(639, 225);
             this.btnMostListCirugC.Name = "btnMostListCirugC";
-            this.btnMostListCirugC.Size = new System.Drawing.Size(212, 70);
+            this.btnMostListCirugC.Size = new System.Drawing.Size(159, 57);
             this.btnMostListCirugC.TabIndex = 88;
             this.btnMostListCirugC.Text = "Lista de Cirugías";
             this.btnMostListCirugC.UseVisualStyleBackColor = false;
-            this.btnMostListCirugC.Click += new System.EventHandler(this.btnMostListCirugC_Click);
             // 
             // txtApellidoBuscar
             // 
             this.txtApellidoBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtApellidoBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApellidoBuscar.Location = new System.Drawing.Point(25, 311);
-            this.txtApellidoBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtApellidoBuscar.Location = new System.Drawing.Point(19, 253);
             this.txtApellidoBuscar.Name = "txtApellidoBuscar";
-            this.txtApellidoBuscar.Size = new System.Drawing.Size(247, 32);
+            this.txtApellidoBuscar.Size = new System.Drawing.Size(186, 27);
             this.txtApellidoBuscar.TabIndex = 91;
             // 
             // label7
@@ -210,10 +193,9 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label7.Location = new System.Drawing.Point(20, 282);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(15, 229);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(167, 23);
+            this.label7.Size = new System.Drawing.Size(135, 21);
             this.label7.TabIndex = 90;
             this.label7.Text = "Buscar Paciente";
             // 
@@ -221,49 +203,47 @@
             // 
             this.txtTipoCirugC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTipoCirugC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTipoCirugC.Location = new System.Drawing.Point(26, 150);
-            this.txtTipoCirugC.Margin = new System.Windows.Forms.Padding(4);
+            this.txtTipoCirugC.Location = new System.Drawing.Point(20, 122);
             this.txtTipoCirugC.Name = "txtTipoCirugC";
-            this.txtTipoCirugC.Size = new System.Drawing.Size(377, 32);
+            this.txtTipoCirugC.Size = new System.Drawing.Size(283, 27);
             this.txtTipoCirugC.TabIndex = 92;
             // 
             // txtSalaC
             // 
             this.txtSalaC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSalaC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSalaC.Location = new System.Drawing.Point(516, 152);
-            this.txtSalaC.Margin = new System.Windows.Forms.Padding(4);
+            this.txtSalaC.Location = new System.Drawing.Point(387, 124);
             this.txtSalaC.Name = "txtSalaC";
-            this.txtSalaC.Size = new System.Drawing.Size(106, 32);
+            this.txtSalaC.Size = new System.Drawing.Size(80, 27);
             this.txtSalaC.TabIndex = 93;
             // 
             // txtHoraC
             // 
             this.txtHoraC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHoraC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHoraC.Location = new System.Drawing.Point(647, 152);
-            this.txtHoraC.Margin = new System.Windows.Forms.Padding(4);
+            this.txtHoraC.Location = new System.Drawing.Point(485, 124);
             this.txtHoraC.Name = "txtHoraC";
-            this.txtHoraC.Size = new System.Drawing.Size(106, 32);
+            this.txtHoraC.Size = new System.Drawing.Size(80, 27);
             this.txtHoraC.TabIndex = 94;
             // 
             // dataGridView2
             // 
             this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(517, 452);
+            this.dataGridView2.Location = new System.Drawing.Point(388, 367);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(547, 219);
+            this.dataGridView2.Size = new System.Drawing.Size(410, 178);
             this.dataGridView2.TabIndex = 95;
             // 
             // frmCirugias
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1103, 705);
+            this.ClientSize = new System.Drawing.Size(827, 573);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.txtHoraC);
             this.Controls.Add(this.txtSalaC);
@@ -283,7 +263,6 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmCirugias";
             this.Text = "Cirugias";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

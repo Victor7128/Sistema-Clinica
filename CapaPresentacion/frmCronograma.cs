@@ -1,5 +1,4 @@
-﻿using CapaDatos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,11 +15,6 @@ namespace CapaPresentacion
         public frmCronograma()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            dtCronograma.DataSource = CD_Cirugia.ObtenerCirugias();
         }
     }
 }

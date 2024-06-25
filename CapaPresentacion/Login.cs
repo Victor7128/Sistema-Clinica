@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaDatos;
 using CapaEntidad;
 using CapaNegocio;
 
@@ -16,6 +15,9 @@ namespace CapaPresentacion
 {
     public partial class Login : Form
     {
+        ClassEntidad objent = new ClassEntidad();
+        ClassNegocio objneg = new ClassNegocio();
+
         public Login()
         {
             InitializeComponent();
@@ -25,7 +27,7 @@ namespace CapaPresentacion
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            int idusuario_esperado = CD_Usuario.Loguear(txtUsuario.Text, txtClave.Text);
+            int idusuario_esperado = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
 
             if (idusuario_esperado != 0)
             {

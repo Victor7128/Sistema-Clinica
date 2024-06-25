@@ -135,12 +135,6 @@
     <Compile Include="frmHospitalizacion.Designer.cs">
       <DependentUpon>frmHospitalizacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="RegistrarSalida.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RegistrarSalida.Designer.cs">
-      <DependentUpon>RegistrarSalida.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="frmCirugias.resx">
       <DependentUpon>frmCirugias.cs</DependentUpon>
     </EmbeddedResource>
@@ -186,9 +180,6 @@
     <EmbeddedResource Include="frmHospitalizacion.resx">
       <DependentUpon>frmHospitalizacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegistrarSalida.resx">
-      <DependentUpon>RegistrarSalida.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -215,10 +206,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CapaDatos\CapaDatos.csproj">
-      <Project>{94da0f0d-e891-4640-a9ab-b0318e5486ca}</Project>
-      <Name>CapaDatos</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CapaEntidad\CapaEntidad.csproj">
       <Project>{32ff6ec9-672b-4f4b-ab61-19a77c700bbb}</Project>
       <Name>CapaEntidad</Name>

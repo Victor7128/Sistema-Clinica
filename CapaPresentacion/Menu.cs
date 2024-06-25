@@ -9,13 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using CapaDatos;
 using CapaEntidad;
+using CapaNegocio;
 
 namespace CapaPresentacion
 {
     public partial class Menu : Form
     {
+        ClassEntidad objent = new ClassEntidad();
+        ClassNegocio objneg = new ClassNegocio();
         private int idusuario;
 
         public Menu(int idusuario_esperado = 0)
@@ -27,7 +29,7 @@ namespace CapaPresentacion
 
         private void Menu_Load(object sender, EventArgs e)
         {
-            List<CapaEntidad.Menu> permisos_esperados = CD_Usuario.ObtenerPermisos(idusuario);
+            List<CapaEntidad.Menu> permisos_esperados = objneg.N_ObtenerPermisos(idusuario);
 
             MenuStrip menuStrip = new MenuStrip();
 

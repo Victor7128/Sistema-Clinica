@@ -10,28 +10,28 @@ namespace CapaDatos
 {
     public class CD_Paciente
     {
-        public static DataTable ObtenerPacientesPorApellido(string apellido)
-        {
-            DataTable dtPacientes = new DataTable();
+        //public static DataTable ObtenerPacientesPorApellido(string apellido)
+        //{
+        //    DataTable dtPacientes = new DataTable();
 
-            using (SqlConnection cn = new SqlConnection(Conexion.cn))
-            {
-                string query = "SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Apellido";
-                SqlDataAdapter adapter = new SqlDataAdapter(query, cn);
-                adapter.SelectCommand.Parameters.AddWithValue("@Apellido", "%" + apellido + "%");
+        //    using (SqlConnection cn = new SqlConnection(Conexion.cn))
+        //    {
+        //        string query = "SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Apellido";
+        //        SqlDataAdapter adapter = new SqlDataAdapter(query, cn);
+        //        adapter.SelectCommand.Parameters.AddWithValue("@Apellido", "%" + apellido + "%");
 
-                try
-                {
-                    cn.Open();
-                    adapter.Fill(dtPacientes);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error al obtener pacientes por apellido.", ex);
-                }
-            }
+        //        try
+        //        {
+        //            cn.Open();
+        //            adapter.Fill(dtPacientes);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw new Exception("Error al obtener pacientes por apellido.", ex);
+        //        }
+        //    }
 
-            return dtPacientes;
-        }
+        //    return dtPacientes;
+        //}
     }
 }

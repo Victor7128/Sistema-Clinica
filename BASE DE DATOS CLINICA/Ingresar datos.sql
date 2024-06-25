@@ -83,97 +83,79 @@ INSERT INTO USUARIOS(Nombres, Usuario, Clave, IdRol, Activo) VALUES
 ('Victor Tuesta', 'Victor', 'administrador', 5, 1); -- Administrador
 
 -- Insertar registros por defecto en Estadias
-INSERT INTO Estadias (IdEstadia, Nombre)
-VALUES (2, '2'),
-       (3, '3'),
-       (4, '4'),
-       (5, '5'),
-       (6, '6'),
-       (7, '7'),
-       (8, 'Indefinido');
+INSERT INTO Estadias (Nombre)
+VALUES ('2'),
+       ('3'),
+       ('4'),
+       ('5'),
+       ('6'),
+       ('7'),
+       ('Indefinido');
 
 -- Insertar registros en Tipo de Habitación
-INSERT INTO TipoHabitacion (IdTipoHabitacion, Nombre)
-VALUES (1, 'Hab. Priv. + AC'),
-       (2, 'Hab. Priv. + Ventilador'),
-       (3, 'Hab. Comp. + AC'),
-       (4, 'Hab. Com. + Ventilador');
+INSERT INTO TipoHabitacion (Nombre)
+VALUES ('Hab. Priv. + AC'),
+       ('Hab. Priv. + Ventilador'),
+       ('Hab. Comp. + AC'),
+       ('Hab. Com. + Ventilador');
 
 	  
 
 -- Insertar registros en la tabla Habitación
-INSERT INTO Habitaciones (IdHabitacion, Nombre)
+INSERT INTO Habitaciones (Nombre)
 VALUES 
-    (1, '101'),
-    (2, '102'),
-    (3, '103'),
-    (4, '104'),
-    (5, '105'),
-    (6, '106'),
-    (7, '107'),
-    (8, '108'),
-    (9, '109'),
-    (10, '110'),
-    (11, '201'),
-    (12, '202'),
-    (13, '203'),
-    (14, '204'),
-    (15, '205'),
-    (16, '206'),
-    (17, '207'),
-    (18, '208'),
-    (19, '209'),
-    (20, '210'),
-    (21, '301'),
-    (22, '302'),
-    (23, '303'),
-    (24, '304'),
-    (25, '305'),
-    (26, '306'),
-    (27, '307'),
-    (28, '308'),
-    (29, '309'),
-    (30, '310'),
-    (31, '401-A'),
-    (32, '402-A'),
-    (33, '403-A'),
-    (34, '404-A'),
-    (35, '405-A'),
-    (36, '406-A'),
-    (37, '407-A'),
-    (38, '408-A'),
-    (39, '409-A'),
-    (40, '410-A'),
-    (41, '401-B'),
-    (42, '402-B'),
-    (43, '403-B'),
-    (44, '404-B'),
-    (45, '405-B'),
-    (46, '406-B'),
-    (47, '407-B'),
-    (48, '408-B'),
-    (49, '409-B'),
-    (50, '410-B');
+    ('101'),
+    ('102'),
+    ('103'),
+    ('104'),
+    ('105'),
+    ('106'),
+    ('107'),
+    ('108'),
+    ('109'),
+    ('110'),
+    ('201'),
+    ('202'),
+    ('203'),
+    ('204'),
+    ('205'),
+    ('206'),
+    ('207'),
+    ('208'),
+    ('209'),
+    ('210'),
+    ('301'),
+    ('302'),
+    ('303'),
+    ('304'),
+    ('305'),
+    ('306'),
+    ('307'),
+    ('308'),
+    ('309'),
+    ('310'),
+    ('401-A'),
+    ('402-A'),
+    ('403-A'),
+    ('404-A'),
+    ('405-A'),
+    ('406-A'),
+    ('407-A'),
+    ('408-A'),
+    ('409-A'),
+    ('410-A'),
+    ('401-B'),
+    ('402-B'),
+    ('403-B'),
+    ('404-B'),
+    ('405-B'),
+    ('406-B'),
+    ('407-B'),
+    ('408-B'),
+    ('409-B'),
+    ('410-B');
 
 -- Insertar registros iniciales en la tabla Camilla
 INSERT INTO Camillas (Nombre)
 VALUES (1),
        (2);
-
-INSERT INTO Pacientes (Nombre, DNI) VALUES 
-('Juan Pérez', 12345678),
-('María López', 87654321),
-('Carlos Ruiz', 11223344),
-('Ana Martínez', 44332211),
-('Pedro Sánchez', 55667788);
-
-
-SELECT 
-    p.Nombre AS NombrePaciente,
-    p.DNI,
-    h.Nombre AS NombreHabitacion,
-    c.Nombre AS NombreCamilla
-FROM 
-    Pacientes p
-    INNER JOIN Habitaciones h ON p.IdPaciente = h.IdHabitacion
-    INNER JOIN Camillas c ON h.IdHabitacion = c.IdCamilla;

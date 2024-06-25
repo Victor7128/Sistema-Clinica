@@ -41,7 +41,6 @@
             this.txtNombreUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnBuscarUsuario = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
@@ -139,7 +138,6 @@
             this.btnGuardarUsuarios.TabIndex = 28;
             this.btnGuardarUsuarios.Text = "Guardar Cambios";
             this.btnGuardarUsuarios.UseVisualStyleBackColor = false;
-            this.btnGuardarUsuarios.Click += new System.EventHandler(this.btnGuardarUsuarios_Click);
             // 
             // txtUsuario
             // 
@@ -162,7 +160,6 @@
             this.btnAgregarUsuario.TabIndex = 25;
             this.btnAgregarUsuario.Text = "Nuevo";
             this.btnAgregarUsuario.UseVisualStyleBackColor = false;
-            this.btnAgregarUsuario.Click += new System.EventHandler(this.btnAgregarUsuario_Click);
             // 
             // label4
             // 
@@ -197,7 +194,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnBuscarUsuario);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.dgvUsuarios);
@@ -209,19 +205,6 @@
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Lista de Usuarios";
-            // 
-            // btnBuscarUsuario
-            // 
-            this.btnBuscarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.btnBuscarUsuario.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscarUsuario.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarUsuario.ForeColor = System.Drawing.Color.Black;
-            this.btnBuscarUsuario.Location = new System.Drawing.Point(306, 22);
-            this.btnBuscarUsuario.Name = "btnBuscarUsuario";
-            this.btnBuscarUsuario.Size = new System.Drawing.Size(132, 30);
-            this.btnBuscarUsuario.TabIndex = 29;
-            this.btnBuscarUsuario.Text = "Buscar";
-            this.btnBuscarUsuario.UseVisualStyleBackColor = false;
             // 
             // textBox1
             // 
@@ -251,7 +234,6 @@
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.Size = new System.Drawing.Size(784, 257);
             this.dgvUsuarios.TabIndex = 0;
-            this.dgvUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellClick);
             // 
             // groupBox3
             // 
@@ -299,7 +281,6 @@
             this.btnEliminarUsuario.TabIndex = 30;
             this.btnEliminarUsuario.Text = "Eliminar";
             this.btnEliminarUsuario.UseVisualStyleBackColor = false;
-            this.btnEliminarUsuario.Click += new System.EventHandler(this.btnEliminarUsuario_Click);
             // 
             // frmUsuarios
             // 
@@ -314,7 +295,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUsuarios";
             this.Text = "Usuarios";
-            this.Load += new System.EventHandler(this.frmUsuarios_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -347,7 +327,6 @@
         private System.Windows.Forms.TextBox txtIdUsuario;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnEliminarUsuario;
-        private System.Windows.Forms.Button btnBuscarUsuario;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label7;
     }
