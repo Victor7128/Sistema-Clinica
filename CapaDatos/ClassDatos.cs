@@ -17,36 +17,6 @@ namespace CapaDatos
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["sql"].ConnectionString);
 
         //Login
-        public DataTable ObtenerUsuariosConRoles()
-        {
-            SqlCommand cmd = new SqlCommand("usp_ObtenerUsuariosConRoles", cn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            cmd.CommandType = CommandType.StoredProcedure;
-            da.Fill(dt);
-            return dt;
-        }
-
-        public DataTable ObtenerRoles()
-        {
-            SqlCommand cmd = new SqlCommand("usp_ObtenerRoles", cn);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            cmd.CommandType = CommandType.StoredProcedure;
-            da.Fill(dt);
-            return dt;
-        }
-
-        public DataTable ObtenerUsuarios()
-        {   
-            SqlCommand cmd = new SqlCommand("usp_ObtenerUsuarios", cn);            
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            cmd.CommandType = CommandType.StoredProcedure;
-            da.Fill(dt);
-            return dt;
-        }
-
         public int Loguear(string usuario, string clave)
         {
             int idusuario = 0;
@@ -92,7 +62,6 @@ namespace CapaDatos
             cn.Close();
             return permisos;
         }
-
 
         public int RegistrarUsuario(string nombres, string usuario, string clave, int idRol)
         {
@@ -195,6 +164,48 @@ namespace CapaDatos
             accion = cmd.Parameters["@accion"].Value.ToString();
             cn.Close();
             return accion;
+        }
+
+        //Usuarios
+        public DataTable ObtenerUsuariosConRoles()
+        {
+            SqlCommand cmd = new SqlCommand("usp_ObtenerUsuariosConRoles", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            cmd.CommandType = CommandType.StoredProcedure;
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable ObtenerRoles()
+        {
+            SqlCommand cmd = new SqlCommand("usp_ObtenerRoles", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            cmd.CommandType = CommandType.StoredProcedure;
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable ObtenerUsuarios()
+        {
+            SqlCommand cmd = new SqlCommand("usp_ObtenerUsuarios", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            cmd.CommandType = CommandType.StoredProcedure;
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable D_buscar_usuarios(string nombre)
+        {
+            SqlCommand cmd = new SqlCommand("usp_buscar_usuarios", cn);
+            DataTable dt = new DataTable();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@nombre", nombre);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            da.Fill(dt);
+            return dt;
         }
     }
 }

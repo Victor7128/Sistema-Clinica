@@ -3,15 +3,23 @@ use CLinica
 -- Obtener Usuarios
 CREATE PROCEDURE usp_ObtenerUsuarios
 as
-SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
-FROM USUARIOS u
-inner JOIN ROL r ON u.IdRol = r.IdRol
-ORDER BY u.IdUsuario
+SELECT IdUsuario, Nombres, Usuario, Clave, IdRol, Activo FROM USUARIOS
+GO
 ----------------------------------------
 -- Obtener Roles
 CREATE PROCEDURE usp_ObtenerRoles
 as
 SELECT IdRol, Nombre, Activo FROM ROL
+GO
+----------------------------------------
+CREATE PROCEDURE usp_ObtenerUsuariosConRoles
+as
+SELECT u.IdUsuario, u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
+FROM USUARIOS u
+inner JOIN ROL r ON u.IdRol = r.IdRol
+ORDER BY u.IdUsuario
+GO
+----------------------------------------
 -- Procedimiento almacenado para login de usuarios
 CREATE PROCEDURE usp_LoginUsuario
     @Usuario VARCHAR(60),
@@ -53,6 +61,7 @@ BEGIN
     FOR XML PATH(''), ROOT('PERMISOS');
 END;
 GO
+exec usp_ObtenerPermisos 5
 
 -- Procedimiento almacenado para registrar usuario
 CREATE PROCEDURE usp_RegistrarUsuario
@@ -89,29 +98,6 @@ BEGIN
     END TRY
     BEGIN CATCH
         PRINT 'Error al eliminar usuario.';
-    END CATCH
-END;
-GO
-
--- Procedimiento almacenado para actualizar usuario
-CREATE PROCEDURE usp_ActualizarUsuario
-    @IdUsuario INT,
-    @Nombres NVARCHAR(100),
-    @Usuario NVARCHAR(50),
-    @IdRol INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    BEGIN TRY
-        UPDATE USUARIOS
-        SET Nombres = @Nombres,
-            Usuario = @Usuario,
-            IdRol = @IdRol
-        WHERE IdUsuario = @IdUsuario;
-    END TRY
-    BEGIN CATCH
-        THROW;
     END CATCH
 END;
 GO
@@ -270,8 +256,12 @@ BEGIN
     SELECT IdCamilla, Nombre FROM Camillas;
 END
 GO
-----------------------------------
---CREATE PROCEDURE usp_AgregarCirugia
+------------------------------------------
+SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Apellido
+select * from Pacientes
+
+------------------------------------------
+-- CREATE PROCEDURE usp_AgregarCirugia
 --    @TipoCirugia NVARCHAR(100),
 --    @IdPaciente INT,
 --    @NombrePaciente NVARCHAR(100),

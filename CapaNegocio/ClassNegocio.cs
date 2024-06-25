@@ -13,7 +13,7 @@ namespace CapaNegocio
     {
         ClassDatos objd = new ClassDatos();
 
-        //Login
+        //Login y Usuario
         public DataTable N_ObtenerUsuariosConRoles()
         {
             return objd.ObtenerUsuariosConRoles();
@@ -25,6 +25,10 @@ namespace CapaNegocio
         public DataTable N_ObtenerUsuarios()
         {
             return objd.ObtenerUsuarios();
+        }
+        public DataTable N_BuscarUsuarios(string nombre)
+        {
+            return objd.D_buscar_usuarios(nombre);
         }
         public int N_Loguear(string usuario, string clave)
         {

@@ -44,8 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CD_Cirugia.cs" />
-    <Compile Include="CD_Paciente.cs" />
     <Compile Include="CD_Usuario.cs" />
     <Compile Include="ClassDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
