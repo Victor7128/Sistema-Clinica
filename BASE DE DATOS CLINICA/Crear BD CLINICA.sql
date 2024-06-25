@@ -34,14 +34,24 @@ CREATE TABLE USUARIOS (
     Activo BIT
 );
 
--- Tabla Pacientes
-CREATE TABLE Pacientes (
-    IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
-	Codigo varchar(5),
-    Nombre VARCHAR(100),
-    DNI INT
-);
+-- Tabla Genero
+CREATE TABLE Genero (
+	IdGenero INT IDENTITY(1,1) PRIMARY KEY,
+	Nombre varchar(10)
+)
+GO
 
+CREATE TABLE Pacientes(
+	IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
+	Codigo VARCHAR(5),
+	Nombre VARCHAR(100),
+	DNI INT,
+	FechaNacimiento DATE,
+	Telefono INT,
+	Direccion VARCHAR(100),
+	IdGenero INT,
+	FOREIGN KEY (IdGenero) REFERENCES Genero (IdGenero)
+)
 
 -- Tabla Estadias
 CREATE TABLE Estadias (
@@ -74,18 +84,17 @@ CREATE TABLE Hospitalizaciones (
     IdEstadia INT NOT NULL,
     IdHabitacion INT NOT NULL,
     IdCamilla INT NOT NULL,
-    IdMedico INT NULL,
+    IdUsuario INT NULL,	
     IdTipoHabitacion INT NOT NULL,
     FechaIngreso DATE NOT NULL,
     HoraIngreso TIME NOT NULL,
     FechaSalida DATE NULL,
     HoraSalida TIME NULL,
-    Estado NVARCHAR(50),
     FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
     FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
     FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
-    FOREIGN KEY (IdMedico) REFERENCES USUARIOS(IdUsuario),
+    FOREIGN KEY (IdUsuario) REFERENCES USUARIOS(IdUsuario),
     FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion)
 );
 

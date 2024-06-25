@@ -34,6 +34,10 @@ namespace CapaPresentacion
             objent.Codigo = txtCodigo.Text;
             objent.Nombre = txtNombre.Text;
             objent.DNI = Convert.ToInt32(txtDni.Text);
+            objent.FechaNacimiento = dtpFechaNacimiento.Value.Date;
+            objent.Telefono = Convert.ToInt32(txtCelular.Text);
+            objent.Direccion = txtDireccion.Text;
+            objent.IdGenero = Convert.ToInt32(cboGenero.SelectedValue);
             objent.IdEstadia = Convert.ToInt32(cboEstadia.SelectedValue);
             objent.IdCamilla = Convert.ToInt32(cboCamilla.SelectedValue);
             objent.IdHabitacion = Convert.ToInt32(cboHabitacion.SelectedValue);
@@ -50,6 +54,10 @@ namespace CapaPresentacion
             txtCodigo.Text = "";
             txtNombre.Text = "";
             txtDni.Text = "";
+            txtDireccion.Text = "";
+            txtCelular.Text = "";
+            dtpFechaNacimiento.Value = DateTime.Now.Date;
+            cboGenero.SelectedIndex = -1;
             cboEstadia.SelectedIndex = -1;
             cboHabitacion.SelectedIndex = -1;
             cboTipoHabitacion.SelectedIndex = -1;
@@ -59,6 +67,11 @@ namespace CapaPresentacion
 
         void CargarComboboxes()
         {
+            //Cargar datos en cboGenero
+            cboGenero.DataSource = objneg.N_listar_genero();
+            cboGenero.DisplayMember = "Nombre";
+            cboGenero.ValueMember = "IdGenero";
+
             // Cargar datos en cboEstadia
             cboEstadia.DataSource = objneg.N_listar_estadias();
             cboEstadia.DisplayMember = "Nombre";
@@ -163,14 +176,22 @@ namespace CapaPresentacion
             string codigo = dgvPacientes[0, fila].Value?.ToString() ?? string.Empty;
             string nombre = dgvPacientes[1, fila].Value?.ToString() ?? string.Empty;
             string dni = dgvPacientes[2, fila].Value?.ToString() ?? string.Empty;
-            string estadia = dgvPacientes[3, fila].Value.ToString() ?? string.Empty;
-            string camilla = dgvPacientes[4, fila].Value.ToString() ?? string.Empty;
-            string habitacion = dgvPacientes[5, fila].Value.ToString() ?? string.Empty;
+            string fechaNacimiento = dgvPacientes[3, fila].Value.ToString() ?? string.Empty;
+            string telefono = dgvPacientes[4, fila].Value.ToString() ?? string.Empty;
+            string direccion = dgvPacientes[5, fila].Value.ToString() ?? string.Empty;
+            string genero = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
+            string estadia = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
+            string camilla = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
+            string habitacion = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
             string tipohabitacion = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
 
             txtCodigo.Text = codigo;
             txtNombre.Text = nombre;
             txtDni.Text = dni;
+            dtpFechaNacimiento.Text = fechaNacimiento;
+            txtCelular.Text = telefono;
+            txtDireccion.Text = direccion;
+            cboGenero.Text = genero;
             cboEstadia.Text = estadia;
             cboCamilla.Text = camilla;
             cboHabitacion.Text = habitacion;

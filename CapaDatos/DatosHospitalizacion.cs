@@ -65,6 +65,16 @@ namespace CapaDatos
             return dt;
         }
 
+        public DataTable D_listar_genero()
+        {
+            SqlCommand cmd = new SqlCommand("sp_listar_genero", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
         public DataTable D_buscar_pacientes(EntidadHospitalizacion obje)
         {
             SqlCommand cmd = new SqlCommand("sp_buscar_pacientes", cn);
@@ -84,6 +94,10 @@ namespace CapaDatos
             cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
             cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
             cmd.Parameters.AddWithValue("@DNI", obje.DNI);
+            cmd.Parameters.AddWithValue("@FechaNacimiento", obje.FechaNacimiento);
+            cmd.Parameters.AddWithValue("@Telefono", obje.Telefono);
+            cmd.Parameters.AddWithValue("@Direccion", obje.Direccion);
+            cmd.Parameters.AddWithValue("@Genero", obje.IdGenero);
             cmd.Parameters.AddWithValue("@TipoHabitacion", obje.IdTipoHabitacion);
             cmd.Parameters.AddWithValue("@Habitacion", obje.IdHabitacion);
             cmd.Parameters.AddWithValue("@Camilla", obje.IdCamilla);

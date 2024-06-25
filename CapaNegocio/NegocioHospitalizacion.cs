@@ -33,6 +33,10 @@ namespace CapaNegocio
         {
             return objd.D_listar_camillas();
         }
+        public DataTable N_listar_genero()
+        {
+            return objd.D_listar_genero();
+        }
         public DataTable N_buscar_pacientes(EntidadHospitalizacion obje)
         {
             return objd.D_buscar_pacientes(obje);

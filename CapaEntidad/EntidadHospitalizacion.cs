@@ -11,6 +11,10 @@ namespace CapaEntidad
         public String Codigo { get; set; }
         public String Nombre { get; set; }
         public int DNI { get; set; }
+        public DateTime FechaNacimiento { get; set; }
+        public int Telefono { get; set; }
+        public String Direccion { get; set; }
+        public int IdGenero { get; set; }
         public int IdEstadia { get; set; }
         public int IdCamilla { get; set; }
         public int IdHabitacion { get; set; }

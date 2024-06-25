@@ -117,12 +117,16 @@ END;
 GO
 --------------------------------------------------------------------
 -- Procedimiento almacenado para Listar hospitalización
-create proc sp_listar_pacientes
+Create proc sp_listar_pacientes
 as
 SELECT
 	p.Codigo as Codigo,
     p.Nombre AS Nombre,
     p.DNI AS Dni,
+	p.FechaNacimiento as FechaNacimiento,
+	p.Telefono as Telefono,
+	p.Direccion as Direccion,
+	g.Nombre as Genero,
     e.Nombre AS Estadia,
     c.Nombre AS Camilla,
     h.Nombre AS Habitacion,
@@ -143,10 +147,16 @@ LEFT JOIN
     TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion
 LEFT JOIN 
     Camillas c ON ho.IdCamilla = c.IdCamilla
+LEFT JOIN
+	Genero g ON ho.IdPaciente = g.IdGenero
 GROUP BY
 	p.Codigo,
     p.Nombre,
     p.DNI,
+	p.FechaNacimiento,
+	p.Telefono,
+	p.Direccion,
+	g.Nombre,
     e.Nombre,
     c.Nombre,
     h.Nombre,
@@ -160,13 +170,17 @@ go
 create proc sp_buscar_pacientes
 @nombre varchar(50)
 as
-select codigo, nombre, dni from Pacientes where nombre like @nombre + '%'
+select codigo, nombre, dni, FechaNacimiento, Telefono, Direccion, IdGenero from Pacientes where nombre like @nombre + '%'
 go
 ----------------------------------
-CREATE PROCEDURE sp_mantenedor_pacientes
+Create PROCEDURE sp_mantenedor_pacientes
     @codigo VARCHAR(5),
     @nombre VARCHAR(100),
     @DNI INT,
+    @FechaNacimiento DATE,
+    @Telefono INT,
+    @Direccion VARCHAR(100),
+    @Genero INT,
     @TipoHabitacion INT,
     @Habitacion INT,
     @Camilla INT,
@@ -176,31 +190,32 @@ AS
 BEGIN
     IF (@accion = '1')
     BEGIN
-        -- Generar nuevo código para el paciente
+        -- Insertar nuevo paciente en la tabla Pacientes
         DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5), @IdPaciente INT;
         SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
         SET @codmax = ISNULL(@codmax, 'P0000');
         SET @codnuevo = 'P' + RIGHT('0000' + CAST(CAST(RIGHT(@codmax, 4) AS INT) + 1 AS VARCHAR(4)), 4);
 
-        -- Insertar nuevo paciente en la tabla Pacientes
-        INSERT INTO Pacientes (Codigo, Nombre, DNI)
-        VALUES (@codnuevo, @nombre, @DNI);
+        INSERT INTO Pacientes (Codigo, Nombre, DNI, FechaNacimiento, Telefono, Direccion, IdGenero)
+        VALUES (@codnuevo, @nombre, @DNI, @FechaNacimiento, @Telefono, @Direccion, @Genero);
 
-        -- Obtener el ID del paciente insertado
         SET @IdPaciente = SCOPE_IDENTITY();
 
-        -- Insertar hospitalización en la tabla Hospitalizaciones
         INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
         VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, GETDATE(), GETDATE());
 
-        -- Configurar mensaje de salida
         SET @accion = 'Se agregó el paciente: ' + @nombre;
     END
     ELSE IF (@accion = '2')
     BEGIN
         -- Actualizar datos del paciente en la tabla Pacientes
         UPDATE Pacientes 
-        SET Nombre = @nombre, DNI = @DNI 
+        SET Nombre = @nombre, 
+            DNI = @DNI, 
+            FechaNacimiento = @FechaNacimiento, 
+            Telefono = @Telefono, 
+            Direccion = @Direccion, 
+            IdGenero = @Genero
         WHERE Codigo = @codigo;
 
         -- Actualizar datos de hospitalización si es necesario
@@ -211,24 +226,22 @@ BEGIN
             IdTipoHabitacion = @TipoHabitacion
         WHERE IdPaciente = (SELECT IdPaciente FROM Pacientes WHERE Codigo = @codigo);
 
-        -- Configurar mensaje de salida
         SET @accion = 'Se modificó el paciente: ' + @nombre;
     END
     ELSE IF (@accion = '3')
     BEGIN
         -- Registrar salida del paciente en la tabla Hospitalizaciones
         UPDATE Hospitalizaciones 
-        SET FechaSalida = GETDATE(), HoraSalida = GETDATE() 
+        SET FechaSalida = GETDATE(), 
+            HoraSalida = GETDATE() 
         WHERE IdPaciente = (SELECT IdPaciente FROM Pacientes WHERE Codigo = @codigo);
 
-        -- Configurar mensaje de salida
         SET @accion = 'Se registró la salida del paciente: ' + @nombre;
     END
     ELSE IF (@accion = '4')
     BEGIN
-        DECLARE @IdPacienteToDelete INT
-
         -- Obtener el ID del paciente a eliminar
+        DECLARE @IdPacienteToDelete INT;
         SELECT @IdPacienteToDelete = IdPaciente FROM Pacientes WHERE Codigo = @codigo;
 
         -- Eliminar las hospitalizaciones asociadas al paciente
@@ -237,11 +250,11 @@ BEGIN
         -- Eliminar paciente de la tabla Pacientes
         DELETE FROM Pacientes WHERE Codigo = @codigo;
 
-        -- Configurar mensaje de salida
         SET @accion = 'Se borró el paciente: ' + @nombre;
     END
-END
+END;
 GO
+
 ------------------------------------------
 CREATE PROCEDURE sp_listar_estadias
 AS
@@ -270,7 +283,13 @@ BEGIN
     SELECT IdCamilla, Nombre FROM Camillas;
 END
 GO
-
+------------------------------------------
+CREATE PROCEDURE sp_listar_genero
+as
+Begin
+	select IdGenero, Nombre from Genero;
+end
+go
 ------------------------------------------
 -- CREATE PROCEDURE usp_AgregarCirugia
 --    @TipoCirugia NVARCHAR(100),

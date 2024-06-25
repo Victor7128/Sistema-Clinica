@@ -25,7 +25,6 @@ namespace CapaDatos
             cmd.Parameters.AddWithValue("@Clave", clave);
             cmd.Parameters.Add("@IdUsuario", SqlDbType.Int).Direction = ParameterDirection.Output;
             cmd.CommandType = CommandType.StoredProcedure;
-
             cn.Open();
             cmd.ExecuteNonQuery();
             idusuario = Convert.ToInt32(cmd.Parameters["@IdUsuario"].Value);

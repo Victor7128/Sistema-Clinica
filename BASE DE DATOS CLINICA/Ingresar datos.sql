@@ -159,3 +159,8 @@ VALUES
 INSERT INTO Camillas (Nombre)
 VALUES (1),
        (2);
+
+-- Insertar Genero
+INSERT INTO Genero (Nombre)
+VALUES ('Femenino'),
+	   ('Masculino');
