@@ -28,7 +28,7 @@ BEGIN
     WHERE Nombres LIKE '%' + @nombre + '%';
 END;
 GO
-----------------------------------------
+------------------------------------------
 -- Procedimiento almacenado para login de usuarios
 CREATE PROCEDURE usp_LoginUsuario
     @Usuario VARCHAR(60),
@@ -70,58 +70,48 @@ BEGIN
     FOR XML PATH(''), ROOT('PERMISOS');
 END;
 GO
-exec usp_ObtenerPermisos 5
 
--- Procedimiento almacenado para registrar usuario
+-- Procedimiento almacenado para mantanedor usuario
 CREATE PROCEDURE usp_mantenedor_usuarios
-    @IdUsuario INT = NULL,
     @Nombres NVARCHAR(50) = NULL,
     @Usuario NVARCHAR(50) = NULL,
     @Clave NVARCHAR(50) = NULL,
     @IdRol INT = NULL,
     @Activo BIT = 1,
-    @accion VARCHAR(50) OUTPUT
+    @accion CHAR(1)
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     IF (@accion = '1')
     BEGIN
         -- Insertar nuevo usuario en la tabla USUARIOS
         INSERT INTO USUARIOS (Nombres, Usuario, Clave, IdRol, Activo)
         VALUES (@Nombres, @Usuario, @Clave, @IdRol, @Activo);
-
-        -- Configurar mensaje de salida
-        SET @accion = 'Usuario agregado: ' + @Nombres;
     END
     ELSE IF (@accion = '2')
     BEGIN
-        -- Actualizar datos del usuario en la tabla USUARIOS
-        UPDATE USUARIOS
-        SET Nombres = @Nombres,
-            Usuario = @Usuario,
-            Clave = @Clave,
-            IdRol = @IdRol,
-            Activo = @Activo
-        WHERE IdUsuario = @IdUsuario;
-
-        -- Actualizar el rol asociado al usuario en la tabla USUARIOS si @IdRol no es NULL
-        IF @IdRol IS NOT NULL
+        -- Validar que el nombre no sea NULL para actualizar
+        IF @Nombres IS NOT NULL
         BEGIN
+            -- Actualizar datos del usuario en la tabla USUARIOS por nombre
             UPDATE USUARIOS
-            SET IdRol = @IdRol
-            WHERE IdUsuario = @IdUsuario;
+            SET Usuario = @Usuario,
+                Clave = @Clave,
+                IdRol = @IdRol,
+                Activo = @Activo
+            WHERE Nombres = @Nombres;
         END
-
-        -- Configurar mensaje de salida
-        SET @accion = 'Usuario modificado: ' + @Nombres;
     END
     ELSE IF (@accion = '3')
     BEGIN
-        -- Eliminar usuario de la tabla USUARIOS
-        DELETE FROM USUARIOS
-        WHERE IdUsuario = @IdUsuario;
-
-        -- Configurar mensaje de salida
-        SET @accion = 'Usuario eliminado: ' + @Nombres;
+        -- Validar que el nombre no sea NULL para eliminar
+        IF @Nombres IS NOT NULL
+        BEGIN
+            -- Eliminar usuario de la tabla USUARIOS por nombre
+            DELETE FROM USUARIOS
+            WHERE Nombres = @Nombres;
+        END
     END
 END;
 GO
@@ -280,31 +270,6 @@ BEGIN
     SELECT IdCamilla, Nombre FROM Camillas;
 END
 GO
-------------------------------------------
--- Probar el procedimiento para obtener usuarios con roles
-EXEC usp_ObtenerUsuariosConRoles;
-
--- Probar el procedimiento para buscar usuarios
-EXEC usp_buscar_usuarios @nombre = 'Luis';
-----
-DECLARE @accion VARCHAR(50);
-DECLARE @Nombres NVARCHAR(50) = 'Juan Perez';
-DECLARE @Usuario NVARCHAR(50) = 'juanperez';
-DECLARE @Clave NVARCHAR(50) = 'clave123';
-DECLARE @IdRol INT = 1; -- Ajusta este valor según el Id del rol que desees asociar
-
--- Ejecutar procedimiento almacenado para insertar usuario
-EXEC usp_mantenedor_usuarios 
-    @Nombres = @Nombres,
-    @Usuario = @Usuario,
-    @Clave = @Clave,
-    @IdRol = @IdRol,
-    @Activo = 1, -- Valor por defecto si no se utiliza en el procedimiento
-    @accion = @accion OUTPUT;
-
--- Mostrar mensaje de salida
-SELECT @accion AS Mensaje;
-
 
 ------------------------------------------
 -- CREATE PROCEDURE usp_AgregarCirugia

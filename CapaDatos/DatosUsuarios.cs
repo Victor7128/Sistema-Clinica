@@ -59,23 +59,18 @@ namespace CapaDatos
 
         public string D_mantenedor_usuarios(EntidadUsuarios obje)
         {
-            string accion = "";
             SqlCommand cmd = new SqlCommand("usp_mantenedor_usuarios", cn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@IdUsuario", obje.IdUsuario);
             cmd.Parameters.AddWithValue("@Nombres", obje.Nombres);
             cmd.Parameters.AddWithValue("@Usuario", obje.Usuario);
             cmd.Parameters.AddWithValue("@Clave", obje.Clave);
             cmd.Parameters.AddWithValue("@IdRol", obje.IdRol);
-            cmd.Parameters.AddWithValue("@Activo", obje.Activo);
-            cmd.Parameters.Add("@accion", SqlDbType.VarChar, 50).Value = accion;
-            cmd.Parameters["@accion"].Direction = ParameterDirection.InputOutput;
-            if (cn.State == ConnectionState.Open) cn.Close();
+            cmd.Parameters.AddWithValue("@Activo", 1);
+            cmd.Parameters.AddWithValue("@accion", obje.accion);
             cn.Open();
             cmd.ExecuteNonQuery();
-            accion = cmd.Parameters["@accion"].Value.ToString();
             cn.Close();
-            return accion;
+            return $"Operación completa";
         }
     }
 }

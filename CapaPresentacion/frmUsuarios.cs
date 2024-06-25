@@ -24,15 +24,15 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        void mantenedor(String accion)
+        void mantenedor(string accion)
         {
             objent.Nombres = txtNombreUsuario.Text;
             objent.IdRol = Convert.ToInt32(cboRol.SelectedValue);
             objent.Usuario = txtUsuario.Text;
             objent.Clave = txtClave.Text;
             objent.accion = accion;
-            string men = objneg.N_mantenedor_usuario(objent);
-            MessageBox.Show(men, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string mensaje = objneg.N_mantenedor_usuario(objent);
+            MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         void Limpiar()
