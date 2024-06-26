@@ -99,6 +99,7 @@ namespace CapaPresentacion
         {            
             timer1.Enabled = true;
             CargarComboboxes();
+            Limpiar();
             dgvPacientes.DataSource = objneg.N_listar_pacientes();
         }
 
@@ -180,10 +181,10 @@ namespace CapaPresentacion
             string telefono = dgvPacientes[4, fila].Value.ToString() ?? string.Empty;
             string direccion = dgvPacientes[5, fila].Value.ToString() ?? string.Empty;
             string genero = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
-            string estadia = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
-            string camilla = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
-            string habitacion = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
-            string tipohabitacion = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
+            string estadia = dgvPacientes[7, fila].Value.ToString() ?? string.Empty;
+            string camilla = dgvPacientes[8, fila].Value.ToString() ?? string.Empty;
+            string habitacion = dgvPacientes[9, fila].Value.ToString() ?? string.Empty;
+            string tipohabitacion = dgvPacientes[10, fila].Value.ToString() ?? string.Empty;
 
             txtCodigo.Text = codigo;
             txtNombre.Text = nombre;
@@ -196,6 +197,24 @@ namespace CapaPresentacion
             cboCamilla.Text = camilla;
             cboHabitacion.Text = habitacion;
             cboTipoHabitacion.Text = tipohabitacion;
+        }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BuscarUsuario();
+                e.SuppressKeyPress = true;
+                txtBuscar.Text = "";
+            }
+        }
+
+        private void BuscarUsuario()
+        {
+            objent.Nombre = txtBuscar.Text;
+            DataTable dt = objneg.N_buscar_pacientes(objent);
+            dgvPacientes.DataSource = dt;
+            dgvPacientes.Refresh();
         }
     }
 }

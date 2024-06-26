@@ -18,16 +18,18 @@ SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
 FROM USUARIOS u
 inner JOIN ROL r ON u.IdRol = r.IdRol
 GO
-----------------------------------------
-CREATE PROCEDURE usp_buscar_usuarios
+Create PROCEDURE usp_buscar_usuarios
     @nombre NVARCHAR(50)
 AS
 BEGIN
-    SELECT *
-    FROM Usuarios
+    SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre as Rol
+    FROM Usuarios u inner join ROL r on r.IdRol = u.IdRol
     WHERE Nombres LIKE '%' + @nombre + '%';
 END;
 GO
+
+EXEC usp_buscar_usuarios @nombre = 'Gary';
+
 ------------------------------------------
 -- Procedimiento almacenado para login de usuarios
 CREATE PROCEDURE usp_LoginUsuario
@@ -167,11 +169,25 @@ GROUP BY
     ho.HoraSalida;
 go
 ----------------------------------
-create proc sp_buscar_pacientes
-@nombre varchar(50)
-as
-select codigo, nombre, dni, FechaNacimiento, Telefono, Direccion, IdGenero from Pacientes where nombre like @nombre + '%'
-go
+CREATE PROCEDURE sp_buscar_pacientes
+    @nombre NVARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        p.Codigo, 
+        p.Nombre, 
+        p.DNI, 
+        p.FechaNacimiento, 
+        p.Telefono, 
+        p.Direccion, 
+        g.Nombre AS Genero
+    FROM 
+        Pacientes p
+        INNER JOIN Genero g ON g.IdGenero = p.IdGenero
+    WHERE 
+        p.Nombre LIKE '%' + @nombre + '%';
+END;
+GO
 ----------------------------------
 Create PROCEDURE sp_mantenedor_pacientes
     @codigo VARCHAR(5),

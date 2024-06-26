@@ -41,7 +41,6 @@ namespace CapaPresentacion
             cboRol.SelectedIndex = -1;
             txtUsuario.Text = "";
             txtClave.Text = "";
-            txtBuscarUsuario.Text = "";
             CargarUsuarios();
         }
 
@@ -88,11 +87,6 @@ namespace CapaPresentacion
             }
         }
 
-        private void txtBuscarUsuario_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void dgvUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int fila = dgvUsuarios.CurrentCell.RowIndex;
@@ -113,6 +107,24 @@ namespace CapaPresentacion
             CargarCombobox();
             CargarUsuarios();
             Limpiar();
+        }
+
+        private void txtBuscarUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BuscarUsuario();
+                e.SuppressKeyPress = true;
+                txtBuscarUsuario.Text = "";
+            }
+        }
+
+        private void BuscarUsuario()
+        {
+            objent.Nombres = txtBuscarUsuario.Text;
+            DataTable dt = objneg.N_BuscarUsuarios(objent);
+            dgvUsuarios.DataSource = dt;
+            dgvUsuarios.Refresh();
         }
     }
 }

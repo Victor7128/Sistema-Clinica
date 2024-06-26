@@ -35,6 +35,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.label15 = new System.Windows.Forms.Label();
             this.cboGenero = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
@@ -65,7 +66,6 @@
             this.lblHora = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPacientes = new System.Windows.Forms.DataGridView();
-            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
@@ -116,6 +116,7 @@
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(253, 27);
             this.txtBuscar.TabIndex = 92;
+            this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
             // 
             // groupBox1
             // 
@@ -151,6 +152,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registrar Paciente";
             // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.CustomFormat = "yyyy-MM-dd";
+            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(619, 48);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(123, 27);
+            this.dtpFechaNacimiento.TabIndex = 102;
+            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -171,7 +181,7 @@
             "..."});
             this.cboGenero.Location = new System.Drawing.Point(475, 46);
             this.cboGenero.Name = "cboGenero";
-            this.cboGenero.Size = new System.Drawing.Size(65, 29);
+            this.cboGenero.Size = new System.Drawing.Size(138, 29);
             this.cboGenero.TabIndex = 100;
             // 
             // label13
@@ -451,15 +461,6 @@
             this.dgvPacientes.Size = new System.Drawing.Size(803, 217);
             this.dgvPacientes.TabIndex = 87;
             this.dgvPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellContentClick);
-            // 
-            // dtpFechaNacimiento
-            // 
-            this.dtpFechaNacimiento.CustomFormat = "yyyy-MM-dd";
-            this.dtpFechaNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaNacimiento.Location = new System.Drawing.Point(619, 48);
-            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            this.dtpFechaNacimiento.Size = new System.Drawing.Size(123, 27);
-            this.dtpFechaNacimiento.TabIndex = 102;
             // 
             // frmHospitalizacion
             // 
