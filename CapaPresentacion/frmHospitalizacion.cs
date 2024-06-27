@@ -155,21 +155,6 @@ namespace CapaPresentacion
             }
         }
 
-        private void txtBuscar_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBuscar.Text != "")
-            {
-                objent.Nombre = txtBuscar.Text;
-                DataTable dt = new DataTable();
-                dt = objneg.N_buscar_pacientes(objent);
-                dgvPacientes.DataSource = dt;
-            }
-            else
-            {
-                dgvPacientes.DataSource = objneg.N_listar_pacientes();
-            }
-        }
-
         private void dgvPacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int fila = dgvPacientes.CurrentCell.RowIndex;

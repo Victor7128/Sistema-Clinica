@@ -112,5 +112,30 @@ namespace CapaDatos
             return accion;
         }
 
+        public DataTable D_buscar_pacientes_consulta(EntidadHospitalizacion obje)
+        {
+            SqlCommand cmd = new SqlCommand("sp_buscar_pacientes_consulta", cn);
+            if (!string.IsNullOrEmpty(obje.Nombre))
+                cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
+            else
+                cmd.Parameters.AddWithValue("@nombre", DBNull.Value);
+
+            if (obje.DNI != 0)
+                cmd.Parameters.AddWithValue("@dni", obje.DNI);
+            else
+                cmd.Parameters.AddWithValue("@dni", DBNull.Value);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+        public DataTable D_listar_pacientes_consulta()
+        {
+            SqlCommand cmd = new SqlCommand("sp_listar_pacientes_consultas", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
     }
 }

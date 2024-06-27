@@ -18,8 +18,9 @@ SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
 FROM USUARIOS u
 inner JOIN ROL r ON u.IdRol = r.IdRol
 GO
+-------------------------
 Create PROCEDURE usp_buscar_usuarios
-    @nombre NVARCHAR(50)
+    @nombre VARCHAR(50)
 AS
 BEGIN
     SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre as Rol
@@ -27,9 +28,6 @@ BEGIN
     WHERE Nombres LIKE '%' + @nombre + '%';
 END;
 GO
-
-EXEC usp_buscar_usuarios @nombre = 'Gary';
-
 ------------------------------------------
 -- Procedimiento almacenado para login de usuarios
 CREATE PROCEDURE usp_LoginUsuario
@@ -75,9 +73,9 @@ GO
 
 -- Procedimiento almacenado para mantanedor usuario
 CREATE PROCEDURE usp_mantenedor_usuarios
-    @Nombres NVARCHAR(50) = NULL,
-    @Usuario NVARCHAR(50) = NULL,
-    @Clave NVARCHAR(50) = NULL,
+    @Nombres VARCHAR(50) = NULL,
+    @Usuario VARCHAR(50) = NULL,
+    @Clave VARCHAR(50) = NULL,
     @IdRol INT = NULL,
     @Activo BIT = 1,
     @accion CHAR(1)
@@ -150,7 +148,7 @@ LEFT JOIN
 LEFT JOIN 
     Camillas c ON ho.IdCamilla = c.IdCamilla
 LEFT JOIN
-	Genero g ON ho.IdPaciente = g.IdGenero
+	Genero g ON g.IdGenero = p.IdGenero
 GROUP BY
 	p.Codigo,
     p.Nombre,
@@ -188,6 +186,50 @@ BEGIN
         p.Nombre LIKE '%' + @nombre + '%';
 END;
 GO
+-----------------------------------------------
+Alter PROCEDURE sp_buscar_pacientes_consulta
+    @nombre VARCHAR(50) = NULL,
+    @dni INT = NULL
+AS
+BEGIN
+    SELECT 
+        p.Nombre, 
+        p.DNI, 
+        h.Nombre AS Habitacion, 
+        c.Nombre AS Camilla, 
+        ho.FechaIngreso, 
+        ho.HoraIngreso, 
+        ho.FechaSalida, 
+        ho.HoraSalida
+    FROM 
+        Hospitalizaciones ho 
+        INNER JOIN Pacientes p ON p.IdPaciente = ho.IdPaciente
+        LEFT JOIN Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
+        LEFT JOIN Camillas c ON c.IdCamilla = ho.IdCamilla
+    WHERE 
+        (@nombre IS NOT NULL AND p.Nombre LIKE '%' + @nombre + '%') 
+        OR (@dni IS NOT NULL AND p.DNI = @dni)
+END;
+GO
+
+----------------------------------
+CREATE PROCEDURE sp_listar_pacientes_consultas
+as
+SELECT 
+        p.Nombre, 
+        p.DNI, 
+        h.Nombre AS Habitacion, 
+        c.Nombre AS Camilla, 
+        ho.FechaIngreso, 
+        ho.HoraIngreso, 
+        ho.FechaSalida, 
+        ho.HoraSalida
+    FROM 
+        Hospitalizaciones ho 
+        INNER JOIN Pacientes p ON p.IdPaciente = ho.IdPaciente
+        LEFT JOIN Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
+        LEFT JOIN Camillas c ON c.IdCamilla = ho.IdCamilla
+go
 ----------------------------------
 Create PROCEDURE sp_mantenedor_pacientes
     @codigo VARCHAR(5),
@@ -306,44 +348,3 @@ Begin
 	select IdGenero, Nombre from Genero;
 end
 go
-------------------------------------------
--- CREATE PROCEDURE usp_AgregarCirugia
---    @TipoCirugia NVARCHAR(100),
---    @IdPaciente INT,
---    @NombrePaciente NVARCHAR(100),
---    @Sala NVARCHAR(50),
---    @Turno NVARCHAR(20),
---    @FechaCirugia DATETIME
---AS
---BEGIN
---    INSERT INTO Cirugias (TipoCirugia, IdPaciente, NombrePaciente, Sala, Turno, FechaCirugia)
---    VALUES (@TipoCirugia, @IdPaciente, @NombrePaciente, @Sala, @Turno, @FechaCirugia);
---END
-----------------------------------
---CREATE PROCEDURE usp_ObtenerCirugias
---AS
---BEGIN
---    SELECT c.IdCirugia, c.TipoCirugia, p.Nombre AS NombrePaciente, c.Sala, c.Turno, c.FechaCirugia
---    FROM Cirugias c
---    INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
---END
-----------------------------------
---CREATE PROCEDURE usp_ObtenerCirugiasConEstado
---AS
---BEGIN
---    SELECT 
---        c.IdCirugia, 
---        c.TipoCirugia, 
---        p.Nombre AS Paciente, 
---        c.Sala, 
---        c.FechaCirugia,
---        CASE 
---            WHEN c.FechaCirugia = CAST(GETDATE() AS DATE) THEN 'Activo'
---            WHEN c.FechaCirugia > CAST(GETDATE() AS DATE) THEN 'Pendiente'
---            ELSE 'Finalizada'
---        END AS Estado
---    FROM Cirugias c
---    JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
---END
-------------------------------------
-

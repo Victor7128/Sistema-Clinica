@@ -44,7 +44,17 @@ namespace CapaNegocio
         public String N_mantenedor_paciente(EntidadHospitalizacion obje)
         {
             return objd.D_mantenedor_pacientes(obje);
-        }        
+        }
+
+        public DataTable N_buscar_pacientes_consulta(EntidadHospitalizacion obje)
+        {
+            return objd.D_buscar_pacientes_consulta(obje);
+        }
+
+        public DataTable N_listar_pacientes_consulta()
+        {
+            return objd.D_listar_pacientes_consulta();
+        }
     }
 }
 
