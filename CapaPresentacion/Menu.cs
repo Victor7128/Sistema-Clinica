@@ -18,7 +18,8 @@ namespace CapaPresentacion
     {
         EntidadLogin objent = new EntidadLogin();
         NegocioLogin objneg = new NegocioLogin();
-        private int idusuario;
+        private MenuStrip menuStrip;
+        private int idusuario;        
 
         public Menu(int idusuario_esperado = 0)
         {
@@ -27,22 +28,9 @@ namespace CapaPresentacion
             this.FormClosing += new FormClosingEventHandler(cerrarPrograma);
         }
 
-        private void Menu_Load(object sender, EventArgs e)
+        public void Menu_Load(object sender, EventArgs e)
         {
-            List<CapaEntidad.EntidadLogin> permisos_esperados = objneg.N_ObtenerPermisos(idusuario);
-
-            MenuStrip menuStrip = new MenuStrip();
-
-            foreach (CapaEntidad.EntidadLogin objMenu in permisos_esperados)
-            {
-                ToolStripMenuItem menuPadre = new ToolStripMenuItem(objMenu.Nombre, null, click_en_menu, objMenu.NombreFormulario);
-                menuPadre.Tag = objMenu;
-                menuStrip.Items.Add(menuPadre);
-            }
-
-            this.MainMenuStrip = menuStrip;
-            Controls.Add(menuStrip);
-
+            InicializarMenuStrip();
             Panel panelContainer = new Panel();
             panelContainer.Name = "PanelContainer";
             panelContainer.Dock = DockStyle.Fill;
@@ -108,6 +96,23 @@ namespace CapaPresentacion
         private void cerrarPrograma(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        public void InicializarMenuStrip()
+        {
+            List<CapaEntidad.EntidadLogin> permisos_esperados = objneg.N_ObtenerPermisos(idusuario);
+
+            menuStrip = new MenuStrip();
+
+            foreach (CapaEntidad.EntidadLogin objMenu in permisos_esperados)
+            {
+                ToolStripMenuItem menuPadre = new ToolStripMenuItem(objMenu.Nombre, null, click_en_menu, objMenu.NombreFormulario);
+                menuPadre.Tag = objMenu;
+                menuStrip.Items.Add(menuPadre);
+            }
+
+            this.MainMenuStrip = menuStrip;
+            Controls.Add(menuStrip);
         }
     }
 }

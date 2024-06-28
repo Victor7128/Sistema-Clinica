@@ -348,3 +348,45 @@ Begin
 	select IdGenero, Nombre from Genero;
 end
 go
+----------------------------------
+CREATE PROCEDURE sp_listar_roles
+AS
+SELECT IdRol, Nombre FROM ROL
+GO
+------------------------------------------
+CREATE PROCEDURE sp_buscar_rol
+    @IdRol INT
+AS
+BEGIN
+    SELECT 
+        P.IdMenu,
+        P.Activo AS Permiso,
+        M.Nombre AS Menu
+    FROM 
+        PERMISO P
+    INNER JOIN 
+        MENU M ON P.IdMenu = M.IdMenu
+    WHERE 
+        P.IdRol = @IdRol
+    ORDER BY 
+        M.Nombre;
+END
+GO
+--------------------------------------
+CREATE PROCEDURE sp_modificar_permiso
+    @IdRol INT,
+    @IdMenu INT,
+    @NuevoPermiso BIT
+AS
+BEGIN
+    UPDATE PERMISO
+    SET Activo = @NuevoPermiso
+    WHERE IdRol = @IdRol AND IdMenu = @IdMenu;
+END
+GO
+
+Select * from Menu
+EXEC sp_modificar_permiso @IdRol = 5, @IdMenu = 1, @NuevoPermiso = 1;
+
+
+

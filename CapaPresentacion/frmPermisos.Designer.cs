@@ -30,12 +30,10 @@
         {
             this.label10 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.cboRol = new System.Windows.Forms.ComboBox();
+            this.dgvMenu = new System.Windows.Forms.DataGridView();
+            this.btnGuardarCambios = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMenu)).BeginInit();
             this.SuspendLayout();
             // 
             // label10
@@ -60,53 +58,37 @@
             this.label2.TabIndex = 14;
             this.label2.Text = "ROL:";
             // 
-            // comboBox1
+            // cboRol
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Medico",
-            "Administrador",
-            "Mantenimiento"});
-            this.comboBox1.Location = new System.Drawing.Point(205, 117);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(242, 29);
-            this.comboBox1.TabIndex = 25;
+            this.cboRol.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboRol.FormattingEnabled = true;
+            this.cboRol.Location = new System.Drawing.Point(205, 117);
+            this.cboRol.Name = "cboRol";
+            this.cboRol.Size = new System.Drawing.Size(331, 29);
+            this.cboRol.TabIndex = 25;
+            this.cboRol.SelectedIndexChanged += new System.EventHandler(this.cboRol_SelectedIndexChanged);
             // 
-            // dataGridView1
+            // dgvMenu
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2});
-            this.dataGridView1.Location = new System.Drawing.Point(205, 172);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(295, 315);
-            this.dataGridView1.TabIndex = 27;
+            this.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMenu.Location = new System.Drawing.Point(205, 172);
+            this.dgvMenu.Name = "dgvMenu";
+            this.dgvMenu.Size = new System.Drawing.Size(331, 315);
+            this.dgvMenu.TabIndex = 27;
             // 
-            // Column1
+            // btnGuardarCambios
             // 
-            this.Column1.HeaderText = "Activar";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Menu";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 150;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(551, 448);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 39);
-            this.button1.TabIndex = 28;
-            this.button1.Text = "Guardar Cambios";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnGuardarCambios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardarCambios.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarCambios.ForeColor = System.Drawing.Color.Black;
+            this.btnGuardarCambios.Location = new System.Drawing.Point(551, 448);
+            this.btnGuardarCambios.Name = "btnGuardarCambios";
+            this.btnGuardarCambios.Size = new System.Drawing.Size(166, 39);
+            this.btnGuardarCambios.TabIndex = 28;
+            this.btnGuardarCambios.Text = "Guardar Cambios";
+            this.btnGuardarCambios.UseVisualStyleBackColor = false;
+            this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click);
             // 
             // frmPermisos
             // 
@@ -114,15 +96,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 573);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.btnGuardarCambios);
+            this.Controls.Add(this.dgvMenu);
+            this.Controls.Add(this.cboRol);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmPermisos";
             this.Text = "Permisos";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmPermisos_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMenu)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -132,10 +115,8 @@
 
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox cboRol;
+        private System.Windows.Forms.DataGridView dgvMenu;
+        private System.Windows.Forms.Button btnGuardarCambios;
     }
 }

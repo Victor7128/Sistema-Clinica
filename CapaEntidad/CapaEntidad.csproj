@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="EntidadHospitalizacion.cs" />
     <Compile Include="EntidadLogin.cs" />
+    <Compile Include="EntidadPermisos.cs" />
     <Compile Include="EntidadUsuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
