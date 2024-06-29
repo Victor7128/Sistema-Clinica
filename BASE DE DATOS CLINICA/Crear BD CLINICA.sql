@@ -42,16 +42,16 @@ CREATE TABLE Genero (
 GO
 
 CREATE TABLE Pacientes(
-	IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
-	Codigo VARCHAR(5),
-	Nombre VARCHAR(100),
-	DNI INT,
-	FechaNacimiento DATE,
-	Telefono INT,
-	Direccion VARCHAR(100),
-	IdGenero INT,
-	FOREIGN KEY (IdGenero) REFERENCES Genero(IdGenero),
-)
+    IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
+    Codigo VARCHAR(5),
+    Nombre VARCHAR(100),
+    DNI INT UNIQUE,
+    FechaNacimiento DATE,
+    Telefono INT,
+    Direccion VARCHAR(100),
+    IdGenero INT,
+    FOREIGN KEY (IdGenero) REFERENCES Genero(IdGenero)
+);
 
 -- Tabla Estadias
 CREATE TABLE Estadias (

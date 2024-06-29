@@ -107,6 +107,11 @@ namespace CapaPresentacion
             CargarCombobox();
             CargarUsuarios();
             Limpiar();
+
+            dgvUsuarios.Columns["Nombres"].Width = 200;
+            dgvUsuarios.Columns["Usuario"].Width = 150;
+            dgvUsuarios.Columns["Clave"].Width = 150;
+            dgvUsuarios.Columns["Rol"].Width = 250;
         }
 
         private void txtBuscarUsuario_KeyDown(object sender, KeyEventArgs e)
@@ -125,6 +130,22 @@ namespace CapaPresentacion
             DataTable dt = objneg.N_BuscarUsuarios(objent);
             dgvUsuarios.DataSource = dt;
             dgvUsuarios.Refresh();
+        }
+
+        private void txtNombreUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtBuscarUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -86,29 +86,72 @@ namespace CapaDatos
             return dt;           
         }
 
+        //public string D_mantenedor_pacientes(EntidadHospitalizacion obje)
+        //{
+        //    string accion = "";
+        //    SqlCommand cmd = new SqlCommand("sp_mantenedor_pacientes", cn);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
+        //    cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
+        //    cmd.Parameters.AddWithValue("@DNI", obje.DNI);
+        //    cmd.Parameters.AddWithValue("@FechaNacimiento", obje.FechaNacimiento);
+        //    cmd.Parameters.AddWithValue("@Telefono", obje.Telefono);
+        //    cmd.Parameters.AddWithValue("@Direccion", obje.Direccion);
+        //    cmd.Parameters.AddWithValue("@Genero", obje.IdGenero);
+        //    cmd.Parameters.AddWithValue("@TipoHabitacion", obje.IdTipoHabitacion);
+        //    cmd.Parameters.AddWithValue("@Habitacion", obje.IdHabitacion);
+        //    cmd.Parameters.AddWithValue("@Camilla", obje.IdCamilla);
+        //    cmd.Parameters.AddWithValue("@Estadia", obje.IdEstadia);
+        //    cmd.Parameters.Add("@accion", SqlDbType.VarChar,50).Value = obje.accion;
+        //    cmd.Parameters["@accion"].Direction = ParameterDirection.InputOutput;
+        //    if(cn.State == ConnectionState.Open) cn.Close();
+        //    cn.Open();
+        //    cmd.ExecuteNonQuery();
+        //    accion = cmd.Parameters["@accion"].Value.ToString();
+        //    cn.Close();
+        //    return accion;
+        //}
         public string D_mantenedor_pacientes(EntidadHospitalizacion obje)
         {
             string accion = "";
-            SqlCommand cmd = new SqlCommand("sp_mantenedor_pacientes", cn);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
-            cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
-            cmd.Parameters.AddWithValue("@DNI", obje.DNI);
-            cmd.Parameters.AddWithValue("@FechaNacimiento", obje.FechaNacimiento);
-            cmd.Parameters.AddWithValue("@Telefono", obje.Telefono);
-            cmd.Parameters.AddWithValue("@Direccion", obje.Direccion);
-            cmd.Parameters.AddWithValue("@Genero", obje.IdGenero);
-            cmd.Parameters.AddWithValue("@TipoHabitacion", obje.IdTipoHabitacion);
-            cmd.Parameters.AddWithValue("@Habitacion", obje.IdHabitacion);
-            cmd.Parameters.AddWithValue("@Camilla", obje.IdCamilla);
-            cmd.Parameters.AddWithValue("@Estadia", obje.IdEstadia);
-            cmd.Parameters.Add("@accion", SqlDbType.VarChar,50).Value = obje.accion;
-            cmd.Parameters["@accion"].Direction = ParameterDirection.InputOutput;
-            if(cn.State == ConnectionState.Open) cn.Close();
-            cn.Open();
-            cmd.ExecuteNonQuery();
-            accion = cmd.Parameters["@accion"].Value.ToString();
-            cn.Close();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_mantenedor_pacientes", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
+                cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
+                cmd.Parameters.AddWithValue("@DNI", obje.DNI);
+                cmd.Parameters.AddWithValue("@FechaNacimiento", obje.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@Telefono", obje.Telefono);
+                cmd.Parameters.AddWithValue("@Direccion", obje.Direccion);
+                cmd.Parameters.AddWithValue("@Genero", obje.IdGenero);
+                cmd.Parameters.AddWithValue("@TipoHabitacion", obje.IdTipoHabitacion);
+                cmd.Parameters.AddWithValue("@Habitacion", obje.IdHabitacion);
+                cmd.Parameters.AddWithValue("@Camilla", obje.IdCamilla);
+                cmd.Parameters.AddWithValue("@Estadia", obje.IdEstadia);
+                SqlParameter accionParam = new SqlParameter("@accion", SqlDbType.VarChar, 50);
+                accionParam.Direction = ParameterDirection.InputOutput;
+                accionParam.Value = obje.accion;
+                cmd.Parameters.Add(accionParam);
+                if (cn.State == ConnectionState.Open)
+                    cn.Close();
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                accion = cmd.Parameters["@accion"].Value.ToString();
+                cn.Close();
+                if (accion == "DNI_EXISTE")
+                {
+                    throw new Exception("El DNI ingresado ya está registrado.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error: " + ex.Message);
+            }
             return accion;
         }
 

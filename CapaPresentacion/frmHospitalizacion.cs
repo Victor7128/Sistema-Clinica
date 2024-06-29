@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using CapaEntidad;
 using CapaNegocio;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CapaPresentacion
 {
@@ -31,22 +32,32 @@ namespace CapaPresentacion
 
         void mantenedor(String accion)
         {
-            objent.Codigo = txtCodigo.Text;
-            objent.Nombre = txtNombre.Text;
-            objent.DNI = Convert.ToInt32(txtDni.Text);
-            objent.FechaNacimiento = dtpFechaNacimiento.Value.Date;
-            objent.Telefono = Convert.ToInt32(txtCelular.Text);
-            objent.Direccion = txtDireccion.Text;
-            objent.IdGenero = Convert.ToInt32(cboGenero.SelectedValue);
-            objent.IdEstadia = Convert.ToInt32(cboEstadia.SelectedValue);
-            objent.IdCamilla = Convert.ToInt32(cboCamilla.SelectedValue);
-            objent.IdHabitacion = Convert.ToInt32(cboHabitacion.SelectedValue);
-            objent.IdTipoHabitacion = Convert.ToInt32(cboTipoHabitacion.SelectedValue);
-            objent.FechaIngreso = DateTime.Now.Date;
-            objent.HoraIngreso = DateTime.Now.TimeOfDay;
-            objent.accion = accion;
-            string men = objneg.N_mantenedor_paciente(objent);
-            MessageBox.Show(men, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                objent.Codigo = txtCodigo.Text;
+                objent.Nombre = txtNombre.Text;
+                objent.DNI = Convert.ToInt32(txtDni.Text);
+                objent.FechaNacimiento = dtpFechaNacimiento.Value.Date;
+                objent.Telefono = Convert.ToInt32(txtCelular.Text);
+                objent.Direccion = txtDireccion.Text;
+                objent.IdGenero = Convert.ToInt32(cboGenero.SelectedValue);
+                objent.IdEstadia = Convert.ToInt32(cboEstadia.SelectedValue);
+                objent.IdCamilla = Convert.ToInt32(cboCamilla.SelectedValue);
+                objent.IdHabitacion = Convert.ToInt32(cboHabitacion.SelectedValue);
+                objent.IdTipoHabitacion = Convert.ToInt32(cboTipoHabitacion.SelectedValue);
+                objent.FechaIngreso = DateTime.Now.Date;
+                objent.HoraIngreso = DateTime.Now.TimeOfDay;
+                objent.accion = accion;
+
+                string mensaje = objneg.N_mantenedor_paciente(objent);
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         void Limpiar()
@@ -95,17 +106,48 @@ namespace CapaPresentacion
             Limpiar();
         }
 
+        private bool CamposCompletos()
+        {
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                string.IsNullOrWhiteSpace(txtDni.Text) ||
+                cboGenero.SelectedIndex == -1 ||
+                dtpFechaNacimiento.Value == null ||
+                string.IsNullOrWhiteSpace(txtDireccion.Text) ||
+                string.IsNullOrWhiteSpace(txtCelular.Text) ||
+                cboEstadia.SelectedIndex == -1 ||
+                cboTipoHabitacion.SelectedIndex == -1 ||
+                cboHabitacion.SelectedIndex == -1 ||
+                cboCamilla.SelectedIndex == -1)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void BuscarUsuario()
+        {
+            objent.Nombre = txtBuscar.Text;
+            DataTable dt = objneg.N_buscar_pacientes(objent);
+            dgvPacientes.DataSource = dt;
+            dgvPacientes.Refresh();
+        }
+
         private void frmHospitalizacion_Load(object sender, EventArgs e)
         {            
             timer1.Enabled = true;
             CargarComboboxes();
             Limpiar();
             dgvPacientes.DataSource = objneg.N_listar_pacientes();
+
+            dgvPacientes.Columns["Nombre"].Width = 250;
+            dgvPacientes.Columns["Direccion"].Width = 280;
+            dgvPacientes.Columns["TipoHabitacion"].Width = 230;
+            dgvPacientes.CellFormatting += dgvPacientes_CellFormatting;
         }
 
         private void registrarEntradaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (txtCodigo.Text == "")
+            if (CamposCompletos())
             {
                 if (MessageBox.Show("¿Deseas registrar a " + txtNombre.Text + "?", "Mensaje",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
@@ -113,6 +155,10 @@ namespace CapaPresentacion
                     mantenedor("1");
                     Limpiar();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Todos los campos deben estar completos para registrar al paciente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -192,14 +238,105 @@ namespace CapaPresentacion
                 e.SuppressKeyPress = true;
                 txtBuscar.Text = "";
             }
+        }        
+
+        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtDni.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
-        private void BuscarUsuario()
+        private void txtNombre_KeyPress(object sender, KeyPressEventArgs e)
         {
-            objent.Nombre = txtBuscar.Text;
-            DataTable dt = objneg.N_buscar_pacientes(objent);
-            dgvPacientes.DataSource = dt;
-            dgvPacientes.Refresh();
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDni_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtDireccion.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void txtDni_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCelular_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDni_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDni.Text.Length > 8)
+            {
+                txtDni.Text = txtDni.Text.Substring(0, 8);
+                txtDni.SelectionStart = txtDni.Text.Length;
+            }
+        }
+
+        private void txtDireccion_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtCelular.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCelular_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCelular.Text.Length > 9)
+            {
+                txtCelular.Text = txtCelular.Text.Substring(0, 9);
+                txtCelular.SelectionStart = txtCelular.Text.Length;
+            }
+        }
+
+        private void dgvPacientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            {
+                DataGridViewColumn column = dgvPacientes.Columns[e.ColumnIndex];
+                if (column.Name == "HoraIngreso" || column.Name == "HoraSalida")
+                {
+                    if (e.Value != null && e.Value != DBNull.Value)
+                    {
+                        if (e.Value is TimeSpan)
+                        {
+                            TimeSpan hora = (TimeSpan)e.Value;
+                            e.Value = hora.ToString(@"hh\:mm");
+                        }
+                    }
+                }
+            }
         }
     }
 }

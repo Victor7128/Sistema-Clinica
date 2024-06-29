@@ -26,7 +26,6 @@ namespace CapaPresentacion
         void Limpiar()
         {
             txtNombreBuscar.Text = "";
-            txtDniBuscar.Text = "";
             dgvBuscador.DataSource = objneg.N_listar_pacientes_consulta();
         }
 
@@ -41,11 +40,13 @@ namespace CapaPresentacion
             timer1.Enabled = true;
             Limpiar();
             dgvBuscador.DataSource = objneg.N_listar_pacientes_consulta();
+
+            dgvBuscador.Columns["Nombre"].Width = 230;
+            dgvBuscador.CellFormatting += dgvBuscador_CellFormatting;
         }
 
         private void txtNombreBuscar_KeyDown(object sender, KeyEventArgs e)
-        {
-            
+        {            
             if (e.KeyCode == Keys.Enter)
             {
                 BuscarUsuarioNOMBRE();
@@ -59,30 +60,45 @@ namespace CapaPresentacion
             Limpiar();
         }
 
-        private void txtDniBuscar_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                BuscarUsuarioDNI();
-                e.SuppressKeyPress = true;
-                txtDniBuscar.Text = "";
-            }
-        }
-
-        private void BuscarUsuarioDNI()
-        {
-            objent.DNI = Convert.ToInt32(txtDniBuscar.Text);
-            DataTable dt = objneg.N_buscar_pacientes(objent);
-            dgvBuscador.DataSource = dt;
-            dgvBuscador.Refresh();
-        }
-
         private void BuscarUsuarioNOMBRE()
         {
             objent.Nombre = txtNombreBuscar.Text;
             DataTable dt = objneg.N_buscar_pacientes(objent);
             dgvBuscador.DataSource = dt;
             dgvBuscador.Refresh();
+        }
+
+        private void txtNombreBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            BuscarUsuarioNOMBRE();
+            txtNombreBuscar.Text = "";
+        }
+
+        private void dgvBuscador_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            {
+                DataGridViewColumn column = dgvBuscador.Columns[e.ColumnIndex];
+                if (column.Name == "HoraIngreso" || column.Name == "HoraSalida")
+                {
+                    if (e.Value != null && e.Value != DBNull.Value)
+                    {
+                        if (e.Value is TimeSpan)
+                        {
+                            TimeSpan hora = (TimeSpan)e.Value;
+                            e.Value = hora.ToString(@"hh\:mm");
+                        }
+                    }
+                }
+            }
         }
     }
 }

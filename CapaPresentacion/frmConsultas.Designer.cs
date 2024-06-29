@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.txtDniBuscar = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.txtNombreBuscar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvBuscador = new System.Windows.Forms.DataGridView();
@@ -39,29 +37,11 @@
             this.lblHora = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnListarPacientes = new System.Windows.Forms.Button();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuscador)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // txtDniBuscar
-            // 
-            this.txtDniBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDniBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDniBuscar.Location = new System.Drawing.Point(340, 138);
-            this.txtDniBuscar.Name = "txtDniBuscar";
-            this.txtDniBuscar.Size = new System.Drawing.Size(190, 27);
-            this.txtDniBuscar.TabIndex = 13;
-            this.txtDniBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDniBuscar_KeyDown);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(336, 114);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 21);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "DNI";
             // 
             // txtNombreBuscar
             // 
@@ -72,6 +52,7 @@
             this.txtNombreBuscar.Size = new System.Drawing.Size(247, 27);
             this.txtNombreBuscar.TabIndex = 10;
             this.txtNombreBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNombreBuscar_KeyDown);
+            this.txtNombreBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNombreBuscar_KeyPress);
             // 
             // label2
             // 
@@ -91,11 +72,12 @@
             this.dgvBuscador.BackgroundColor = System.Drawing.Color.White;
             this.dgvBuscador.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvBuscador.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBuscador.Location = new System.Drawing.Point(73, 213);
+            this.dgvBuscador.Location = new System.Drawing.Point(20, 26);
             this.dgvBuscador.Name = "dgvBuscador";
             this.dgvBuscador.ReadOnly = true;
             this.dgvBuscador.Size = new System.Drawing.Size(642, 332);
             this.dgvBuscador.TabIndex = 8;
+            this.dgvBuscador.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvBuscador_CellFormatting);
             // 
             // label1
             // 
@@ -147,20 +129,44 @@
             this.btnListarPacientes.UseVisualStyleBackColor = true;
             this.btnListarPacientes.Click += new System.EventHandler(this.btnListarPacientes_Click);
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.Location = new System.Drawing.Point(416, 129);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(132, 44);
+            this.btnBuscar.TabIndex = 48;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.groupBox1.Controls.Add(this.dgvBuscador);
+            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
+            this.groupBox1.Location = new System.Drawing.Point(53, 189);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(682, 372);
+            this.groupBox1.TabIndex = 49;
+            this.groupBox1.TabStop = false;
+            // 
             // frmConsultas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(827, 573);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.lblFecha);
             this.Controls.Add(this.lblHora);
-            this.Controls.Add(this.txtDniBuscar);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnListarPacientes);
             this.Controls.Add(this.txtNombreBuscar);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.dgvBuscador);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -168,15 +174,13 @@
             this.Text = "Crear Consulta";
             this.Load += new System.EventHandler(this.frmConsultas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvBuscador)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtDniBuscar;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtNombreBuscar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dgvBuscador;
@@ -185,5 +189,7 @@
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button btnListarPacientes;
+        private System.Windows.Forms.Button btnBuscar;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

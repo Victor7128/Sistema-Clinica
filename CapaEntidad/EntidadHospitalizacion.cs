@@ -24,5 +24,6 @@ namespace CapaEntidad
         public DateTime FechaSalida { get; set; }
         public TimeSpan HoraSalida { get; set; }
         public string accion { get; set; }
+        public bool ExcepcionDNI { get; set; }
     }
 }

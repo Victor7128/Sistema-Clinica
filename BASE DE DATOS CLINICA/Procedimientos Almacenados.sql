@@ -231,7 +231,7 @@ SELECT
         LEFT JOIN Camillas c ON c.IdCamilla = ho.IdCamilla
 go
 ----------------------------------
-Create PROCEDURE sp_mantenedor_pacientes
+CREATE PROCEDURE sp_mantenedor_pacientes
     @codigo VARCHAR(5),
     @nombre VARCHAR(100),
     @DNI INT,
@@ -248,43 +248,57 @@ AS
 BEGIN
     IF (@accion = '1')
     BEGIN
-        -- Insertar nuevo paciente en la tabla Pacientes
-        DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5), @IdPaciente INT;
-        SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
-        SET @codmax = ISNULL(@codmax, 'P0000');
-        SET @codnuevo = 'P' + RIGHT('0000' + CAST(CAST(RIGHT(@codmax, 4) AS INT) + 1 AS VARCHAR(4)), 4);
+        -- Insertar nuevo paciente solo si el DNI no existe
+        IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI)
+        BEGIN
+            DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5), @IdPaciente INT;
+            SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
+            SET @codmax = ISNULL(@codmax, 'P0000');
+            SET @codnuevo = 'P' + RIGHT('0000' + CAST(CAST(RIGHT(@codmax, 4) AS INT) + 1 AS VARCHAR(4)), 4);
 
-        INSERT INTO Pacientes (Codigo, Nombre, DNI, FechaNacimiento, Telefono, Direccion, IdGenero)
-        VALUES (@codnuevo, @nombre, @DNI, @FechaNacimiento, @Telefono, @Direccion, @Genero);
+            INSERT INTO Pacientes (Codigo, Nombre, DNI, FechaNacimiento, Telefono, Direccion, IdGenero)
+            VALUES (@codnuevo, @nombre, @DNI, @FechaNacimiento, @Telefono, @Direccion, @Genero);
 
-        SET @IdPaciente = SCOPE_IDENTITY();
+            SET @IdPaciente = SCOPE_IDENTITY();
 
-        INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
-        VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, GETDATE(), GETDATE());
+            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
+            VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, GETDATE(), GETDATE());
 
-        SET @accion = 'Se agregó el paciente: ' + @nombre;
+            SET @accion = 'Se agregó el paciente: ' + @nombre;
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'DNI_EXISTE';
+        END
     END
     ELSE IF (@accion = '2')
     BEGIN
-        -- Actualizar datos del paciente en la tabla Pacientes
-        UPDATE Pacientes 
-        SET Nombre = @nombre, 
-            DNI = @DNI, 
-            FechaNacimiento = @FechaNacimiento, 
-            Telefono = @Telefono, 
-            Direccion = @Direccion, 
-            IdGenero = @Genero
-        WHERE Codigo = @codigo;
+        -- Actualizar datos del paciente solo si el DNI no existe o pertenece al mismo paciente
+        IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI AND Codigo <> @codigo)
+        BEGIN
+            UPDATE Pacientes 
+            SET Nombre = @nombre, 
+                DNI = @DNI, 
+                FechaNacimiento = @FechaNacimiento, 
+                Telefono = @Telefono, 
+                Direccion = @Direccion, 
+                IdGenero = @Genero
+            WHERE Codigo = @codigo;
 
-        -- Actualizar datos de hospitalización si es necesario
-        UPDATE Hospitalizaciones
-        SET IdEstadia = @Estadia,
-            IdHabitacion = @Habitacion,
-            IdCamilla = @Camilla,
-            IdTipoHabitacion = @TipoHabitacion
-        WHERE IdPaciente = (SELECT IdPaciente FROM Pacientes WHERE Codigo = @codigo);
+            -- Actualizar datos de hospitalización si es necesario
+            UPDATE Hospitalizaciones
+            SET IdEstadia = @Estadia,
+                IdHabitacion = @Habitacion,
+                IdCamilla = @Camilla,
+                IdTipoHabitacion = @TipoHabitacion
+            WHERE IdPaciente = (SELECT IdPaciente FROM Pacientes WHERE Codigo = @codigo);
 
-        SET @accion = 'Se modificó el paciente: ' + @nombre;
+            SET @accion = 'Se modificó el paciente: ' + @nombre;
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'DNI_EXISTE';
+        END
     END
     ELSE IF (@accion = '3')
     BEGIN
@@ -312,7 +326,6 @@ BEGIN
     END
 END;
 GO
-
 ------------------------------------------
 CREATE PROCEDURE sp_listar_estadias
 AS

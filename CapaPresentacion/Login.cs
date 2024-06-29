@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using CapaEntidad;
 using CapaNegocio;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CapaPresentacion
 {
@@ -22,7 +23,6 @@ namespace CapaPresentacion
         {
             InitializeComponent();
             txtClave.PasswordChar = '*';
-            txtUsuario.Focus();
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
@@ -51,6 +51,50 @@ namespace CapaPresentacion
         {
             pbMostrar.BringToFront();
             txtClave.PasswordChar = '\0';
+        }
+
+        private void limpiar()
+        {
+            txtUsuario.Text = "";
+            txtClave.Text = "";
+        }
+
+        private void txtClave_KeyDown(object sender, KeyEventArgs e)
+        {
+            int idusuario_esperado = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (idusuario_esperado != 0)
+                {
+                    this.Hide();
+                    Menu mdi = new Menu(idusuario_esperado);
+                    mdi.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña incorrectos.");
+                    limpiar();
+                    txtUsuario.Focus();
+                }
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            txtUsuario.Focus();
+        }
+
+        private void txtUsuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtClave.Focus();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

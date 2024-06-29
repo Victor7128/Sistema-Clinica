@@ -41,7 +41,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label10.Location = new System.Drawing.Point(12, 26);
+            this.label10.Location = new System.Drawing.Point(12, 30);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(331, 39);
             this.label10.TabIndex = 13;
@@ -52,7 +52,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(154, 120);
+            this.label2.Location = new System.Drawing.Point(151, 153);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 21);
             this.label2.TabIndex = 14;
@@ -60,9 +60,10 @@
             // 
             // cboRol
             // 
+            this.cboRol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboRol.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboRol.FormattingEnabled = true;
-            this.cboRol.Location = new System.Drawing.Point(205, 117);
+            this.cboRol.Location = new System.Drawing.Point(202, 150);
             this.cboRol.Name = "cboRol";
             this.cboRol.Size = new System.Drawing.Size(331, 29);
             this.cboRol.TabIndex = 25;
@@ -70,10 +71,14 @@
             // 
             // dgvMenu
             // 
+            this.dgvMenu.AllowUserToAddRows = false;
+            this.dgvMenu.AllowUserToDeleteRows = false;
+            this.dgvMenu.BackgroundColor = System.Drawing.Color.White;
+            this.dgvMenu.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvMenu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMenu.Location = new System.Drawing.Point(205, 172);
+            this.dgvMenu.Location = new System.Drawing.Point(202, 205);
             this.dgvMenu.Name = "dgvMenu";
-            this.dgvMenu.Size = new System.Drawing.Size(331, 315);
+            this.dgvMenu.Size = new System.Drawing.Size(331, 230);
             this.dgvMenu.TabIndex = 27;
             // 
             // btnGuardarCambios
@@ -82,7 +87,7 @@
             this.btnGuardarCambios.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarCambios.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarCambios.ForeColor = System.Drawing.Color.Black;
-            this.btnGuardarCambios.Location = new System.Drawing.Point(551, 448);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(539, 396);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(166, 39);
             this.btnGuardarCambios.TabIndex = 28;

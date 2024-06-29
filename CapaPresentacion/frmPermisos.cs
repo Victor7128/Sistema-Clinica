@@ -76,12 +76,14 @@ namespace CapaPresentacion
             idMenuColumn.HeaderText = "IdMenu";
             idMenuColumn.DataPropertyName = "IdMenu";
             idMenuColumn.Visible = false;
+            idMenuColumn.ReadOnly = true;
             dgvMenu.Columns.Add(idMenuColumn);
 
             DataGridViewTextBoxColumn menuColumn = new DataGridViewTextBoxColumn();
             menuColumn.Name = "Menu";
             menuColumn.HeaderText = "Menu";
             menuColumn.DataPropertyName = "Menu";
+            menuColumn.ReadOnly = true;
             dgvMenu.Columns.Add(menuColumn);
 
             DataGridViewCheckBoxColumn permisoColumn = new DataGridViewCheckBoxColumn();
@@ -92,6 +94,8 @@ namespace CapaPresentacion
 
             CargarComboBox();
             CargardgvMenu();
+
+            dgvMenu.Columns["Menu"].Width = 180;
         }
     }
 }
