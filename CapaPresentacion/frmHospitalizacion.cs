@@ -51,7 +51,10 @@ namespace CapaPresentacion
 
                 string mensaje = objneg.N_mantenedor_paciente(objent);
                 MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                if (accion == "1")
+                {
+                    Alertas.NuevoPacienteRegistrado = true;
+                }
                 Limpiar();
             }
             catch (Exception ex)

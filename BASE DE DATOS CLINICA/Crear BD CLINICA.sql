@@ -50,7 +50,8 @@ CREATE TABLE Pacientes(
     Telefono INT,
     Direccion VARCHAR(100),
     IdGenero INT,
-    FOREIGN KEY (IdGenero) REFERENCES Genero(IdGenero)
+    FOREIGN KEY (IdGenero) REFERENCES Genero(IdGenero),
+	MedicoResponsable NVARCHAR(100) NULL
 );
 
 -- Tabla Estadias

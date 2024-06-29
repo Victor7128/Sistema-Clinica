@@ -16,5 +16,14 @@ namespace CapaPresentacion
         {
             InitializeComponent();
         }
+
+        private void frmCronograma_Load(object sender, EventArgs e)
+        {
+            if (Alertas.NuevoPacienteRegistrado)
+            {
+                MessageBox.Show("Nuevo paciente registrado", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Alertas.NuevoPacienteRegistrado = false; // Resetear la alerta
+            }
+        }
     }
 }

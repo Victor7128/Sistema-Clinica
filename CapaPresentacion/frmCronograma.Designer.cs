@@ -41,7 +41,7 @@
             this.label1.ForeColor = System.Drawing.Color.Blue;
             this.label1.Location = new System.Drawing.Point(30, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(275, 49);
+            this.label1.Size = new System.Drawing.Size(221, 39);
             this.label1.TabIndex = 1;
             this.label1.Text = "Cronograma";
             // 
@@ -62,7 +62,6 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Mostrar cronograma de cirugias";
             this.button1.UseVisualStyleBackColor = true;
-            //this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmCronograma
             // 
@@ -76,6 +75,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmCronograma";
             this.Text = "Cronograma";
+            this.Load += new System.EventHandler(this.frmCronograma_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtCronograma)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
