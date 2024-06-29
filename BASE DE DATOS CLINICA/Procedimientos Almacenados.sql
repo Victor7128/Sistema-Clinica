@@ -248,7 +248,6 @@ AS
 BEGIN
     IF (@accion = '1')
     BEGIN
-        -- Insertar nuevo paciente solo si el DNI no existe
         IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI)
         BEGIN
             DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5), @IdPaciente INT;
