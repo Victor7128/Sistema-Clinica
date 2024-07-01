@@ -21,6 +21,7 @@ namespace CapaPresentacion
             dateTimePicker1.CustomFormat = "HH:mm";
             dateTimePicker1.ShowUpDown = true;
             CargarSalas();
+            LlenarComboBoxMedicos();
         }
         private void CargarSalas()
         {
@@ -113,8 +114,6 @@ namespace CapaPresentacion
                 }
             }
         }
-
-
         private void btnMostListCirugC_Click(object sender, EventArgs e)
         {
             ActualizarListaCirugias();
@@ -149,5 +148,23 @@ namespace CapaPresentacion
                 MessageBox.Show("Ingrese el nombre de un paciente a buscar.");
             }
         }
+        private void LlenarComboBoxMedicos()
+        {
+            try
+            {
+                // Obtener los médicos desde la base de datos usando el método en CapaDatos
+                DataTable dtMedicos = DatosCirugia.ObtenerMedicos();
+
+                // Asignar los datos al ComboBox
+                comboBox2.DataSource = dtMedicos;
+                comboBox2.DisplayMember = "Nombres";
+                comboBox2.ValueMember = "IdUsuario";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los médicos: {ex.Message}");
+            }
+        }
+
     }
 }

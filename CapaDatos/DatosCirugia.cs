@@ -78,5 +78,28 @@ namespace CapaDatos
 
             return dtCirugias;
         }
+        public static DataTable ObtenerMedicos()
+        {
+            DataTable dtMedicos = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(Conexion.cn))
+            {
+                SqlCommand cmd = new SqlCommand("usp_ObtenerMedicos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    cn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    dtMedicos.Load(reader);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Error al obtener los médicos.", ex);
+                }
+            }
+            return dtMedicos;
+        }
+
     }
 }
