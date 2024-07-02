@@ -17,6 +17,3 @@ Sistema creado a fin de solucionar los principales problemas de la Clinica Virge
 
 **Esta aplicación no es oficial**
 Hecho para el curso de Modelamiento y Analisis de Software - **Universidad Privada del Norte**
-![Login del proyecto](Recursos/Sesion.png)
-![Menu del proyecto](Recursos/Inicio.png)
-![Pestanas del proyecto](Recursos/pestana.png)
