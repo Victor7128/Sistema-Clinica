@@ -164,3 +164,15 @@ VALUES (1),
 INSERT INTO Genero (Nombre)
 VALUES ('Femenino'),
 	   ('Masculino');
+
+-- Insertar Salas
+INSERT INTO Salas (Nombre)
+VALUES 
+    ('Sala 1'),
+    ('Sala 2'),
+    ('Sala 3'),
+    ('Sala 4'),
+    ('Sala 5'),
+    ('Sala 6'),
+    ('Sala 7'),
+    ('Sala 8');

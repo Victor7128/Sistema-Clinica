@@ -99,15 +99,23 @@ CREATE TABLE Hospitalizaciones (
     FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion)
 );
 
+-----------------------------------------------------------------------------------------------
+
+-- Tabla Salas
+CREATE TABLE Salas (
+    IdSala INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+
 -- Tabla Cirugias
 CREATE TABLE Cirugias (
     IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
     TipoCirugia VARCHAR(100) NOT NULL,
     IdPaciente INT NOT NULL,
     NombrePaciente VARCHAR(100) NOT NULL,
-    Sala VARCHAR(50) NOT NULL,
-    Turno VARCHAR(20) NOT NULL,
-    FechaCirugia DATETIME NOT NULL,
-    CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente)
+    IdSala INT NOT NULL,
+    HoraCirugia TIME NOT NULL,
+    FechaCirugia DATE NOT NULL,
+    CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
+    CONSTRAINT FK_Cirugias_Salas FOREIGN KEY (IdSala) REFERENCES Salas(IdSala)
 );
-

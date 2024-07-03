@@ -207,6 +207,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CapaDatos\CapaDatos.csproj">
+      <Project>{94da0f0d-e891-4640-a9ab-b0318e5486ca}</Project>
+      <Name>CapaDatos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CapaEntidad\CapaEntidad.csproj">
       <Project>{32ff6ec9-672b-4f4b-ab61-19a77c700bbb}</Project>
       <Name>CapaEntidad</Name>

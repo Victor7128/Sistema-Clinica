@@ -400,5 +400,35 @@ GO
 Select * from Menu
 EXEC sp_modificar_permiso @IdRol = 5, @IdMenu = 1, @NuevoPermiso = 1;
 
-
-
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE usp_AgregarCirugia
+    @TipoCirugia NVARCHAR(100),
+    @IdPaciente INT,
+    @NombrePaciente NVARCHAR(100),
+    @Sala NVARCHAR(50),
+    @HoraCirugia TIME,
+    @FechaCirugia DATETIME
+AS
+BEGIN
+    INSERT INTO Cirugias (TipoCirugia, IdPaciente, NombrePaciente, IdSala, HoraCirugia, FechaCirugia)
+    VALUES (@TipoCirugia, @IdPaciente, @NombrePaciente, @Sala, @HoraCirugia, @FechaCirugia);
+END
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE usp_ObtenerCirugias
+AS
+BEGIN
+    SELECT c.IdCirugia, c.TipoCirugia, p.Nombre AS NombrePaciente, c.IdSala, c.HoraCirugia, c.FechaCirugia
+    FROM Cirugias c
+    INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
+END
+-------------------------------------------------------------------------------------------------
+ALTER PROCEDURE usp_ObtenerCirugias
+AS
+BEGIN
+    SELECT c.IdCirugia, c.TipoCirugia, c.IdPaciente, p.Nombre AS NombrePaciente, s.Nombre AS NombreSala, 
+           c.HoraCirugia, c.FechaCirugia
+    FROM Cirugias c
+    INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente
+    INNER JOIN Salas s ON c.IdSala = s.IdSala
+END
+--------------------------------------------------------------------------------------------------
