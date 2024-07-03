@@ -15,7 +15,7 @@ namespace CapaDatos
             DataTable dtPacientes = new DataTable();
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdPaciente, Nombre FROM Pacientes WHERE Nombre LIKE @Nombre + '%'";
+                string query = "SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Nombre + '%'";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, cn);
                 adapter.SelectCommand.Parameters.AddWithValue("@Nombre", apellido);
 
