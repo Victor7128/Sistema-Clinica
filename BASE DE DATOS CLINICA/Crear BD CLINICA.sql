@@ -1,6 +1,8 @@
 CREATE DATABASE Clinica
+GO
 
 USE Clinica
+GO
 
 -- Tabla MENU
 CREATE TABLE MENU (
@@ -8,6 +10,7 @@ CREATE TABLE MENU (
     Nombre VARCHAR(50),
     NombreFormulario NVARCHAR(50) 
 );
+go
 
 -- Tabla ROL
 CREATE TABLE ROL (
@@ -15,6 +18,7 @@ CREATE TABLE ROL (
     Nombre VARCHAR(50),
     Activo BIT
 );
+go
 
 -- Tabla PERMISO
 CREATE TABLE PERMISO (
@@ -23,6 +27,7 @@ CREATE TABLE PERMISO (
     IdMenu INT REFERENCES MENU(IdMenu),
     Activo BIT
 );
+go
 
 -- Tabla USUARIOS
 CREATE TABLE USUARIOS (
@@ -33,6 +38,7 @@ CREATE TABLE USUARIOS (
     IdRol INT REFERENCES ROL(IdRol),
     Activo BIT
 );
+go
 
 -- Tabla Genero
 CREATE TABLE Genero (
@@ -41,7 +47,49 @@ CREATE TABLE Genero (
 )
 GO
 
-CREATE TABLE Pacientes(
+-- Tabla Estadias
+CREATE TABLE Estadias (
+    IdEstadia INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL
+);
+go
+
+-- Tabla TipoHabitacion
+CREATE TABLE TipoHabitacion (
+    IdTipoHabitacion INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100),
+    Ocupado BIT 
+);
+GO
+
+-- Tabla Camillas
+CREATE TABLE Camillas (
+    IdCamilla INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre INT,
+    Ocupado BIT
+);
+GO
+
+-- Tabla Habitaciones
+CREATE TABLE Habitaciones (
+    IdHabitacion INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(100),
+    Ocupado BIT,
+    IdTipoHabitacion INT REFERENCES TipoHabitacion(IdTipoHabitacion),
+    IdCamilla INT REFERENCES Camillas(IdCamilla)
+);
+GO
+
+-- Tabla SalaCirugia
+CREATE TABLE SalaCirugia (
+    IdSala INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Ocupado BIT 
+);
+GO
+
+-- Tabla Pacientes
+CREATE TABLE Pacientes (
     IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
     Codigo VARCHAR(5),
     Nombre VARCHAR(100),
@@ -49,73 +97,57 @@ CREATE TABLE Pacientes(
     FechaNacimiento DATE,
     Telefono INT,
     Direccion VARCHAR(100),
-    IdGenero INT,
-    FOREIGN KEY (IdGenero) REFERENCES Genero(IdGenero),
-	MedicoResponsable NVARCHAR(100) NULL
+    IdGenero INT REFERENCES Genero(IdGenero),
+    IdUsuario INT NULL
 );
+GO
 
--- Tabla Estadias
-CREATE TABLE Estadias (
-    IdEstadia INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL
-);
-
--- Tabla Habitaciones
-CREATE TABLE Habitaciones (
-    IdHabitacion INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(100) NOT NULL
-);
-
--- Tabla TipoHabitaciones
-CREATE TABLE TipoHabitacion (
-    IdTipoHabitacion INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(100) NOT NULL
-);
-
--- Tabla Camillas
-CREATE TABLE Camillas (
-    IdCamilla INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre INT NOT NULL
-);
-
--- Tabla Hospitalizaciones
-CREATE TABLE Hospitalizaciones (
-    IdHospitalizacion INT IDENTITY(1,1) PRIMARY KEY,
-    IdPaciente INT NOT NULL,
-    IdEstadia INT NOT NULL,
-    IdHabitacion INT NOT NULL,
-    IdCamilla INT NOT NULL,
-    IdUsuario INT NULL,	
-    IdTipoHabitacion INT NOT NULL,
-    FechaIngreso DATE NOT NULL,
-    HoraIngreso TIME NOT NULL,
-    FechaSalida DATE NULL,
-    HoraSalida TIME NULL,
-    FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
-    FOREIGN KEY (IdEstadia) REFERENCES Estadias(IdEstadia),
+-- Tabla relacion Habitacion-camilla
+CREATE TABLE HabitacionCamilla (
+    IdHabitacion INT,
+    IdCamilla INT,
+    PRIMARY KEY (IdHabitacion, IdCamilla),
     FOREIGN KEY (IdHabitacion) REFERENCES Habitaciones(IdHabitacion),
-    FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla),
-    FOREIGN KEY (IdUsuario) REFERENCES USUARIOS(IdUsuario),
-    FOREIGN KEY (IdTipoHabitacion) REFERENCES TipoHabitacion(IdTipoHabitacion)
+    FOREIGN KEY (IdCamilla) REFERENCES Camillas(IdCamilla)
 );
-
------------------------------------------------------------------------------------------------
-
--- Tabla Salas
-CREATE TABLE Salas (
-    IdSala INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre VARCHAR(50) NOT NULL
-);
+GO
 
 -- Tabla Cirugias
 CREATE TABLE Cirugias (
     IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
-    TipoCirugia VARCHAR(100) NOT NULL,
-    IdPaciente INT NOT NULL,
-    NombrePaciente VARCHAR(100) NOT NULL,
-    IdSala INT NOT NULL,
+    Nombre VARCHAR(100) NOT NULL,
+    IdSala INT REFERENCES SalaCirugia(IdSala) NOT NULL,
+    IdPaciente INT REFERENCES Pacientes(IdPaciente) NOT NULL,
     HoraCirugia TIME NOT NULL,
     FechaCirugia DATE NOT NULL,
-    CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente),
-    CONSTRAINT FK_Cirugias_Salas FOREIGN KEY (IdSala) REFERENCES Salas(IdSala)
+    HoraEntrada TIME NULL,
+    HoraSalida TIME NULL
 );
+GO
+
+-- Tabla Hospitalizaciones
+CREATE TABLE Hospitalizaciones (
+    IdHospitalizacion INT IDENTITY(1,1) PRIMARY KEY,
+    IdPaciente INT REFERENCES Pacientes(IdPaciente) NOT NULL,
+    IdEstadia INT REFERENCES Estadias(IdEstadia) NOT NULL,
+    IdHabitacion INT REFERENCES Habitaciones(IdHabitacion) NOT NULL,
+    IdUsuario INT REFERENCES USUARIOS(IdUsuario) NULL,
+    IdCirugia INT REFERENCES Cirugias(IdCirugia) NULL,
+    FechaIngreso DATE NOT NULL,
+    HoraIngreso TIME NOT NULL,
+    FechaSalida DATE NULL,
+    HoraSalida TIME NULL
+);
+GO
+
+-- Tabla HistorialSalidaPacientes
+CREATE TABLE HistorialSalidaPacientes (
+    IdHistorialSalida INT IDENTITY(1,1) PRIMARY KEY,
+    IdPaciente INT REFERENCES Pacientes(IdPaciente),
+    IdHospitalizacion INT REFERENCES Hospitalizaciones(IdHospitalizacion),
+    FechaSalida DATE NOT NULL,
+    HoraSalida TIME NOT NULL,
+    MotivoSalida VARCHAR(255),
+    IdUsuario INT REFERENCES USUARIOS(IdUsuario) NULL
+);
+GO

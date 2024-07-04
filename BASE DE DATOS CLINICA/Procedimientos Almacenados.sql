@@ -1,35 +1,39 @@
 use Clinica
 
--- Obtener Usuarios
 CREATE PROCEDURE usp_ObtenerUsuarios
-as
-SELECT Nombres, Usuario, Clave, IdRol, Activo FROM USUARIOS
-GO
-----------------------------------------
--- Obtener Roles
-CREATE PROCEDURE usp_ObtenerRoles
-as
-SELECT IdRol, Nombre, Activo FROM ROL
-GO
-----------------------------------------
-CREATE PROCEDURE usp_ObtenerUsuariosConRoles
-as
-SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
-FROM USUARIOS u
-inner JOIN ROL r ON u.IdRol = r.IdRol
-GO
--------------------------
-Create PROCEDURE usp_buscar_usuarios
-    @nombre VARCHAR(50)
 AS
 BEGIN
-    SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre as Rol
-    FROM Usuarios u inner join ROL r on r.IdRol = u.IdRol
-    WHERE Nombres LIKE '%' + @nombre + '%';
+    SELECT Nombres, Usuario, Clave, IdRol, Activo FROM USUARIOS;
 END;
 GO
-------------------------------------------
--- Procedimiento almacenado para login de usuarios
+
+CREATE PROCEDURE usp_ObtenerRoles
+AS
+BEGIN
+    SELECT IdRol, Nombre, Activo FROM ROL;
+END;
+GO
+
+CREATE PROCEDURE usp_ObtenerUsuariosConRoles
+AS
+BEGIN
+    SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
+    FROM USUARIOS u
+    INNER JOIN ROL r ON u.IdRol = r.IdRol;
+END;
+GO
+
+CREATE PROCEDURE usp_BuscarUsuarios
+    @nombre NVARCHAR(50)
+AS
+BEGIN
+    SELECT u.Nombres, u.Usuario, u.Clave, r.Nombre AS Rol
+    FROM USUARIOS u
+    INNER JOIN ROL r ON u.IdRol = r.IdRol
+    WHERE u.Nombres LIKE '%' + @nombre + '%';
+END;
+GO
+
 CREATE PROCEDURE usp_LoginUsuario
     @Usuario VARCHAR(60),
     @Clave VARCHAR(60),
@@ -50,7 +54,6 @@ BEGIN
 END;
 GO
 
--- Stored Procedure for fetching user permissions
 CREATE PROCEDURE usp_ObtenerPermisos
     @IdUsuario INT
 AS
@@ -71,8 +74,7 @@ BEGIN
 END;
 GO
 
--- Procedimiento almacenado para mantanedor usuario
-CREATE PROCEDURE usp_mantenedor_usuarios
+CREATE PROCEDURE usp_MantenedorUsuarios
     @Nombres VARCHAR(50) = NULL,
     @Usuario VARCHAR(50) = NULL,
     @Clave VARCHAR(50) = NULL,
@@ -91,10 +93,9 @@ BEGIN
     END
     ELSE IF (@accion = '2')
     BEGIN
-        -- Validar que el nombre no sea NULL para actualizar
+        -- Actualizar datos del usuario en la tabla USUARIOS por nombre
         IF @Nombres IS NOT NULL
         BEGIN
-            -- Actualizar datos del usuario en la tabla USUARIOS por nombre
             UPDATE USUARIOS
             SET Usuario = @Usuario,
                 Clave = @Clave,
@@ -105,69 +106,69 @@ BEGIN
     END
     ELSE IF (@accion = '3')
     BEGIN
-        -- Validar que el nombre no sea NULL para eliminar
+        -- Eliminar usuario de la tabla USUARIOS por nombre
         IF @Nombres IS NOT NULL
         BEGIN
-            -- Eliminar usuario de la tabla USUARIOS por nombre
             DELETE FROM USUARIOS
             WHERE Nombres = @Nombres;
         END
     END
 END;
 GO
---------------------------------------------------------------------
--- Procedimiento almacenado para Listar hospitalización
-Create proc sp_listar_pacientes
-as
-SELECT
-	p.Codigo as Codigo,
-    p.Nombre AS Nombre,
-    p.DNI AS Dni,
-	p.FechaNacimiento as FechaNacimiento,
-	p.Telefono as Telefono,
-	p.Direccion as Direccion,
-	g.Nombre as Genero,
-    e.Nombre AS Estadia,
-    c.Nombre AS Camilla,
-    h.Nombre AS Habitacion,
-    th.Nombre AS TipoHabitacion,
-    ho.FechaIngreso AS FechaIngreso,
-    ho.HoraIngreso AS HoraIngreso,
-    ho.FechaSalida AS FechaSalida,
-    ho.HoraSalida AS HoraSalida
-FROM 
-    Hospitalizaciones ho
-INNER JOIN 
-    Pacientes p ON ho.IdPaciente = p.IdPaciente
-LEFT JOIN 
-    Estadias e ON ho.IdEstadia = e.IdEstadia
-LEFT JOIN 
-    Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
-LEFT JOIN 
-    TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion
-LEFT JOIN 
-    Camillas c ON ho.IdCamilla = c.IdCamilla
-LEFT JOIN
-	Genero g ON g.IdGenero = p.IdGenero
-GROUP BY
-	p.Codigo,
-    p.Nombre,
-    p.DNI,
-	p.FechaNacimiento,
-	p.Telefono,
-	p.Direccion,
-	g.Nombre,
-    e.Nombre,
-    c.Nombre,
-    h.Nombre,
-    th.Nombre,
-    ho.FechaIngreso,
-    ho.HoraIngreso,
-    ho.FechaSalida,
-    ho.HoraSalida;
-go
-----------------------------------
-CREATE PROCEDURE sp_buscar_pacientes
+
+CREATE PROCEDURE sp_ListarPacientesHospitalizados
+AS
+BEGIN
+    SELECT
+        p.Codigo,
+        p.Nombre AS Nombre,
+        p.DNI AS Dni,
+        p.FechaNacimiento AS FechaNacimiento,
+        p.Telefono AS Telefono,
+        p.Direccion AS Direccion,
+        g.Nombre AS Genero,
+        e.Nombre AS Estadia,
+        c.Nombre AS Camilla,
+        h.Nombre AS Habitacion,
+        th.Nombre AS TipoHabitacion,
+        ho.FechaIngreso AS FechaIngreso,
+        ho.HoraIngreso AS HoraIngreso,
+        ho.FechaSalida AS FechaSalida,
+        ho.HoraSalida AS HoraSalida
+    FROM 
+        Hospitalizaciones ho
+    INNER JOIN 
+        Pacientes p ON ho.IdPaciente = p.IdPaciente
+    LEFT JOIN 
+        Estadias e ON ho.IdEstadia = e.IdEstadia
+    LEFT JOIN 
+        Habitaciones h ON ho.IdHabitacion = h.IdHabitacion
+    LEFT JOIN 
+        TipoHabitacion th ON ho.IdTipoHabitacion = th.IdTipoHabitacion
+    LEFT JOIN 
+        Camillas c ON ho.IdCamilla = c.IdCamilla
+    LEFT JOIN
+        Genero g ON g.IdGenero = p.IdGenero
+    GROUP BY
+        p.Codigo,
+        p.Nombre,
+        p.DNI,
+        p.FechaNacimiento,
+        p.Telefono,
+        p.Direccion,
+        g.Nombre,
+        e.Nombre,
+        c.Nombre,
+        h.Nombre,
+        th.Nombre,
+        ho.FechaIngreso,
+        ho.HoraIngreso,
+        ho.FechaSalida,
+        ho.HoraSalida;
+END;
+GO
+
+CREATE PROCEDURE sp_BuscarPacientes
     @nombre NVARCHAR(50)
 AS
 BEGIN
@@ -181,13 +182,14 @@ BEGIN
         g.Nombre AS Genero
     FROM 
         Pacientes p
-        INNER JOIN Genero g ON g.IdGenero = p.IdGenero
+    INNER JOIN 
+        Genero g ON g.IdGenero = p.IdGenero
     WHERE 
         p.Nombre LIKE '%' + @nombre + '%';
 END;
 GO
------------------------------------------------
-Alter PROCEDURE sp_buscar_pacientes_consulta
+
+ALTER PROCEDURE sp_BuscarPacientesConsulta
     @nombre VARCHAR(50) = NULL,
     @dni INT = NULL
 AS
@@ -203,16 +205,18 @@ BEGIN
         ho.HoraSalida
     FROM 
         Hospitalizaciones ho 
-        INNER JOIN Pacientes p ON p.IdPaciente = ho.IdPaciente
-        LEFT JOIN Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
-        LEFT JOIN Camillas c ON c.IdCamilla = ho.IdCamilla
+    INNER JOIN 
+        Pacientes p ON p.IdPaciente = ho.IdPaciente
+    LEFT JOIN 
+        Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
+    LEFT JOIN 
+        Camillas c ON c.IdCamilla = ho.IdCamilla
     WHERE 
         (@nombre IS NOT NULL AND p.Nombre LIKE '%' + @nombre + '%') 
-        OR (@dni IS NOT NULL AND p.DNI = @dni)
+        OR (@dni IS NOT NULL AND p.DNI = @dni);
 END;
 GO
 
-----------------------------------
 CREATE PROCEDURE sp_listar_pacientes_consultas
 as
 SELECT 
@@ -230,7 +234,7 @@ SELECT
         LEFT JOIN Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
         LEFT JOIN Camillas c ON c.IdCamilla = ho.IdCamilla
 go
-----------------------------------
+
 CREATE PROCEDURE sp_mantenedor_pacientes
     @codigo VARCHAR(5),
     @nombre VARCHAR(100),
@@ -325,47 +329,47 @@ BEGIN
     END
 END;
 GO
-------------------------------------------
+
 CREATE PROCEDURE sp_listar_estadias
 AS
 BEGIN
     SELECT IdEstadia, Nombre FROM Estadias;
 END
 GO
-------------------------------------------
+
 CREATE PROCEDURE sp_listar_habitaciones
 AS
 BEGIN
     SELECT IdHabitacion, Nombre FROM Habitaciones;
 END
 GO
-------------------------------------------
+
 CREATE PROCEDURE sp_listar_tipo_habitacion
 AS
 BEGIN
     SELECT IdTipoHabitacion, Nombre FROM TipoHabitacion;
 END
 GO
-------------------------------------------
+
 CREATE PROCEDURE sp_listar_camillas
 AS
 BEGIN
     SELECT IdCamilla, Nombre FROM Camillas;
 END
 GO
-------------------------------------------
+
 CREATE PROCEDURE sp_listar_genero
 as
 Begin
 	select IdGenero, Nombre from Genero;
 end
 go
-----------------------------------
+
 CREATE PROCEDURE sp_listar_roles
 AS
 SELECT IdRol, Nombre FROM ROL
 GO
-------------------------------------------
+
 CREATE PROCEDURE sp_buscar_rol
     @IdRol INT
 AS
@@ -384,7 +388,7 @@ BEGIN
         M.Nombre;
 END
 GO
---------------------------------------
+
 CREATE PROCEDURE sp_modificar_permiso
     @IdRol INT,
     @IdMenu INT,
@@ -397,10 +401,6 @@ BEGIN
 END
 GO
 
-Select * from Menu
-EXEC sp_modificar_permiso @IdRol = 5, @IdMenu = 1, @NuevoPermiso = 1;
-
--------------------------------------------------------------------------------------------------
 CREATE PROCEDURE usp_AgregarCirugia
     @TipoCirugia NVARCHAR(100),
     @IdPaciente INT,
@@ -413,7 +413,8 @@ BEGIN
     INSERT INTO Cirugias (TipoCirugia, IdPaciente, NombrePaciente, IdSala, HoraCirugia, FechaCirugia)
     VALUES (@TipoCirugia, @IdPaciente, @NombrePaciente, @Sala, @HoraCirugia, @FechaCirugia);
 END
--------------------------------------------------------------------------------------------------
+go
+
 CREATE PROCEDURE usp_ObtenerCirugias
 AS
 BEGIN
@@ -421,8 +422,9 @@ BEGIN
     FROM Cirugias c
     INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente;
 END
--------------------------------------------------------------------------------------------------
-ALTER PROCEDURE usp_ObtenerCirugias
+go
+
+Alter PROCEDURE usp_ObtenerCirugias
 AS
 BEGIN
     SELECT c.IdCirugia, c.TipoCirugia, c.IdPaciente, p.Nombre AS NombrePaciente, s.Nombre AS NombreSala, 
@@ -431,4 +433,32 @@ BEGIN
     INNER JOIN Pacientes p ON c.IdPaciente = p.IdPaciente
     INNER JOIN Salas s ON c.IdSala = s.IdSala
 END
---------------------------------------------------------------------------------------------------
+GO
+
+CREATE PROCEDURE sp_ListarHabitacionesDisponibles
+AS
+BEGIN
+    SELECT h.IdHabitacion, h.Nombre 
+    FROM Habitaciones h
+    WHERE h.IdHabitacion NOT IN (
+        SELECT ho.IdHabitacion 
+        FROM Hospitalizaciones ho 
+        WHERE ho.FechaSalida IS NULL
+        GROUP BY ho.IdHabitacion
+        HAVING COUNT(ho.IdCamilla) >= 2
+    );
+END;
+GO
+
+CREATE PROCEDURE sp_ListarCamillasDisponibles
+AS
+BEGIN
+    SELECT c.IdCamilla, c.Nombre 
+    FROM Camillas c
+    WHERE c.IdCamilla NOT IN (
+        SELECT ho.IdCamilla 
+        FROM Hospitalizaciones ho 
+        WHERE ho.FechaSalida IS NULL
+    );
+END;
+GO
