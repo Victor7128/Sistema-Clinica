@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,12 +86,6 @@
     </Compile>
     <Compile Include="frmHistorial.Designer.cs">
       <DependentUpon>frmHistorial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmListaCirugias.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmListaCirugias.Designer.cs">
-      <DependentUpon>frmListaCirugias.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPermisos.cs">
       <SubType>Form</SubType>
@@ -147,9 +142,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHistorial.resx">
       <DependentUpon>frmHistorial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmListaCirugias.resx">
-      <DependentUpon>frmListaCirugias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPermisos.resx">
       <DependentUpon>frmPermisos.cs</DependentUpon>

@@ -48,18 +48,18 @@ namespace CapaDatos
 
         public DataTable D_buscar_usuarios(EntidadUsuarios obje)
         {
-            SqlCommand cmd = new SqlCommand("usp_buscar_usuarios", cn);
+            SqlCommand cmd = new SqlCommand("usp_BuscarUsuarios", cn);
             DataTable dt = new DataTable();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@nombre", obje.Nombres);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(dt);
             return dt;
-        }
+        }        
 
         public string D_mantenedor_usuarios(EntidadUsuarios obje)
         {
-            SqlCommand cmd = new SqlCommand("usp_mantenedor_usuarios", cn);
+            SqlCommand cmd = new SqlCommand("usp_MantenedorUsuarios", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Nombres", obje.Nombres);
             cmd.Parameters.AddWithValue("@Usuario", obje.Usuario);

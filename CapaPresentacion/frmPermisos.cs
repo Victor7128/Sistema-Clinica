@@ -17,6 +17,8 @@ namespace CapaPresentacion
     {
         EntidadPermisos objent = new EntidadPermisos();
         NegocioPermisos objneg = new NegocioPermisos();
+        NegocioLogin objnego = new NegocioLogin();
+        public MenuStrip menuStrip;
 
         public frmPermisos()
         {
@@ -53,7 +55,8 @@ namespace CapaPresentacion
                     objneg.N_modificar_permiso(objent);
                 }
             }            
-            MessageBox.Show("Cambios guardados correctamente.");            
+            MessageBox.Show("Cambios guardados correctamente.");
+            
         }
 
         private void cboRol_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,7 +66,7 @@ namespace CapaPresentacion
 
         private void btnGuardarCambios_Click(object sender, EventArgs e)
         {
-            GuardarCambios();
+            GuardarCambios();            
         }
 
         private void frmPermisos_Load(object sender, EventArgs e)

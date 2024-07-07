@@ -22,6 +22,7 @@ namespace CapaPresentacion
         public frmUsuarios()
         {
             InitializeComponent();
+
         }
 
         void mantenedor(string accion)
@@ -64,6 +65,7 @@ namespace CapaPresentacion
             {
                 mantenedor("1");
                 Limpiar();
+                CargarUsuarios();
             }
         }
 
@@ -74,6 +76,7 @@ namespace CapaPresentacion
             {
                 mantenedor("2");
                 Limpiar();
+                CargarUsuarios();
             }
         }
 
@@ -84,6 +87,7 @@ namespace CapaPresentacion
             {
                 mantenedor("3");
                 Limpiar();
+                CargarUsuarios();
             }
         }
 

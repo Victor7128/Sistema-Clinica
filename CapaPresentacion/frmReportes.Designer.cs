@@ -70,10 +70,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox1.Location = new System.Drawing.Point(28, 80);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(28, 79);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(770, 462);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -82,7 +82,7 @@
             // txtTurno
             // 
             this.txtTurno.Location = new System.Drawing.Point(307, 54);
-            this.txtTurno.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtTurno.Margin = new System.Windows.Forms.Padding(2);
             this.txtTurno.Name = "txtTurno";
             this.txtTurno.Size = new System.Drawing.Size(91, 27);
             this.txtTurno.TabIndex = 12;
@@ -90,7 +90,7 @@
             // txtArea
             // 
             this.txtArea.Location = new System.Drawing.Point(173, 54);
-            this.txtArea.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtArea.Margin = new System.Windows.Forms.Padding(2);
             this.txtArea.Name = "txtArea";
             this.txtArea.Size = new System.Drawing.Size(91, 27);
             this.txtArea.TabIndex = 11;
@@ -98,7 +98,7 @@
             // txtReporte
             // 
             this.txtReporte.Location = new System.Drawing.Point(19, 54);
-            this.txtReporte.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtReporte.Margin = new System.Windows.Forms.Padding(2);
             this.txtReporte.Name = "txtReporte";
             this.txtReporte.Size = new System.Drawing.Size(90, 27);
             this.txtReporte.TabIndex = 10;
@@ -107,7 +107,7 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(19, 100);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -120,7 +120,7 @@
             this.btnAgregar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.ForeColor = System.Drawing.Color.GhostWhite;
             this.btnAgregar.Location = new System.Drawing.Point(610, 44);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(135, 45);
             this.btnAgregar.TabIndex = 8;
@@ -131,7 +131,7 @@
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(427, 58);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(151, 27);
             this.dateTimePicker1.TabIndex = 7;

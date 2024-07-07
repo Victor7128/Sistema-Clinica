@@ -48,7 +48,7 @@
             // dtCronograma
             // 
             this.dtCronograma.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtCronograma.Location = new System.Drawing.Point(39, 94);
+            this.dtCronograma.Location = new System.Drawing.Point(26, 94);
             this.dtCronograma.Name = "dtCronograma";
             this.dtCronograma.RowHeadersWidth = 51;
             this.dtCronograma.Size = new System.Drawing.Size(776, 333);

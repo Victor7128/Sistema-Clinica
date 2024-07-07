@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntidadCirugia.cs" />
     <Compile Include="EntidadHospitalizacion.cs" />
     <Compile Include="EntidadLogin.cs" />
     <Compile Include="EntidadPermisos.cs" />

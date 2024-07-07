@@ -63,7 +63,7 @@ namespace CapaPresentacion
         private void BuscarUsuarioNOMBRE()
         {
             objent.Nombre = txtNombreBuscar.Text;
-            DataTable dt = objneg.N_buscar_pacientes(objent);
+            DataTable dt = objneg.N_buscar_pacientes_consulta(objent);
             dgvBuscador.DataSource = dt;
             dgvBuscador.Refresh();
         }

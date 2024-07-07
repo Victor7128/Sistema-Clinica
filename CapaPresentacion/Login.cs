@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 using CapaEntidad;
 using CapaNegocio;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CapaPresentacion
 {
@@ -18,6 +19,8 @@ namespace CapaPresentacion
     {
         EntidadLogin objent = new EntidadLogin();
         NegocioLogin objneg = new NegocioLogin();
+        NegocioUsuarios objnego = new NegocioUsuarios();
+        SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["sql"].ConnectionString);
 
         public Login()
         {
@@ -28,7 +31,6 @@ namespace CapaPresentacion
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             int idusuario_esperado = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
-
             if (idusuario_esperado != 0)
             {
                 this.Hide();

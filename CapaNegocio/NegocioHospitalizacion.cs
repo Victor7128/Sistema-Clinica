@@ -21,17 +21,17 @@ namespace CapaNegocio
         {
             return objd.D_listar_estadias();
         }
-        public DataTable N_listar_habitaciones()
+        public DataTable N_listar_habitaciones(EntidadHospitalizacion obje)
         {
-            return objd.D_listar_habitaciones();
+            return objd.D_listar_habitaciones(obje);
         }
         public DataTable N_listar_tipo_habitacion()
         {
             return objd.D_listar_tipo_habitacion();
         }
-        public DataTable N_listar_camillas()
+        public DataTable N_listar_camillas(EntidadHospitalizacion obje)
         {
-            return objd.D_listar_camillas();
+            return objd.D_listar_camillas(obje);
         }
         public DataTable N_listar_genero()
         {
@@ -49,7 +49,6 @@ namespace CapaNegocio
         {
             return objd.D_buscar_pacientes_consulta(obje);
         }
-
         public DataTable N_listar_pacientes_consulta()
         {
             return objd.D_listar_pacientes_consulta();

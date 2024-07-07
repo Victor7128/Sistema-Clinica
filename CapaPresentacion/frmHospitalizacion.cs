@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 using CapaEntidad;
 using CapaNegocio;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CapaPresentacion
 {
@@ -79,6 +78,51 @@ namespace CapaPresentacion
             dgvPacientes.DataSource = objneg.N_listar_pacientes();
         }
 
+        public void CargarcboHabitacion(int idTipoHabitacion)
+        {
+            EntidadHospitalizacion objent = new EntidadHospitalizacion();
+            objent.IdTipoHabitacion = idTipoHabitacion;
+            cboHabitacion.DataSource = objneg.N_listar_habitaciones(objent);
+            cboHabitacion.ValueMember = "IdHabitacion";
+            cboHabitacion.DisplayMember = "Nombre";
+        }
+
+        public void CargarcboCamillas(int idHabitacion)
+        {
+            EntidadHospitalizacion objent = new EntidadHospitalizacion();
+            objent.IdHabitacion = idHabitacion;
+            cboCamilla.DataSource = objneg.N_listar_camillas(objent);
+            cboCamilla.ValueMember = "IdCamilla";
+            cboCamilla.DisplayMember = "Nombre";
+        }
+
+        private void cboTipoHabitacion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboTipoHabitacion.SelectedItem != null)
+            {
+                DataRowView selectedRow = cboTipoHabitacion.SelectedItem as DataRowView;
+                if (selectedRow != null)
+                {
+                    int idTipoHabitacion = Convert.ToInt32(selectedRow["IdTipoHabitacion"]);
+                    CargarcboHabitacion(idTipoHabitacion);
+                    cboCamilla.DataSource = null;
+                }
+            }
+        }
+
+        private void cboHabitacion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboHabitacion.SelectedItem != null)
+            {
+                DataRowView selectedRow = cboHabitacion.SelectedItem as DataRowView;
+                if (selectedRow != null)
+                {
+                    int idHabitacion = Convert.ToInt32(selectedRow["IdHabitacion"]);
+                    CargarcboCamillas(idHabitacion);
+                }
+            }
+        }
+
         void CargarComboboxes()
         {
             //Cargar datos en cboGenero
@@ -91,21 +135,10 @@ namespace CapaPresentacion
             cboEstadia.DisplayMember = "Nombre";
             cboEstadia.ValueMember = "IdEstadia";
 
-            // Cargar datos en cboHabitacion
-            cboHabitacion.DataSource = objneg.N_listar_habitaciones();
-            cboHabitacion.DisplayMember = "Nombre";
-            cboHabitacion.ValueMember = "IdHabitacion";
-
             // Cargar datos en cboTipoHabitacion
             cboTipoHabitacion.DataSource = objneg.N_listar_tipo_habitacion();
             cboTipoHabitacion.DisplayMember = "Nombre";
             cboTipoHabitacion.ValueMember = "IdTipoHabitacion";
-
-            // Cargar datos en cboCamilla
-            cboCamilla.DataSource = objneg.N_listar_camillas();
-            cboCamilla.DisplayMember = "Nombre";
-            cboCamilla.ValueMember = "IdCamilla";
-
             Limpiar();
         }
 
@@ -142,7 +175,7 @@ namespace CapaPresentacion
             Limpiar();
             dgvPacientes.DataSource = objneg.N_listar_pacientes();
 
-            dgvPacientes.Columns["Nombre"].Width = 250;
+            dgvPacientes.Columns["Paciente"].Width = 250;
             dgvPacientes.Columns["Direccion"].Width = 280;
             dgvPacientes.Columns["TipoHabitacion"].Width = 230;
             dgvPacientes.CellFormatting += dgvPacientes_CellFormatting;
