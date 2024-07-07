@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
+            this.dgvHistorial = new System.Windows.Forms.DataGridView();
+            this.btnConsultar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.btnListar = new System.Windows.Forms.Button();
+            this.txtDNI = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,29 +50,33 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "HISTORIAL MÉDICO";
             // 
-            // dataGridView1
+            // dgvHistorial
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(26, 226);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(767, 318);
-            this.dataGridView1.TabIndex = 4;
+            this.dgvHistorial.AllowUserToAddRows = false;
+            this.dgvHistorial.AllowUserToDeleteRows = false;
+            this.dgvHistorial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvHistorial.Location = new System.Drawing.Point(26, 226);
+            this.dgvHistorial.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvHistorial.Name = "dgvHistorial";
+            this.dgvHistorial.ReadOnly = true;
+            this.dgvHistorial.RowHeadersWidth = 51;
+            this.dgvHistorial.RowTemplate.Height = 24;
+            this.dgvHistorial.Size = new System.Drawing.Size(767, 318);
+            this.dgvHistorial.TabIndex = 4;
             // 
-            // button1
+            // btnConsultar
             // 
-            this.button1.BackColor = System.Drawing.Color.Blue;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(378, 41);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 34);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Consultar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnConsultar.BackColor = System.Drawing.Color.Blue;
+            this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultar.ForeColor = System.Drawing.Color.White;
+            this.btnConsultar.Location = new System.Drawing.Point(328, 41);
+            this.btnConsultar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(87, 34);
+            this.btnConsultar.TabIndex = 5;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = false;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
             // label2
             // 
@@ -82,15 +86,15 @@
             this.label2.Location = new System.Drawing.Point(36, 48);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 19);
+            this.label2.Size = new System.Drawing.Size(32, 19);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Paciente";
+            this.label2.Text = "DNI";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.btnListar);
+            this.groupBox2.Controls.Add(this.btnConsultar);
+            this.groupBox2.Controls.Add(this.txtDNI);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Blue;
@@ -103,28 +107,32 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Consultar Historial paciente";
             // 
-            // textBox1
+            // btnListar
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(111, 45);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(235, 27);
-            this.textBox1.TabIndex = 21;
+            this.btnListar.BackColor = System.Drawing.Color.Blue;
+            this.btnListar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListar.ForeColor = System.Drawing.Color.White;
+            this.btnListar.Location = new System.Drawing.Point(443, 41);
+            this.btnListar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnListar.Name = "btnListar";
+            this.btnListar.Size = new System.Drawing.Size(113, 34);
+            this.btnListar.TabIndex = 22;
+            this.btnListar.Text = "Listar todo";
+            this.btnListar.UseVisualStyleBackColor = false;
+            this.btnListar.Click += new System.EventHandler(this.btnListar_Click);
             // 
-            // button2
+            // txtDNI
             // 
-            this.button2.BackColor = System.Drawing.Color.Blue;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(596, 41);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(113, 34);
-            this.button2.TabIndex = 22;
-            this.button2.Text = "Listar Salidas";
-            this.button2.UseVisualStyleBackColor = false;
+            this.txtDNI.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDNI.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDNI.Location = new System.Drawing.Point(72, 44);
+            this.txtDNI.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.Size = new System.Drawing.Size(235, 27);
+            this.txtDNI.TabIndex = 21;
+            this.txtDNI.TextChanged += new System.EventHandler(this.txtDNI_TextChanged);
+            this.txtDNI.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDNI_KeyDown);
+            this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // frmHistorial
             // 
@@ -132,13 +140,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 573);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvHistorial);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmHistorial";
             this.Text = "Historial";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmHistorial_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvHistorial)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -149,11 +158,11 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dgvHistorial;
+        private System.Windows.Forms.Button btnConsultar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtDNI;
+        private System.Windows.Forms.Button btnListar;
     }
 }

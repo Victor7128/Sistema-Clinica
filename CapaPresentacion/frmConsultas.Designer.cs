@@ -47,7 +47,7 @@
             // 
             this.txtNombreBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtNombreBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombreBuscar.Location = new System.Drawing.Point(73, 139);
+            this.txtNombreBuscar.Location = new System.Drawing.Point(77, 112);
             this.txtNombreBuscar.Name = "txtNombreBuscar";
             this.txtNombreBuscar.Size = new System.Drawing.Size(247, 27);
             this.txtNombreBuscar.TabIndex = 10;
@@ -59,7 +59,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(69, 114);
+            this.label2.Location = new System.Drawing.Point(73, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 21);
             this.label2.TabIndex = 9;
@@ -85,7 +85,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(24, 22);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(296, 39);
             this.label1.TabIndex = 7;
@@ -96,7 +96,7 @@
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.White;
-            this.lblFecha.Location = new System.Drawing.Point(412, 39);
+            this.lblFecha.Location = new System.Drawing.Point(400, 26);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(72, 22);
             this.lblFecha.TabIndex = 47;
@@ -107,7 +107,7 @@
             this.lblHora.AutoSize = true;
             this.lblHora.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.White;
-            this.lblHora.Location = new System.Drawing.Point(713, 36);
+            this.lblHora.Location = new System.Drawing.Point(701, 23);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(64, 23);
             this.lblHora.TabIndex = 46;
@@ -121,7 +121,7 @@
             // 
             this.btnListarPacientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnListarPacientes.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListarPacientes.Location = new System.Drawing.Point(583, 129);
+            this.btnListarPacientes.Location = new System.Drawing.Point(587, 102);
             this.btnListarPacientes.Name = "btnListarPacientes";
             this.btnListarPacientes.Size = new System.Drawing.Size(132, 44);
             this.btnListarPacientes.TabIndex = 11;
@@ -133,7 +133,7 @@
             // 
             this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Location = new System.Drawing.Point(416, 129);
+            this.btnBuscar.Location = new System.Drawing.Point(420, 102);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(132, 44);
             this.btnBuscar.TabIndex = 48;
@@ -148,7 +148,7 @@
             this.groupBox1.Controls.Add(this.dgvBuscador);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.groupBox1.Location = new System.Drawing.Point(53, 189);
+            this.groupBox1.Location = new System.Drawing.Point(57, 162);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(682, 372);
             this.groupBox1.TabIndex = 49;

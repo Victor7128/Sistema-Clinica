@@ -125,17 +125,14 @@ namespace CapaPresentacion
 
         void CargarComboboxes()
         {
-            //Cargar datos en cboGenero
             cboGenero.DataSource = objneg.N_listar_genero();
             cboGenero.DisplayMember = "Nombre";
             cboGenero.ValueMember = "IdGenero";
 
-            // Cargar datos en cboEstadia
             cboEstadia.DataSource = objneg.N_listar_estadias();
-            cboEstadia.DisplayMember = "Nombre";
             cboEstadia.ValueMember = "IdEstadia";
-
-            // Cargar datos en cboTipoHabitacion
+            cboEstadia.DisplayMember = "Nombre";
+            
             cboTipoHabitacion.DataSource = objneg.N_listar_tipo_habitacion();
             cboTipoHabitacion.DisplayMember = "Nombre";
             cboTipoHabitacion.ValueMember = "IdTipoHabitacion";
@@ -248,10 +245,10 @@ namespace CapaPresentacion
             string telefono = dgvPacientes[4, fila].Value.ToString() ?? string.Empty;
             string direccion = dgvPacientes[5, fila].Value.ToString() ?? string.Empty;
             string genero = dgvPacientes[6, fila].Value.ToString() ?? string.Empty;
-            string estadia = dgvPacientes[7, fila].Value.ToString() ?? string.Empty;
-            string camilla = dgvPacientes[8, fila].Value.ToString() ?? string.Empty;
-            string habitacion = dgvPacientes[9, fila].Value.ToString() ?? string.Empty;
-            string tipohabitacion = dgvPacientes[10, fila].Value.ToString() ?? string.Empty;
+            string tipohabitacion = dgvPacientes[7, fila].Value.ToString() ?? string.Empty;
+            string habitacion = dgvPacientes[8, fila].Value.ToString() ?? string.Empty;
+            string camilla = dgvPacientes[9, fila].Value.ToString() ?? string.Empty;
+            string estadia = dgvPacientes[10, fila].Value.ToString() ?? string.Empty;
 
             txtCodigo.Text = codigo;
             txtNombre.Text = nombre;
@@ -260,10 +257,10 @@ namespace CapaPresentacion
             txtCelular.Text = telefono;
             txtDireccion.Text = direccion;
             cboGenero.Text = genero;
-            cboEstadia.Text = estadia;
-            cboCamilla.Text = camilla;
-            cboHabitacion.Text = habitacion;
             cboTipoHabitacion.Text = tipohabitacion;
+            cboHabitacion.Text = habitacion;
+            cboCamilla.Text = camilla;
+            cboEstadia.Text = estadia;
         }
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
@@ -373,6 +370,16 @@ namespace CapaPresentacion
                     }
                 }
             }
+        }
+
+        private void btnListar_Click(object sender, EventArgs e)
+        {
+            dgvPacientes.DataSource = objneg.N_listar_pacientes();
+
+            dgvPacientes.Columns["Paciente"].Width = 250;
+            dgvPacientes.Columns["Direccion"].Width = 280;
+            dgvPacientes.Columns["TipoHabitacion"].Width = 230;
+            dgvPacientes.CellFormatting += dgvPacientes_CellFormatting;
         }
     }
 }

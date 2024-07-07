@@ -67,6 +67,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvPacientes = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnListar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
@@ -494,12 +495,27 @@
             this.groupBox2.TabIndex = 94;
             this.groupBox2.TabStop = false;
             // 
+            // btnListar
+            // 
+            this.btnListar.BackColor = System.Drawing.Color.Blue;
+            this.btnListar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListar.ForeColor = System.Drawing.Color.White;
+            this.btnListar.Location = new System.Drawing.Point(337, 290);
+            this.btnListar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnListar.Name = "btnListar";
+            this.btnListar.Size = new System.Drawing.Size(113, 34);
+            this.btnListar.TabIndex = 95;
+            this.btnListar.Text = "Listar todo";
+            this.btnListar.UseVisualStyleBackColor = false;
+            this.btnListar.Click += new System.EventHandler(this.btnListar_Click);
+            // 
             // frmHospitalizacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 573);
+            this.Controls.Add(this.btnListar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtBuscar);
@@ -563,5 +579,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button btnListar;
     }
 }

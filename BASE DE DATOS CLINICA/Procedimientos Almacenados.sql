@@ -159,7 +159,7 @@ GO
 CREATE PROCEDURE sp_listar_estadias
 AS
 BEGIN
-	SELECT IdEstadia, Nombre as Estadia
+	SELECT IdEstadia, Nombre
 	FROM Estadias
 END
 GO
@@ -176,8 +176,9 @@ BEGIN
         p.FechaNacimiento,
         p.Telefono,
         p.Direccion,
-        h.Nombre AS Habitacion,
-        th.Nombre AS TipoHabitacion,
+		G.Nombre AS Genero,
+		th.Nombre AS TipoHabitacion,
+        h.Nombre AS Habitacion,        
         c.Nombre AS Camilla,
 		e.Nombre as Estadia,
         u.Nombres AS MedicoAsignado,
@@ -202,14 +203,15 @@ BEGIN
     LEFT JOIN 
         Cirugias ci ON ci.IdCirugia = ho.IdCirugia
     LEFT JOIN 
-        Usuarios u ON u.IdUsuario = ci.IdUsuario;
+        Usuarios u ON u.IdUsuario = ci.IdUsuario
+	LEFT JOIN Genero G ON G.IdGenero = P.IdGenero;
 
     SET NOCOUNT OFF;
 END;
 GO
 
 CREATE PROCEDURE sp_BuscarPacientesConsulta
-    @nombre VARCHAR(50) = NULL
+    @nombre VARCHAR(50)
 AS
 BEGIN
     SELECT 
@@ -494,7 +496,7 @@ BEGIN
     SET NOCOUNT OFF;
 END;
 GO
-------------------------------
+-------------------------------
 EXEC sp_mantenedor_pacientes
     @codigo = NULL,
     @nombre = 'María',
@@ -569,7 +571,7 @@ EXEC sp_mantenedor_pacientes
     @Estadia = 5,
     @accion = '1';
 GO
-------------------------
+-------------------------------
 
 CREATE PROCEDURE sp_listar_genero
 as
@@ -613,6 +615,22 @@ BEGIN
     WHERE IdRol = @IdRol AND IdMenu = @IdMenu;
 END
 GO
+
+CREATE PROCEDURE sp_listarHistorial
+AS
+BEGIN
+	SELECT * FROM HistorialSalidaPacientes
+END
+GO
+
+CREATE PROCEDURE sp_BuscarHistorial
+@DNI INT
+AS
+BEGIN
+	SELECT * FROM HistorialSalidaPacientes WHERE DNI = @DNI
+END
+GO
+
 -------------------------------------------------------
 CREATE PROCEDURE sp_listar_cirugías
 AS 

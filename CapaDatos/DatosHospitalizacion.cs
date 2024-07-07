@@ -35,21 +35,21 @@ namespace CapaDatos
             return dt;
         }
 
-        public DataTable D_listar_habitaciones(EntidadHospitalizacion obje)
+        public DataTable D_listar_tipo_habitacion()
         {
-            SqlCommand cmd = new SqlCommand("sp_listar_habitaciones", cn);
+            SqlCommand cmd = new SqlCommand("sp_listar_tipo_habitacion", cn);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("IdTipoHabitacion", obje.IdTipoHabitacion);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
             return dt;
         }
 
-        public DataTable D_listar_tipo_habitacion()
+        public DataTable D_listar_habitaciones(EntidadHospitalizacion obje)
         {
-            SqlCommand cmd = new SqlCommand("sp_listar_tipo_habitacion", cn);
+            SqlCommand cmd = new SqlCommand("sp_listar_habitaciones", cn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("IdTipoHabitacion", obje.IdTipoHabitacion);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -79,7 +79,7 @@ namespace CapaDatos
 
         public DataTable D_buscar_pacientes(EntidadHospitalizacion obje)
         {
-            SqlCommand cmd = new SqlCommand("sp_buscar_pacientes", cn);
+            SqlCommand cmd = new SqlCommand("sp_BuscarPacientes", cn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -132,18 +132,11 @@ namespace CapaDatos
             return accion;
         }
 
-        public DataTable D_buscar_pacientes_consulta(EntidadHospitalizacion obje)
+        public DataTable D_BuscarPacientesConsulta(EntidadHospitalizacion obje)
         {
-            SqlCommand cmd = new SqlCommand("sp_buscar_pacientes_consulta", cn);
-            if (!string.IsNullOrEmpty(obje.Nombre))
-                cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
-            else
-                cmd.Parameters.AddWithValue("@nombre", DBNull.Value);
-
-            if (obje.DNI != 0)
-                cmd.Parameters.AddWithValue("@dni", obje.DNI);
-            else
-                cmd.Parameters.AddWithValue("@dni", DBNull.Value);
+            SqlCommand cmd = new SqlCommand("sp_BuscarPacientesConsulta", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Nombre", obje.Nombre);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatosCirugia.cs" />
+    <Compile Include="DatosHistorial.cs" />
     <Compile Include="DatosHospitalizacion.cs" />
     <Compile Include="DatosLogin.cs" />
     <Compile Include="DatosPermisos.cs" />
