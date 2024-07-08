@@ -13,7 +13,7 @@ namespace CapaNegocio
     {
         DatosLogin objd = new DatosLogin();
 
-        public int N_Loguear(string usuario, string clave)
+        public (int IdUsuario, string Nombre) N_Loguear(string usuario, string clave)
         {
             return objd.Loguear(usuario, clave);
         }

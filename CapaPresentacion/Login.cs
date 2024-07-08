@@ -12,6 +12,7 @@ using System.Configuration;
 
 using CapaEntidad;
 using CapaNegocio;
+using CapaDatos;
 
 namespace CapaPresentacion
 {
@@ -30,11 +31,14 @@ namespace CapaPresentacion
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            int idusuario_esperado = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
-            if (idusuario_esperado != 0)
+            var (idUsuarioEsperado, nombreUsuario) = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
+            if (idUsuarioEsperado != 0)
             {
+                UsuarioLogueado.IdUsuario = idUsuarioEsperado;
+                UsuarioLogueado.NombreUsuario = nombreUsuario;
+
                 this.Hide();
-                Menu mdi = new Menu(idusuario_esperado);
+                Menu mdi = new Menu(idUsuarioEsperado);
                 mdi.Show();
             }
             else
@@ -63,14 +67,16 @@ namespace CapaPresentacion
 
         private void txtClave_KeyDown(object sender, KeyEventArgs e)
         {
-            int idusuario_esperado = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
-
             if (e.KeyCode == Keys.Enter)
             {
-                if (idusuario_esperado != 0)
+                var (idUsuarioEsperado, nombreUsuario) = objneg.N_Loguear(txtUsuario.Text, txtClave.Text);
+                if (idUsuarioEsperado != 0)
                 {
+                    UsuarioLogueado.IdUsuario = idUsuarioEsperado;
+                    UsuarioLogueado.NombreUsuario = nombreUsuario;
+
                     this.Hide();
-                    Menu mdi = new Menu(idusuario_esperado);
+                    Menu mdi = new Menu(idUsuarioEsperado);
                     mdi.Show();
                 }
                 else

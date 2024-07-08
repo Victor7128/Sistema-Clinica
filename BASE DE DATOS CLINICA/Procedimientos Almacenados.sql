@@ -44,25 +44,37 @@ BEGIN
 END
 GO
 
+----------------------------------------------------
+----------------------------------------------------
+
 CREATE PROCEDURE usp_LoginUsuario
     @Usuario VARCHAR(60),
     @Clave VARCHAR(60),
-    @IdUsuario INT OUTPUT
+    @IdUsuario INT OUTPUT,
+    @Nombre NVARCHAR(100) OUTPUT
 AS
 BEGIN
+    SET NOCOUNT ON;
+
     SET @IdUsuario = 0;
+    SET @Nombre = NULL;
+
     IF EXISTS (
         SELECT * FROM USUARIOS
         WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario
           AND Clave COLLATE Latin1_General_CS_AS = @Clave
     )
     BEGIN
-        SELECT @IdUsuario = IdUsuario FROM USUARIOS
+        SELECT @IdUsuario = IdUsuario, @Nombre = Nombres
+        FROM USUARIOS
         WHERE Usuario COLLATE Latin1_General_CS_AS = @Usuario
           AND Clave COLLATE Latin1_General_CS_AS = @Clave;
     END
 END;
 GO
+
+----------------------------------------------------
+----------------------------------------------------
 
 CREATE PROCEDURE usp_ObtenerPermisos
     @IdUsuario INT
@@ -766,3 +778,123 @@ GO
 --    SET NOCOUNT OFF;
 --END;
 --GO
+
+-------------------------------------------------------------------------------------------------
+CREATE PROCEDURE sp_mantenedorCirugias
+    @nombrePaciente VARCHAR(100),
+    @descripcionCirugia VARCHAR(200),
+    @fechaCirugia DATE,
+    @horaCirugia TIME,
+    @salaCirugia INT,
+    @accion VARCHAR(50) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @IdPaciente INT;
+    DECLARE @IdCirugia INT;
+
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        -- Buscar IdPaciente según el nombre
+        SELECT @IdPaciente = IdPaciente
+        FROM Pacientes
+        WHERE Nombre = @nombrePaciente;
+
+        IF @IdPaciente IS NULL
+        BEGIN
+            SET @accion = 'PACIENTE NO ENCONTRADO';
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        IF (@accion = '1')
+        BEGIN
+            IF EXISTS (SELECT IdPaciente FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente)
+            BEGIN
+                INSERT INTO Cirugias (IdPaciente, Descripcion, FechaCirugia, HoraCirugia, IdSala)
+                VALUES (@IdPaciente, @descripcionCirugia, @fechaCirugia, @horaCirugia, @salaCirugia);
+                SET @IdCirugia = SCOPE_IDENTITY();
+                SET @accion = 'Se registró la cirugía para el paciente: ' + @nombrePaciente;
+            END
+            ELSE
+            BEGIN
+                SET @accion = 'PACIENTE NO ENCONTRADO EN HOSPITALIZACIONES';
+                ROLLBACK TRANSACTION;
+                RETURN;
+            END
+        END
+        ELSE IF (@accion = '2')
+        BEGIN
+            UPDATE Cirugias
+            SET Descripcion = @descripcionCirugia,
+                FechaCirugia = @fechaCirugia,
+                HoraCirugia = @horaCirugia,
+                IdSala = @salaCirugia
+            WHERE IdPaciente = @IdPaciente;
+            SET @accion = 'Se modificó la cirugía del paciente: ' + @nombrePaciente;
+        END
+        ELSE IF (@accion = '3')
+        BEGIN
+            UPDATE Cirugias
+            SET HoraEntrada = CAST(GETDATE() AS TIME)
+            WHERE IdPaciente = @IdPaciente;
+            UPDATE SalaCirugia
+            SET Ocupado = 1
+            WHERE IdSala = @salaCirugia;
+            SET @accion = 'Registrada la hora de ENTRADA a sala para el paciente ' + @nombrePaciente;
+        END
+        ELSE IF (@accion = '4')
+        BEGIN
+            UPDATE Cirugias
+            SET HoraSalida = CAST(GETDATE() AS TIME)
+            WHERE IdPaciente = @IdPaciente;
+            UPDATE SalaCirugia
+            SET Ocupado = 0
+            WHERE IdSala = @salaCirugia;
+            SET @accion = 'Registrada la hora de SALIDA de sala para el paciente ' + @nombrePaciente;
+        END
+        ELSE IF (@accion = '5')
+        BEGIN
+            DELETE FROM Cirugias
+            WHERE IdPaciente = @IdPaciente;
+            SET @accion = 'Se ha eliminado la cirugía para el paciente ' + @nombrePaciente;
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        SET @accion = 'Error: ' + ERROR_MESSAGE();
+    END CATCH
+
+    SET NOCOUNT OFF;
+END;
+GO
+
+
+
+
+-- Registrar Cirugía para 'Juan Perez'
+DECLARE @accion VARCHAR(50);
+SET @accion = '1';
+EXEC sp_mantenedorCirugias
+    @nombrePaciente = 'Juan ',
+    @descripcionCirugia = 'Apendicectomía',
+    @fechaCirugia = '2024-07-10',
+    @horaCirugia = '08:00:00',
+    @salaCirugia = 1,
+    @accion = @accion OUTPUT;
+PRINT @accion;
+
+
+
+-- Verificar los datos en la tabla Cirugias
+SELECT * FROM Cirugias;
+
+
+
+SELECT * FROM Pacientes;
+SELECT * FROM Hospitalizaciones;
+SELECT * FROM SalaCirugia;

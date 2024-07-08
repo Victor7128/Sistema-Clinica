@@ -5,24 +5,20 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Configuration;
-using CapaEntidad;
-using System.Xml.Linq;
-using System.Xml;
 
 namespace CapaDatos
 {
-    public class DatosCirugia
+    public class DatosPaciente
     {
-        SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["sql"].ConnectionString);
-        public static DataTable ObtenerPacientes(string apellido)
+        public static DataTable ObtenerPacientesPorApellido(string apellido)
         {
             DataTable dtPacientes = new DataTable();
+
             using (SqlConnection cn = new SqlConnection(Conexion.cn))
             {
-                string query = "SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Nombre + '%'";
+                string query = "SELECT IdPaciente, Nombre, DNI FROM Pacientes WHERE Nombre LIKE @Apellido";
                 SqlDataAdapter adapter = new SqlDataAdapter(query, cn);
-                adapter.SelectCommand.Parameters.AddWithValue("@Nombre", apellido);
+                adapter.SelectCommand.Parameters.AddWithValue("@Apellido", "%" + apellido + "%");
 
                 try
                 {
@@ -31,9 +27,10 @@ namespace CapaDatos
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error al obtener pacientes.", ex);
+                    throw new Exception("Error al obtener pacientes por apellido.", ex);
                 }
             }
+
             return dtPacientes;
         }
     }

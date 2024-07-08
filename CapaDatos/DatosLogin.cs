@@ -16,20 +16,25 @@ namespace CapaDatos
     {
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["sql"].ConnectionString);
 
-        public int Loguear(string usuario, string clave)
+        public (int IdUsuario, string Nombre) Loguear(string usuario, string clave)
         {
             int idusuario = 0;
+            string nombreUsuario = string.Empty;
 
             SqlCommand cmd = new SqlCommand("usp_LoginUsuario", cn);
             cmd.Parameters.AddWithValue("@Usuario", usuario);
             cmd.Parameters.AddWithValue("@Clave", clave);
             cmd.Parameters.Add("@IdUsuario", SqlDbType.Int).Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@Nombre", SqlDbType.NVarChar, 100).Direction = ParameterDirection.Output;
             cmd.CommandType = CommandType.StoredProcedure;
+
             cn.Open();
             cmd.ExecuteNonQuery();
             idusuario = Convert.ToInt32(cmd.Parameters["@IdUsuario"].Value);
+            nombreUsuario = cmd.Parameters["@Nombre"].Value.ToString();
             cn.Close();
-            return idusuario;
+
+            return (idusuario, nombreUsuario);
         }
 
         public List<EntidadLogin> ObtenerPermisos(int P_IdUsuario)
