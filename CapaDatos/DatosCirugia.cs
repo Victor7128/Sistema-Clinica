@@ -6,11 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using CapaEntidad;
 
 namespace CapaDatos
 {
     public class DatosCirugia
     {
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["sql"].ConnectionString);
+
+        public DataTable D_listarCirugias()
+        {
+            SqlCommand cmd = new SqlCommand("sp_listar_cirugias", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
     }
 }

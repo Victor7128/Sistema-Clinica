@@ -51,12 +51,12 @@
             this.dtCronograma.Location = new System.Drawing.Point(26, 94);
             this.dtCronograma.Name = "dtCronograma";
             this.dtCronograma.RowHeadersWidth = 51;
-            this.dtCronograma.Size = new System.Drawing.Size(776, 333);
+            this.dtCronograma.Size = new System.Drawing.Size(765, 333);
             this.dtCronograma.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(331, 460);
+            this.button1.Location = new System.Drawing.Point(323, 461);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(179, 49);
             this.button1.TabIndex = 3;

@@ -632,7 +632,7 @@ END
 GO
 
 -------------------------------------------------------
-CREATE PROCEDURE sp_listar_cirugías
+CREATE PROCEDURE sp_listar_cirugias
 AS 
 BEGIN
 	SELECT P.Nombre as Paciente,
