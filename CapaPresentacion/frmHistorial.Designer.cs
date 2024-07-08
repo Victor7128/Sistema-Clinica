@@ -46,9 +46,9 @@
             this.label1.ForeColor = System.Drawing.Color.Blue;
             this.label1.Location = new System.Drawing.Point(19, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(310, 39);
+            this.label1.Size = new System.Drawing.Size(487, 39);
             this.label1.TabIndex = 1;
-            this.label1.Text = "HISTORIAL MÉDICO";
+            this.label1.Text = "HISTORIAL HOSPITALIZACIONES";
             // 
             // dgvHistorial
             // 

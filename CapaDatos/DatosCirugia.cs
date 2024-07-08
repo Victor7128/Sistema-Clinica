@@ -22,5 +22,16 @@ namespace CapaDatos
             da.Fill(dt);
             return dt;
         }
+
+        public DataTable D_buscarCirugiasDisponibles(EntidadCirugia obje)
+        {
+            SqlCommand cmd = new SqlCommand("sp_buscarCirugiasDisponibles", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Fecha", obje.FechaCirugia);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }        
     }
 }

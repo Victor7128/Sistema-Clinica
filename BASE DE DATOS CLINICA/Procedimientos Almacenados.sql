@@ -156,6 +156,16 @@ BEGIN
 END
 GO 
 
+CREATE PROCEDURE sp_listar_camillas_todas
+@IdHabitacion INT
+AS
+BEGIN
+    SELECT IdCamilla, Nombre
+	FROM Camillas
+	WHERE IdHabitacion = @IdHabitacion
+END
+GO 
+
 CREATE PROCEDURE sp_listar_estadias
 AS
 BEGIN
@@ -670,6 +680,20 @@ CREATE PROCEDURE sp_listarSala
 AS
 BEGIN
 	SELECT IdSala, Nombre FROM SalaCirugia
+END
+GO
+
+CREATE PROCEDURE sp_buscarCirugiasDisponibles
+@Fecha DATE
+AS
+BEGIN
+	SELECT
+	C.FechaCirugia, C.HoraCirugia,
+	SC.Nombre AS Sala
+	FROM 
+	Cirugias C INNER JOIN
+	SalaCirugia SC ON SC.IdSala = C.IdSala
+	WHERE C.FechaCirugia = @Fecha
 END
 GO
 -----------------------------------------

@@ -77,6 +77,17 @@ namespace CapaDatos
             return dt;
         }
 
+        public DataTable D_listarCamillasTodas(EntidadHospitalizacion obje)
+        {
+            SqlCommand cmd = new SqlCommand("sp_listar_camillas_todas", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@IdHabitacion", obje.IdHabitacion);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
         public DataTable D_buscar_pacientes(EntidadHospitalizacion obje)
         {
             SqlCommand cmd = new SqlCommand("sp_BuscarPacientes", cn);

@@ -170,7 +170,6 @@ namespace CapaPresentacion
             timer1.Enabled = true;
             CargarComboboxes();
             Limpiar();
-            dgvPacientes.DataSource = objneg.N_listar_pacientes();
 
             dgvPacientes.Columns["Paciente"].Width = 250;
             dgvPacientes.Columns["Direccion"].Width = 280;
@@ -260,7 +259,7 @@ namespace CapaPresentacion
             cboTipoHabitacion.Text = tipohabitacion;
             cboHabitacion.Text = habitacion;
             cboCamilla.Text = camilla;
-            cboEstadia.Text = estadia;
+            cboEstadia.Text = estadia;           
         }
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)

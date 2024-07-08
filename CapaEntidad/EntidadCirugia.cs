@@ -8,6 +8,8 @@ namespace CapaEntidad
 {
     public class EntidadCirugia
     {
-
+        public DateTime FechaCirugia { get; set; }
+        public TimeSpan HoraCirugia { get; set; }
+        public int IdSala { get; set; }
     }
 }

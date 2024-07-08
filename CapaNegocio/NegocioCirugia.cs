@@ -17,5 +17,10 @@ namespace CapaNegocio
         {
             return objd.D_listarCirugias();
         }
+
+        public DataTable N_buscarCirugiasDisponibles(EntidadCirugia obje)
+        {
+            return objd.D_buscarCirugiasDisponibles(obje);
+        }
     }
 }
