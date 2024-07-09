@@ -171,7 +171,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE sp_ListarPacientesHospitalizados
+ALTER PROCEDURE sp_ListarPacientesHospitalizados
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -191,9 +191,7 @@ BEGIN
 		ci.Descripcion AS Cirugia,
 		ci.FechaCirugia,
 		ho.FechaIngreso,
-		ho.HoraIngreso,
-		ho.FechaSalida,
-		ho.HoraSalida
+		ho.HoraIngreso
 	FROM 
 		Hospitalizaciones ho
 	INNER JOIN 
@@ -951,22 +949,30 @@ GO
 CREATE PROCEDURE sp_listar_cirugias
 AS 
 BEGIN
-	SELECT P.Nombre as Paciente,
-	U.Nombres as MedicoAsignado,
-	C.Descripcion as DescripcionCirugia,
-	SC.Nombre as Sala,
-	C.FechaCirugia, C.HoraCirugia, C.HoraEntrada as HoraEntradaSala, C.HoraSalida as HoraSalidaSala
-	FROM
-	Cirugias C INNER JOIN Pacientes P ON P.IdPaciente = C.IdPaciente
-	LEFT JOIN USUARIOS U ON U.IdUsuario = C.IdUsuario
-	LEFT JOIN SalaCirugia SC ON SC.IdSala = C.IdSala
+    SELECT 
+        P.IdPaciente,
+        P.Nombre as Paciente,
+        U.Nombres as MedicoAsignado,
+        C.Descripcion as DescripcionCirugia,
+        SC.Nombre as Sala,
+        C.FechaCirugia,
+        C.HoraCirugia,
+        C.HoraEntrada as HoraEntradaSala,
+        C.HoraSalida as HoraSalidaSala
+    FROM
+        Cirugias C
+        INNER JOIN Pacientes P ON P.IdPaciente = C.IdPaciente
+        LEFT JOIN USUARIOS U ON U.IdUsuario = C.IdUsuario
+        LEFT JOIN SalaCirugia SC ON SC.IdSala = C.IdSala
+    WHERE
+        C.HoraSalida IS NULL OR C.HoraSalida = ''
 END
 GO
 
 CREATE PROCEDURE sp_listarNombrePacientes
 AS
 BEGIN
-    SELECT p.Nombre AS Paciente 
+    SELECT p.IdPaciente, p.Nombre AS Paciente 
     FROM Pacientes p
     LEFT JOIN Cirugias c ON p.IdPaciente = c.IdPaciente
     WHERE c.IdCirugia IS NULL;
@@ -977,7 +983,7 @@ CREATE PROCEDURE sp_buscarPacientesNombre
     @Nombre VARCHAR(50)
 AS
 BEGIN
-    SELECT p.Nombre AS Paciente 
+    SELECT p.IdPaciente, p.Nombre AS Paciente 
     FROM Pacientes p
     LEFT JOIN Cirugias c ON p.IdPaciente = c.IdPaciente
     WHERE (@Nombre IS NULL OR p.Nombre LIKE '%' + @Nombre + '%')
@@ -993,16 +999,19 @@ END
 GO
 
 CREATE PROCEDURE sp_buscarCirugiasDisponibles
-@Fecha DATE
+    @Fecha DATE
 AS
 BEGIN
-	SELECT
-	C.FechaCirugia, C.HoraCirugia,
-	SC.Nombre AS Sala
-	FROM 
-	Cirugias C INNER JOIN
-	SalaCirugia SC ON SC.IdSala = C.IdSala
-	WHERE C.FechaCirugia = @Fecha
+    SELECT
+        C.FechaCirugia,
+        C.HoraCirugia,
+        SC.Nombre AS Sala
+    FROM
+        Cirugias C
+        INNER JOIN SalaCirugia SC ON SC.IdSala = C.IdSala
+    WHERE
+        C.FechaCirugia = @Fecha
+        AND (C.HoraEntrada IS NULL OR C.HoraSalida IS NULL)
 END
 GO
 
@@ -1014,7 +1023,7 @@ BEGIN
 	WHERE IdRol = 3
 END
 GO
------------------------------------------
+
 CREATE PROCEDURE sp_mantenedorCirugias
     @IdUsuario INT,
     @IdPaciente INT,
@@ -1117,52 +1126,3 @@ BEGIN
     SET NOCOUNT OFF;
 END;
 GO
-
-EXEC sp_mantenedorCirugias
-    @IdUsuario = 5,
-    @IdPaciente = 1,
-    @Descripcion = 'Cirugía de apendicitis',
-    @FechaCirugia = '2024-07-10',
-    @HoraCirugia = '10:00',
-    @IdSala = 1,
-    @accion = '1';
-GO
-
-EXEC sp_mantenedorCirugias
-    @IdUsuario = 5,
-    @IdPaciente = 1,
-    @Descripcion = 'Cirugía de apendicitis modificada',
-    @FechaCirugia = '2024-07-15',
-    @HoraCirugia = '11:00',
-    @IdSala = 1,
-    @accion = '2';
-GO
-
-EXEC sp_mantenedorCirugias
-    @IdUsuario = 5,
-    @IdPaciente = 1,
-    @Descripcion = NULL,
-    @FechaCirugia = NULL,
-    @HoraCirugia = NULL,
-    @IdSala = 1,
-    @accion = '3';
-GO
-
-EXEC sp_mantenedorCirugias
-    @IdUsuario = 5,
-    @IdPaciente = 1,
-    @Descripcion = NULL,
-    @FechaCirugia = NULL,
-    @HoraCirugia = NULL,
-    @IdSala = 1,
-    @accion = '4';
-GO
-
---EXEC sp_mantenedorCirugias
---    @IdUsuario = 5,
---    @IdPaciente = 1,
---    @Descripcion = NULL,
---    @FechaCirugia = NULL,
---    @HoraCirugia = NULL,
---    @IdSala = NULL,
---    @accion = '5';

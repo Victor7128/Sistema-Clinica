@@ -103,6 +103,7 @@
             this.dgvPacientes.RowHeadersWidth = 51;
             this.dgvPacientes.Size = new System.Drawing.Size(283, 67);
             this.dgvPacientes.TabIndex = 79;
+            this.dgvPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPacientes_CellContentClick);
             // 
             // btnBuscarPaciente
             // 
@@ -231,6 +232,7 @@
             this.dgvCirugias.Size = new System.Drawing.Size(747, 194);
             this.dgvCirugias.TabIndex = 103;
             this.dgvCirugias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCirugias_CellContentClick);
+            this.dgvCirugias.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCirugias_CellFormatting);
             // 
             // menuStrip1
             // 

@@ -45,5 +45,24 @@ namespace CapaPresentacion
         {
             BuscarCirugias();
         }
+
+        private void dgvCirugias_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0)
+            {
+                DataGridViewColumn column = dgvCirugias.Columns[e.ColumnIndex];
+                if (column.Name == "HoraCirugia")
+                {
+                    if (e.Value != null && e.Value != DBNull.Value)
+                    {
+                        if (TimeSpan.TryParse(e.Value.ToString(), out TimeSpan hora))
+                        {
+                            e.Value = hora.ToString(@"hh\:mm");
+                            e.FormattingApplied = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

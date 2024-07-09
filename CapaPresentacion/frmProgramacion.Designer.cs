@@ -57,6 +57,7 @@
             this.dgvCirugias.RowHeadersWidth = 51;
             this.dgvCirugias.Size = new System.Drawing.Size(354, 323);
             this.dgvCirugias.TabIndex = 2;
+            this.dgvCirugias.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvCirugias_CellFormatting);
             // 
             // dtpFecha
             // 

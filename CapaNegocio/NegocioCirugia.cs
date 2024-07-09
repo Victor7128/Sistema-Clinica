@@ -37,5 +37,9 @@ namespace CapaNegocio
         {
             return objd.D_buscarPacientesNombre(obje);
         }
+        public String N_mantenedorCirugias(EntidadCirugia obje)
+        {
+            return objd.D_mantenedorCirugias(obje);
+        }
     }
 }
