@@ -6,7 +6,7 @@ INSERT INTO MENU(IdMenu, Nombre, NombreFormulario) VALUES
 (1, 'Consultas', 'frmConsultas'),
 (2, 'Hospitalización', 'frmHospitalizacion'),
 (3, 'Cirugías', 'frmCirugias'),
-(4, 'Cronograma', 'frmCronograma'),
+(4, 'Programacion', 'frmProgramacion'),
 (5, 'Historial', 'frmHistorial'),
 (6, 'Usuarios', 'frmUsuarios'),
 (7, 'Permisos', 'frmPermisos'),
@@ -89,7 +89,8 @@ INSERT INTO USUARIOS(Nombres, Usuario, Clave, IdRol, Activo) VALUES
 ('Gary Bocanegra', 'Gary', 'licenciado', 2, 1), -- Licenciado de Enfermería
 ('Matías Guevara', 'Matías', 'medico', 3, 1), -- Médico
 ('Manuel Ortiz', 'Manuel', 'mantenimiento', 4, 1), -- Mantenimiento
-('Victor Tuesta', 'Victor', 'administrador', 5, 1); -- Administrador
+('Victor Tuesta', 'Victor', 'administrador', 5, 1), -- Administrador
+('admin', 'admin', 'admin', 5, 1); -- Administrador
 GO
 
 -- Insertar registros en Genero

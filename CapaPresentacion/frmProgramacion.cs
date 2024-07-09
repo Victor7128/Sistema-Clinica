@@ -13,17 +13,17 @@ using System.Windows.Forms;
 
 namespace CapaPresentacion
 {
-    public partial class frmCronograma : Form
+    public partial class frmProgramacion : Form
     {
         EntidadCirugia objent = new EntidadCirugia();
         NegocioCirugia objneg = new NegocioCirugia();
 
-        public frmCronograma()
+        public frmProgramacion()
         {
             InitializeComponent();
         }
 
-        private void BuscarUsuario()
+        private void BuscarCirugias()
         {
             objent.FechaCirugia = dtpFecha.Value;
             DataTable dt = objneg.N_buscarCirugiasDisponibles(objent);
@@ -38,11 +38,12 @@ namespace CapaPresentacion
                 MessageBox.Show("Nuevo paciente registrado", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Alertas.NuevoPacienteRegistrado = false;
             }
+            BuscarCirugias();
         }
 
         private void btnBuscarCirugias_Click(object sender, EventArgs e)
         {
-            BuscarUsuario();
+            BuscarCirugias();
         }
     }
 }

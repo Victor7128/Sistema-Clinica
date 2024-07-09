@@ -41,10 +41,6 @@ namespace CapaNegocio
         {
             return objd.D_buscar_pacientes(obje);
         }
-        public String N_mantenedor_paciente(EntidadHospitalizacion obje)
-        {
-            return objd.D_mantenedor_pacientes(obje);
-        }
         public DataTable N_BuscarPacientesConsulta(EntidadHospitalizacion obje)
         {
             return objd.D_BuscarPacientesConsulta(obje);
@@ -56,6 +52,22 @@ namespace CapaNegocio
         public DataTable N_listarCamillasTodas(EntidadHospitalizacion obje)
         {
             return objd.D_listarCamillasTodas(obje);
+        }
+        public String N_Registrar_pacientes(EntidadHospitalizacion obje)
+        {
+            return objd.D_Registrar_pacientes(obje);
+        }
+        public String N_Modificar_pacientes(EntidadHospitalizacion obje)
+        {
+            return objd.D_Modificar_pacientes(obje);
+        }
+        public String N_Salida_pacientes(EntidadHospitalizacion obje)
+        {
+            return objd.D_Salida_pacientes(obje);
+        }
+        public String N_Eliminar_pacientes(EntidadHospitalizacion obje)
+        {
+            return objd.D_Eliminar_pacientes(obje);
         }
     }
 }

@@ -105,7 +105,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label5.Location = new System.Drawing.Point(12, 295);
+            this.label5.Location = new System.Drawing.Point(14, 313);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 21);
             this.label5.TabIndex = 93;
@@ -115,7 +115,7 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.Location = new System.Drawing.Point(79, 293);
+            this.txtBuscar.Location = new System.Drawing.Point(81, 311);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(253, 27);
             this.txtBuscar.TabIndex = 92;
@@ -149,7 +149,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.groupBox1.Location = new System.Drawing.Point(12, 53);
+            this.groupBox1.Location = new System.Drawing.Point(14, 71);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(803, 229);
             this.groupBox1.TabIndex = 91;
@@ -440,7 +440,7 @@
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.lblFecha.Location = new System.Drawing.Point(422, 28);
+            this.lblFecha.Location = new System.Drawing.Point(424, 46);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(72, 22);
             this.lblFecha.TabIndex = 90;
@@ -451,7 +451,7 @@
             this.lblHora.AutoSize = true;
             this.lblHora.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.lblHora.Location = new System.Drawing.Point(731, 27);
+            this.lblHora.Location = new System.Drawing.Point(733, 45);
             this.lblHora.Name = "lblHora";
             this.lblHora.Size = new System.Drawing.Size(64, 23);
             this.lblHora.TabIndex = 89;
@@ -463,7 +463,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label1.Location = new System.Drawing.Point(8, 11);
+            this.label1.Location = new System.Drawing.Point(10, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(293, 39);
             this.label1.TabIndex = 88;
@@ -489,7 +489,7 @@
             this.groupBox2.Controls.Add(this.dgvPacientes);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.groupBox2.Location = new System.Drawing.Point(10, 323);
+            this.groupBox2.Location = new System.Drawing.Point(12, 341);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(805, 220);
             this.groupBox2.TabIndex = 94;
@@ -500,7 +500,7 @@
             this.btnListar.BackColor = System.Drawing.Color.Blue;
             this.btnListar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListar.ForeColor = System.Drawing.Color.White;
-            this.btnListar.Location = new System.Drawing.Point(337, 290);
+            this.btnListar.Location = new System.Drawing.Point(339, 308);
             this.btnListar.Margin = new System.Windows.Forms.Padding(2);
             this.btnListar.Name = "btnListar";
             this.btnListar.Size = new System.Drawing.Size(113, 34);

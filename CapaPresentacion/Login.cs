@@ -19,7 +19,6 @@ namespace CapaPresentacion
     {
         EntidadLogin objent = new EntidadLogin();
         NegocioLogin objneg = new NegocioLogin();
-        NegocioUsuarios objnego = new NegocioUsuarios();
         SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["sql"].ConnectionString);
 
         public Login()

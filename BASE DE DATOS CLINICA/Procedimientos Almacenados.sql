@@ -97,13 +97,11 @@ BEGIN
 
     IF (@accion = '1')
     BEGIN
-        -- Insertar nuevo usuario en la tabla USUARIOS
         INSERT INTO USUARIOS (Nombres, Usuario, Clave, IdRol, Activo)
         VALUES (@Nombres, @Usuario, @Clave, @IdRol, @Activo);
     END
     ELSE IF (@accion = '2')
     BEGIN
-        -- Actualizar datos del usuario en la tabla USUARIOS por nombre
         IF @Nombres IS NOT NULL
         BEGIN
             UPDATE USUARIOS
@@ -116,7 +114,6 @@ BEGIN
     END
     ELSE IF (@accion = '3')
     BEGIN
-        -- Eliminar usuario de la tabla USUARIOS por nombre
         IF @Nombres IS NOT NULL
         BEGIN
             DELETE FROM USUARIOS
@@ -178,45 +175,44 @@ CREATE PROCEDURE sp_ListarPacientesHospitalizados
 AS
 BEGIN
     SET NOCOUNT ON;
-
-    SELECT
-        p.Codigo,
-        p.Nombre AS Paciente,
-        p.DNI,
-        p.FechaNacimiento,
-        p.Telefono,
-        p.Direccion,
+	SELECT
+		p.Codigo,
+		p.Nombre AS Paciente,
+		p.DNI,
+		p.FechaNacimiento,
+		p.Telefono,
+		p.Direccion,
 		G.Nombre AS Genero,
 		th.Nombre AS TipoHabitacion,
-        h.Nombre AS Habitacion,        
-        c.Nombre AS Camilla,
-		e.Nombre as Estadia,
-        u.Nombres AS MedicoAsignado,
-        ci.Descripcion AS Cirugia,
-        ci.FechaCirugia,
-        ho.FechaIngreso,
-        ho.HoraIngreso,
-        ho.FechaSalida,
-        ho.HoraSalida
-    FROM 
-        Hospitalizaciones ho
-    INNER JOIN 
-        Pacientes p ON p.IdPaciente = ho.IdPaciente
-    LEFT JOIN 
-        Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
-    LEFT JOIN 
-        TipoHabitacion th ON th.IdTipoHabitacion = h.IdTipoHabitacion
-    LEFT JOIN 
-        Camillas c ON c.IdCamilla = ho.IdCamilla AND c.IdHabitacion = h.IdHabitacion
+		h.Nombre AS Habitacion,        
+		c.Nombre AS Camilla,
+		e.Nombre AS Estadia,
+		u.Nombres AS MedicoAsignado,
+		ci.Descripcion AS Cirugia,
+		ci.FechaCirugia,
+		ho.FechaIngreso,
+		ho.HoraIngreso,
+		ho.FechaSalida,
+		ho.HoraSalida
+	FROM 
+		Hospitalizaciones ho
+	INNER JOIN 
+		Pacientes p ON p.IdPaciente = ho.IdPaciente
+	LEFT JOIN 
+		Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
+	LEFT JOIN 
+		TipoHabitacion th ON th.IdTipoHabitacion = h.IdTipoHabitacion
+	LEFT JOIN 
+		Camillas c ON c.IdCamilla = ho.IdCamilla AND c.IdHabitacion = h.IdHabitacion
 	LEFT JOIN
 		Estadias e ON e.IdEstadia = ho.IdEstadia
-    LEFT JOIN 
-        Cirugias ci ON ci.IdCirugia = ho.IdCirugia
-    LEFT JOIN 
-        Usuarios u ON u.IdUsuario = ci.IdUsuario
-	LEFT JOIN Genero G ON G.IdGenero = P.IdGenero;
-
-    SET NOCOUNT OFF;
+	LEFT JOIN 
+		Cirugias ci ON ci.IdPaciente = ho.IdPaciente
+	LEFT JOIN 
+		Usuarios u ON u.IdUsuario = ci.IdUsuario
+	LEFT JOIN 
+		Genero G ON G.IdGenero = p.IdGenero;
+	SET NOCOUNT OFF;
 END;
 GO
 
@@ -322,8 +318,58 @@ BEGIN
         p.Nombre LIKE '%' + @nombre + '%';
 END;
 GO 
+-----------------------
+CREATE PROCEDURE sp_insertar_paciente_hospitalizacion
+    @nombre VARCHAR(100),
+    @DNI INT,
+    @FechaNacimiento DATE,
+    @Telefono INT,
+    @Direccion VARCHAR(100),
+    @Genero INT,
+    @TipoHabitacion INT,
+    @Habitacion INT,
+    @Camilla INT,
+    @Estadia INT,
+    @accion VARCHAR(50) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
 
-CREATE PROCEDURE sp_mantenedor_pacientes
+    IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI)
+    BEGIN
+        -- Generar código único para el paciente
+        DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5);
+        SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
+        SET @codmax = ISNULL(@codmax, 'P0000');
+        SET @codnuevo = 'P' + RIGHT('0000' + CAST(CAST(RIGHT(@codmax, 4) AS INT) + 1 AS VARCHAR(4)), 4);
+
+        -- Insertar nuevo paciente
+        INSERT INTO Pacientes (Codigo, Nombre, DNI, FechaNacimiento, Telefono, Direccion, IdGenero)
+        VALUES (@codnuevo, @nombre, @DNI, @FechaNacimiento, @Telefono, @Direccion, @Genero);
+
+        DECLARE @IdPaciente INT = SCOPE_IDENTITY();
+
+        -- Insertar hospitalización
+        INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
+        VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, CAST(GETDATE() AS DATE), CAST(GETDATE() AS TIME));
+
+        -- Marcar la camilla como ocupada
+        UPDATE Camillas
+        SET Ocupado = 1
+        WHERE IdCamilla = @Camilla;
+
+        SET @accion = 'Se agregó el paciente: ' + @nombre;
+    END
+    ELSE
+    BEGIN
+        SET @accion = 'DNI_EXISTE';
+    END
+
+    SET NOCOUNT OFF;
+END;
+GO
+
+CREATE PROCEDURE sp_modificar_paciente_hospitalizacion
     @codigo VARCHAR(5),
     @nombre VARCHAR(100),
     @DNI INT,
@@ -340,205 +386,398 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @IdPaciente INT = 0;
-    DECLARE @IdHabitacionActual INT = 0;
-    DECLARE @IdCamillaActual INT = 0;
-
-    IF (@accion = '1')
+    IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI AND Codigo <> @codigo)
     BEGIN
-        IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI)
+        -- Obtener datos actuales de hospitalización
+        DECLARE @IdPaciente INT = (SELECT ho.IdPaciente
+                                   FROM Hospitalizaciones ho
+                                   INNER JOIN Pacientes p ON p.IdPaciente = ho.IdPaciente
+                                   WHERE p.Codigo = @codigo);
+
+        -- Si se cambia la camilla, actualizar estado de ocupación
+        IF @Camilla <> (SELECT IdCamilla FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente)
         BEGIN
-            DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5);
-            SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
-            SET @codmax = ISNULL(@codmax, 'P0000');
-            SET @codnuevo = 'P' + RIGHT('0000' + CAST(CAST(RIGHT(@codmax, 4) AS INT) + 1 AS VARCHAR(4)), 4);
+            DECLARE @IdCamillaAnterior INT = (SELECT IdCamilla FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente);
 
-            INSERT INTO Pacientes (Codigo, Nombre, DNI, FechaNacimiento, Telefono, Direccion, IdGenero)
-            VALUES (@codnuevo, @nombre, @DNI, @FechaNacimiento, @Telefono, @Direccion, @Genero);
+            UPDATE Camillas
+            SET Ocupado = 0
+            WHERE IdCamilla = @IdCamillaAnterior;
 
-            SET @IdPaciente = SCOPE_IDENTITY();
-
-            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
-            VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, CAST(GETDATE() AS DATE), CAST(GETDATE() AS TIME));
             UPDATE Camillas
             SET Ocupado = 1
             WHERE IdCamilla = @Camilla;
-            SET @accion = 'Se agregó el paciente: ' + @nombre;
         END
-        ELSE
-        BEGIN
-            SET @accion = 'DNI_EXISTE';
-        END
+
+        -- Actualizar datos del paciente
+        UPDATE Pacientes 
+        SET Nombre = @nombre, 
+            DNI = @DNI, 
+            FechaNacimiento = @FechaNacimiento, 
+            Telefono = @Telefono, 
+            Direccion = @Direccion, 
+            IdGenero = @Genero
+        WHERE Codigo = @codigo;
+
+        -- Actualizar datos de hospitalización
+        UPDATE Hospitalizaciones
+        SET IdEstadia = @Estadia,
+            IdHabitacion = @Habitacion,
+            IdCamilla = @Camilla,
+            IdTipoHabitacion = @TipoHabitacion
+        WHERE IdPaciente = @IdPaciente;
+
+        SET @accion = 'Se modificó el paciente: ' + @nombre;
     END
-    ELSE IF (@accion = '2')
+    ELSE
     BEGIN
-        IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI AND Codigo <> @codigo)
-        BEGIN
-            SELECT @IdPaciente = ho.IdPaciente, @IdHabitacionActual = ho.IdHabitacion, @IdCamillaActual = ho.IdCamilla
-            FROM Hospitalizaciones ho
-            INNER JOIN Pacientes p ON p.IdPaciente = ho.IdPaciente
-            WHERE p.Codigo = @codigo;
-            IF @IdCamillaActual <> @Camilla
-            BEGIN
-                UPDATE Camillas
-                SET Ocupado = 0
-                WHERE IdCamilla = @IdCamillaActual;
-                UPDATE Camillas
-                SET Ocupado = 1
-                WHERE IdCamilla = @Camilla;
-            END
-            UPDATE Pacientes 
-            SET Nombre = @nombre, 
-                DNI = @DNI, 
-                FechaNacimiento = @FechaNacimiento, 
-                Telefono = @Telefono, 
-                Direccion = @Direccion, 
-                IdGenero = @Genero
-            WHERE Codigo = @codigo;
-            UPDATE Hospitalizaciones
-            SET IdEstadia = @Estadia,
-                IdHabitacion = @Habitacion,
-                IdCamilla = @Camilla,
-                IdTipoHabitacion = @TipoHabitacion
-            WHERE IdPaciente = @IdPaciente;
-            SET @accion = 'Se modificó el paciente: ' + @nombre;
-        END
-        ELSE
-        BEGIN
-            SET @accion = 'DNI_EXISTE';
-        END
-    END
-    ELSE IF (@accion = '3')
-	BEGIN
-		-- Obtener el IdPaciente
-		SELECT @IdPaciente = p.IdPaciente
-		FROM Pacientes p
-		WHERE p.Codigo = @codigo;
-
-		-- Capturar fecha y hora de salida de hospitalización
-		DECLARE @FechaSalidaHospitalizacion DATE;
-		DECLARE @HoraSalidaHospitalizacion TIME;
-
-		SELECT @FechaSalidaHospitalizacion = CAST(GETDATE() AS DATE),
-			   @HoraSalidaHospitalizacion = CAST(GETDATE() AS TIME);
-
-		-- Actualizar datos de salida en Hospitalizaciones
-		UPDATE Hospitalizaciones
-		SET FechaSalida = @FechaSalidaHospitalizacion,
-			HoraSalida = @HoraSalidaHospitalizacion
-		WHERE IdPaciente = @IdPaciente;
-		DECLARE @IdCamilla INT;
-
-		SELECT @IdCamilla = ho.IdCamilla
-		FROM Hospitalizaciones ho
-		WHERE ho.IdPaciente = @IdPaciente;
-
-		-- Mover los datos a HistorialSalidaPacientes
-		INSERT INTO HistorialSalidaPacientes (Paciente, DNI, FechaNacimiento, Telefono, Direccion, Genero, 
-			Habitacion, TipoHabitacion, Camilla, Estadia, MedicoAsignado, Cirugia, FechaCirugia, HoraCirugia,
-			CirugiaEntrada, CirugiaSalida, SalaCirugia, FechaEntradaHospitalizacion, HoraEntradaHospitalizacion,
-			FechaSalidaHospitalizacion, HoraSalidaHospitalizacion)
-		SELECT
-			p.Nombre AS Paciente,
-			p.DNI,
-			p.FechaNacimiento,
-			p.Telefono,
-			p.Direccion,
-			g.Nombre as Genero,
-			h.Nombre AS Habitacion,
-			th.Nombre AS TipoHabitacion,
-			c.Nombre AS Camilla,
-			e.Nombre as Estadia,
-			u.Nombres AS MedicoAsignado,
-			ci.Descripcion AS Cirugia,
-			ci.FechaCirugia,
-			ci.HoraCirugia,
-			ci.HoraEntrada as CirugiaEntrada,
-			ci.HoraSalida as CirugiaSalida,
-			sc.Nombre as SalaCirugia,
-			ho.FechaIngreso as FechaEntradaHospitalizacion,
-			ho.HoraIngreso as HoraEntradaHospitalizacion,
-			@FechaSalidaHospitalizacion as FechaSalidaHospitalizacion,
-			@HoraSalidaHospitalizacion as HoraSalidaHospitalizacion
-		FROM 
-			Hospitalizaciones ho
-		INNER JOIN 
-			Pacientes p ON p.IdPaciente = ho.IdPaciente
-		LEFT JOIN 
-			Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
-		LEFT JOIN 
-			TipoHabitacion th ON th.IdTipoHabitacion = h.IdTipoHabitacion
-		LEFT JOIN 
-			Camillas c ON c.IdCamilla = ho.IdCamilla AND c.IdHabitacion = h.IdHabitacion
-		LEFT JOIN
-			Estadias e ON e.IdEstadia = ho.IdEstadia
-		LEFT JOIN 
-			Cirugias ci ON ci.IdCirugia = ho.IdCirugia
-		LEFT JOIN 
-			Usuarios u ON u.IdUsuario = ci.IdUsuario
-		LEFT JOIN
-			SalaCirugia sc ON sc.IdSala = ci.IdSala
-		LEFT JOIN 
-			Genero g ON g.IdGenero = p.IdGenero
-		WHERE p.Codigo = @codigo;
-		UPDATE Camillas
-		SET Ocupado = 0
-		WHERE IdCamilla = @IdCamilla;
-		DELETE FROM Cirugias WHERE IdPaciente = @IdPaciente;
-		DELETE FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente;
-		DELETE FROM Pacientes WHERE IdPaciente = @IdPaciente;
-
-		SET @accion = 'Se registró la salida y se eliminó al paciente de Hospitalización: ' + @nombre;
-	END
-    ELSE IF (@accion = '4')
-    BEGIN
-        SELECT @IdPaciente = p.IdPaciente
-        FROM Pacientes p
-        WHERE p.Codigo = @codigo;
-
-        DELETE FROM Cirugias WHERE IdPaciente = @IdPaciente;
-        DELETE FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente;
-        DELETE FROM Pacientes WHERE Codigo = @codigo;
-
-        SET @accion = 'Se borró el paciente: ' + @nombre;
+        SET @accion = 'DNI_EXISTE';
     END
 
     SET NOCOUNT OFF;
 END;
 GO
--------------------------------
-EXEC sp_mantenedor_pacientes
-    @codigo = NULL,
-    @nombre = 'María',
-    @DNI = 12345678,
-    @FechaNacimiento = '1990-05-15',
-    @Telefono = 987654321,
-    @Direccion = 'Calle A #123',
-    @Genero = 1,
-    @TipoHabitacion = 1,
-    @Habitacion = 31,
-    @Camilla = 51,
-    @Estadia = 7,
-    @accion = '1';
+
+CREATE PROCEDURE sp_registrar_salida_hospitalizacion
+    @codigo VARCHAR(5),
+    @accion VARCHAR(50) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Obtener datos para insertar en HistorialSalidaPacientes
+    DECLARE @IdPaciente INT, @IdCamilla INT;
+
+    SELECT @IdPaciente = p.IdPaciente, @IdCamilla = ho.IdCamilla
+    FROM Pacientes p
+    INNER JOIN Hospitalizaciones ho ON ho.IdPaciente = p.IdPaciente
+    WHERE p.Codigo = @codigo;
+
+    -- Actualizar hospitalización con fecha y hora de salida
+    UPDATE Hospitalizaciones
+    SET FechaSalida = CAST(GETDATE() AS DATE),
+        HoraSalida = CAST(GETDATE() AS TIME)
+    WHERE IdPaciente = @IdPaciente;
+
+    -- Insertar registro en HistorialSalidaPacientes
+    INSERT INTO HistorialSalidaPacientes (
+        Paciente, DNI, FechaNacimiento, Telefono, Direccion, Genero,
+        TipoHabitacion, Habitacion, Camilla, Estadia, 
+        MedicoAsignado, Cirugia, FechaCirugia, HoraCirugia,
+        CirugiaEntrada, CirugiaSalida, SalaCirugia, 
+        FechaEntradaHospitalizacion, HoraEntradaHospitalizacion,
+        FechaSalidaHospitalizacion, HoraSalidaHospitalizacion
+    )
+    SELECT
+        p.Nombre AS Paciente,
+        p.DNI,
+        p.FechaNacimiento,
+        p.Telefono,
+        p.Direccion,
+        G.Nombre AS Genero,
+        th.Nombre AS TipoHabitacion,
+        h.Nombre AS Habitacion,        
+        c.Nombre AS Camilla,
+        e.Nombre AS Estadia,
+        u.Nombres AS MedicoAsignado,
+        ci.Descripcion AS Cirugia,
+        ci.FechaCirugia,
+        ci.HoraCirugia,
+        ci.HoraEntrada AS CirugiaEntrada,
+        ci.HoraSalida AS CirugiaSalida,
+        sc.Nombre AS SalaCirugia,
+        ho.FechaIngreso AS FechaEntradaHospitalizacion,
+        ho.HoraIngreso AS HoraEntradaHospitalizacion,
+        ho.FechaSalida AS FechaSalidaHospitalizacion,
+        ho.HoraSalida AS HoraSalidaHospitalizacion
+    FROM 
+        Hospitalizaciones ho
+    INNER JOIN 
+        Pacientes p ON p.IdPaciente = ho.IdPaciente
+    LEFT JOIN 
+        Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
+    LEFT JOIN 
+        TipoHabitacion th ON th.IdTipoHabitacion = h.IdTipoHabitacion
+    LEFT JOIN 
+        Camillas c ON c.IdCamilla = ho.IdCamilla AND c.IdHabitacion = h.IdHabitacion
+    LEFT JOIN
+        Estadias e ON e.IdEstadia = ho.IdEstadia
+    LEFT JOIN 
+        Cirugias ci ON ci.IdPaciente = ho.IdPaciente
+    LEFT JOIN 
+        Usuarios u ON u.IdUsuario = ci.IdUsuario
+    LEFT JOIN 
+        Genero G ON G.IdGenero = p.IdGenero
+    LEFT JOIN
+        SalaCirugia sc ON sc.IdSala = ci.IdSala
+    WHERE p.Codigo = @codigo;
+
+    -- Marcar camilla como desocupada
+    UPDATE Camillas
+    SET Ocupado = 0
+    WHERE IdCamilla = @IdCamilla;
+
+    -- Eliminar cirugías relacionadas
+    DELETE FROM Cirugias WHERE IdPaciente = @IdPaciente;
+
+    -- Eliminar hospitalización
+    DELETE FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente;
+
+    -- Eliminar paciente
+    DELETE FROM Pacientes WHERE IdPaciente = @IdPaciente;
+
+    SET @accion = 'Se registró la salida y se eliminó al paciente de Hospitalización.';
+    
+    SET NOCOUNT OFF;
+END;
 GO
 
-EXEC sp_mantenedor_pacientes
-    @codigo = NULL,
-    @nombre = 'Pedro',
-    @DNI = 87654321,
-    @FechaNacimiento = '1985-08-20',
-    @Telefono = 654321987,
-    @Direccion = 'Avenida B #456',
-    @Genero = 2,
-    @TipoHabitacion = 2,
-    @Habitacion = 11,
-    @Camilla = 21,
-    @Estadia = 2,
-    @accion = '1';
+CREATE PROCEDURE sp_eliminar_paciente
+    @codigo VARCHAR(5),
+    @accion VARCHAR(50) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Obtener IdPaciente para eliminación
+    DECLARE @IdPaciente INT = (SELECT IdPaciente FROM Pacientes WHERE Codigo = @codigo);
+
+    -- Eliminar cirugías relacionadas
+    DELETE FROM Cirugias WHERE IdPaciente = @IdPaciente;
+
+    -- Eliminar hospitalización
+    DELETE FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente;
+
+    -- Eliminar paciente
+    DELETE FROM Pacientes WHERE Codigo = @codigo;
+
+    SET @accion = 'Se borró el paciente con código: ' + @codigo;
+
+    SET NOCOUNT OFF;
+END;
 GO
 
-EXEC sp_mantenedor_pacientes
-    @codigo = NULL,
+--CREATE PROCEDURE sp_mantenedor_pacientes
+--    @codigo VARCHAR(5),
+--    @nombre VARCHAR(100),
+--    @DNI INT,
+--    @FechaNacimiento DATE,
+--    @Telefono INT,
+--    @Direccion VARCHAR(100),
+--    @Genero INT,
+--    @TipoHabitacion INT,
+--    @Habitacion INT,
+--    @Camilla INT,
+--    @Estadia INT,
+--    @accion VARCHAR(50) OUTPUT
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+
+--    DECLARE @IdPaciente INT = 0;
+--    DECLARE @IdCamilla INT = 0;
+
+--    IF (@accion = '1') -- Insertar paciente y hospitalización
+--    BEGIN
+--        IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI)
+--        BEGIN
+--            -- Generar código único para el paciente
+--            DECLARE @codnuevo VARCHAR(5), @codmax VARCHAR(5);
+--            SET @codmax = (SELECT MAX(Codigo) FROM Pacientes);
+--            SET @codmax = ISNULL(@codmax, 'P0000');
+--            SET @codnuevo = 'P' + RIGHT('0000' + CAST(CAST(RIGHT(@codmax, 4) AS INT) + 1 AS VARCHAR(4)), 4);
+
+--            -- Insertar nuevo paciente
+--            INSERT INTO Pacientes (Codigo, Nombre, DNI, FechaNacimiento, Telefono, Direccion, IdGenero)
+--            VALUES (@codnuevo, @nombre, @DNI, @FechaNacimiento, @Telefono, @Direccion, @Genero);
+
+--            SET @IdPaciente = SCOPE_IDENTITY();
+
+--            -- Insertar hospitalización
+--            INSERT INTO Hospitalizaciones (IdPaciente, IdEstadia, IdHabitacion, IdCamilla, IdTipoHabitacion, FechaIngreso, HoraIngreso)
+--            VALUES (@IdPaciente, @Estadia, @Habitacion, @Camilla, @TipoHabitacion, CAST(GETDATE() AS DATE), CAST(GETDATE() AS TIME));
+
+--            -- Marcar la camilla como ocupada
+--            UPDATE Camillas
+--            SET Ocupado = 1
+--            WHERE IdCamilla = @Camilla;
+
+--            SET @accion = 'Se agregó el paciente: ' + @nombre;
+--        END
+--        ELSE
+--        BEGIN
+--            SET @accion = 'DNI_EXISTE';
+--        END
+--    END
+--    ELSE IF (@accion = '2') -- Modificar paciente y hospitalización
+--    BEGIN
+--        IF NOT EXISTS (SELECT 1 FROM Pacientes WHERE DNI = @DNI AND Codigo <> @codigo)
+--        BEGIN
+--            -- Obtener datos actuales de hospitalización
+--            SELECT @IdPaciente = ho.IdPaciente
+--            FROM Hospitalizaciones ho
+--            INNER JOIN Pacientes p ON p.IdPaciente = ho.IdPaciente
+--            WHERE p.Codigo = @codigo;
+
+--            -- Si se cambia la camilla, actualizar estado de ocupación
+--            IF @Camilla <> (SELECT IdCamilla FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente)
+--            BEGIN
+--                SET @IdCamilla = (SELECT IdCamilla FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente);
+
+--                UPDATE Camillas
+--                SET Ocupado = 0
+--                WHERE IdCamilla = @IdCamilla;
+
+--                UPDATE Camillas
+--                SET Ocupado = 1
+--                WHERE IdCamilla = @Camilla;
+--            END
+
+--            -- Actualizar datos del paciente
+--            UPDATE Pacientes 
+--            SET Nombre = @nombre, 
+--                DNI = @DNI, 
+--                FechaNacimiento = @FechaNacimiento, 
+--                Telefono = @Telefono, 
+--                Direccion = @Direccion, 
+--                IdGenero = @Genero
+--            WHERE Codigo = @codigo;
+
+--            -- Actualizar datos de hospitalización
+--            UPDATE Hospitalizaciones
+--            SET IdEstadia = @Estadia,
+--                IdHabitacion = @Habitacion,
+--                IdCamilla = @Camilla,
+--                IdTipoHabitacion = @TipoHabitacion
+--            WHERE IdPaciente = @IdPaciente;
+
+--            SET @accion = 'Se modificó el paciente: ' + @nombre;
+--        END
+--        ELSE
+--        BEGIN
+--            SET @accion = 'DNI_EXISTE';
+--        END
+--    END
+--    ELSE IF (@accion = '3') -- Registrar salida de hospitalización
+--    BEGIN
+--        -- Obtener datos para insertar en HistorialSalidaPacientes
+--        SELECT @IdPaciente = p.IdPaciente, @IdCamilla = ho.IdCamilla
+--        FROM Pacientes p
+--        INNER JOIN Hospitalizaciones ho ON ho.IdPaciente = p.IdPaciente
+--        WHERE p.Codigo = @codigo;
+
+--		UPDATE Hospitalizaciones
+--            SET FechaSalida = CAST(GETDATE() AS DATE),
+--				HoraSalida = CAST(GETDATE() AS TIME)
+--            WHERE IdPaciente = @IdPaciente;
+
+--        -- Insertar registro en HistorialSalidaPacientes
+--        INSERT INTO HistorialSalidaPacientes (
+--            Paciente, DNI, FechaNacimiento, Telefono, Direccion, Genero,
+--            TipoHabitacion, Habitacion, Camilla, Estadia, 
+--            MedicoAsignado, Cirugia, FechaCirugia, HoraCirugia,
+--            CirugiaEntrada, CirugiaSalida, SalaCirugia, 
+--            FechaEntradaHospitalizacion, HoraEntradaHospitalizacion,
+--            FechaSalidaHospitalizacion, HoraSalidaHospitalizacion
+--        )
+--		SELECT
+--			p.Nombre AS Paciente,
+--			p.DNI,
+--			p.FechaNacimiento,
+--			p.Telefono,
+--			p.Direccion,
+--			G.Nombre AS Genero,
+--			th.Nombre AS TipoHabitacion,
+--			h.Nombre AS Habitacion,        
+--			c.Nombre AS Camilla,
+--			e.Nombre AS Estadia,
+--			u.Nombres AS MedicoAsignado,
+--			ci.Descripcion AS Cirugia,
+--			ci.FechaCirugia,
+--			ci.HoraCirugia,
+--			ci.HoraEntrada AS CirugiaEntrada,
+--			ci.HoraSalida AS CirugiaSalida,
+--			sc.Nombre AS SalaCirugia,
+--			ho.FechaIngreso AS FechaEntradaHospitalizacion,
+--			ho.HoraIngreso AS HoraEntradaHospitalizacion,
+--			ho.FechaSalida AS FechaSalidaHospitalizacion,
+--			ho.HoraSalida AS HoraSalidaHospitalizacion
+--		FROM 
+--			Hospitalizaciones ho
+--		INNER JOIN 
+--			Pacientes p ON p.IdPaciente = ho.IdPaciente
+--		LEFT JOIN 
+--			Habitaciones h ON h.IdHabitacion = ho.IdHabitacion
+--		LEFT JOIN 
+--			TipoHabitacion th ON th.IdTipoHabitacion = h.IdTipoHabitacion
+--		LEFT JOIN 
+--			Camillas c ON c.IdCamilla = ho.IdCamilla AND c.IdHabitacion = h.IdHabitacion
+--		LEFT JOIN
+--			Estadias e ON e.IdEstadia = ho.IdEstadia
+--		LEFT JOIN 
+--			Cirugias ci ON ci.IdPaciente = ho.IdPaciente
+--		LEFT JOIN 
+--			Usuarios u ON u.IdUsuario = ci.IdUsuario
+--		LEFT JOIN 
+--			Genero G ON G.IdGenero = p.IdGenero
+--		LEFT JOIN
+--			SalaCirugia sc ON sc.IdSala = ci.IdSala
+--        WHERE p.Codigo = @codigo;
+
+--        -- Marcar camilla como desocupada
+--        UPDATE Camillas
+--        SET Ocupado = 0
+--        WHERE IdCamilla = @IdCamilla;
+
+--        -- Eliminar cirugías relacionadas
+--        DELETE FROM Cirugias WHERE IdPaciente = @IdPaciente;
+
+--        -- Eliminar hospitalización
+--        DELETE FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente;
+
+--        -- Eliminar paciente
+--        DELETE FROM Pacientes WHERE IdPaciente = @IdPaciente;
+
+--        SET @accion = 'Se registró la salida y se eliminó al paciente de Hospitalización: ' + @nombre;
+--    END
+--    ELSE IF (@accion = '4') -- Eliminar paciente
+--    BEGIN
+--        -- Obtener IdPaciente
+--        SELECT @IdPaciente = p.IdPaciente
+--        FROM Pacientes p
+--        WHERE p.Codigo = @codigo;
+
+--        -- Eliminar cirugías relacionadas
+--        DELETE FROM Cirugias WHERE IdPaciente = @IdPaciente;
+
+--        -- Eliminar hospitalización
+--        DELETE FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente;
+
+--        -- Eliminar paciente
+--        DELETE FROM Pacientes WHERE Codigo = @codigo;
+
+--        SET @accion = 'Se borró el paciente: ' + @nombre;
+--    END
+
+--    SET NOCOUNT OFF;
+--END;
+
+
+--EXEC sp_mantenedor_pacientes
+--    @codigo = NULL,
+--    @nombre = 'Pedro',
+--    @DNI = 87654321,
+--    @FechaNacimiento = '1985-08-20',
+--    @Telefono = 654321987,
+--    @Direccion = 'Avenida B #456',
+--    @Genero = 2,
+--    @TipoHabitacion = 2,
+--    @Habitacion = 11,
+--    @Camilla = 21,
+--    @Estadia = 2,
+--    @accion = '1';
+--GO
+
+EXEC sp_insertar_paciente_hospitalizacion
     @nombre = 'Ana',
     @DNI = 13579246,
     @FechaNacimiento = '1988-03-10',
@@ -552,8 +791,7 @@ EXEC sp_mantenedor_pacientes
     @accion = '1';
 GO
 
-EXEC sp_mantenedor_pacientes
-    @codigo = NULL,
+EXEC sp_insertar_paciente_hospitalizacion
     @nombre = 'Juan',
     @DNI = 24681357,
     @FechaNacimiento = '1995-11-25',
@@ -567,8 +805,7 @@ EXEC sp_mantenedor_pacientes
     @accion = '1';
 GO
 
-EXEC sp_mantenedor_pacientes
-    @codigo = NULL,
+EXEC sp_insertar_paciente_hospitalizacion
     @nombre = 'Luisa',
     @DNI = 98765432,
     @FechaNacimiento = '1983-07-12',
@@ -579,6 +816,76 @@ EXEC sp_mantenedor_pacientes
     @Habitacion = 33,
     @Camilla = 53,
     @Estadia = 5,
+    @accion = '1';
+GO
+
+EXEC sp_insertar_paciente_hospitalizacion
+    @nombre = 'Luis',
+    @DNI = 11111111,
+    @FechaNacimiento = '1992-06-25',
+    @Telefono = 123456789,
+    @Direccion = 'Av. Principal #111',
+    @Genero = 2,
+    @TipoHabitacion = 2,  -- Tipo de habitación con ventilador
+    @Habitacion = 12,     -- Habitación específica del tipo 2
+    @Camilla = 22,        -- Camilla específica de la habitación 12
+    @Estadia = 5,         -- Estadía de 5 días
+    @accion = '1';
+GO
+
+EXEC sp_insertar_paciente_hospitalizacion
+    @nombre = 'Laura',
+    @DNI = 22222222,
+    @FechaNacimiento = '1987-09-12',
+    @Telefono = 234567890,
+    @Direccion = 'Calle Secundaria #222',
+    @Genero = 1,
+    @TipoHabitacion = 4,  -- Habitación compartida con ventilador
+    @Habitacion = 5,      -- Habitación específica del tipo 4
+    @Camilla = 10,        -- Camilla específica de la habitación 5
+    @Estadia = 3,         -- Estadía de 3 días
+    @accion = '1';
+GO
+
+EXEC sp_insertar_paciente_hospitalizacion
+    @nombre = 'Carlos',
+    @DNI = 33333333,
+    @FechaNacimiento = '1980-04-18',
+    @Telefono = 345678901,
+    @Direccion = 'Plaza Principal #333',
+    @Genero = 2,
+    @TipoHabitacion = 3,  -- Habitación compartida con AC
+    @Habitacion = 23,     -- Habitación específica del tipo 3
+    @Camilla = 35,        -- Camilla específica de la habitación 23
+    @Estadia = 4,         -- Estadía de 4 días
+    @accion = '1';
+GO
+
+EXEC sp_insertar_paciente_hospitalizacion
+    @nombre = 'Marta',
+    @DNI = 44444444,
+    @FechaNacimiento = '1998-01-30',
+    @Telefono = 456789012,
+    @Direccion = 'Av. Central #444',
+    @Genero = 1,
+    @TipoHabitacion = 1,  -- Habitación privada con AC
+    @Habitacion = 33,     -- Habitación específica del tipo 1
+    @Camilla = 53,        -- Camilla específica de la habitación 33
+    @Estadia = 6,         -- Estadía de 6 días
+    @accion = '1';
+GO
+
+EXEC sp_insertar_paciente_hospitalizacion
+    @nombre = 'Pablo',
+    @DNI = 55555555,
+    @FechaNacimiento = '1993-07-05',
+    @Telefono = 567890123,
+    @Direccion = 'Calle Tranquila #555',
+    @Genero = 2,
+    @TipoHabitacion = 2,  -- Habitación con ventilador
+    @Habitacion = 13,     -- Habitación específica del tipo 2
+    @Camilla = 23,        -- Camilla específica de la habitación 13
+    @Estadia = 5,         -- Estadía de 5 días
     @accion = '1';
 GO
 -------------------------------
@@ -641,7 +948,6 @@ BEGIN
 END
 GO
 
--------------------------------------------------------
 CREATE PROCEDURE sp_listar_cirugias
 AS 
 BEGIN
@@ -660,19 +966,22 @@ GO
 CREATE PROCEDURE sp_listarNombrePacientes
 AS
 BEGIN
-	SELECT Nombre AS Paciente 
-	FROM Pacientes
-	ORDER BY Nombre
+    SELECT p.Nombre AS Paciente 
+    FROM Pacientes p
+    LEFT JOIN Cirugias c ON p.IdPaciente = c.IdPaciente
+    WHERE c.IdCirugia IS NULL;
 END
 GO
 
 CREATE PROCEDURE sp_buscarPacientesNombre
-@Nombre varchar(50)
+    @Nombre VARCHAR(50)
 AS
 BEGIN
-	SELECT Nombre AS Paciente 
-	FROM Pacientes
-	WHERE @Nombre IS NULL OR Nombre LIKE '%' + @Nombre + '%';
+    SELECT p.Nombre AS Paciente 
+    FROM Pacientes p
+    LEFT JOIN Cirugias c ON p.IdPaciente = c.IdPaciente
+    WHERE (@Nombre IS NULL OR p.Nombre LIKE '%' + @Nombre + '%')
+          AND c.IdCirugia IS NULL;
 END
 GO
 
@@ -696,115 +1005,164 @@ BEGIN
 	WHERE C.FechaCirugia = @Fecha
 END
 GO
+
+CREATE PROCEDURE sp_buscarMedico
+AS
+BEGIN
+	SELECT IdUsuario, Nombres
+	FROM USUARIOS
+	WHERE IdRol = 3
+END
+GO
 -----------------------------------------
---CREATE PROCEDURE sp_mantenedorCirugias
---    @nombrePaciente VARCHAR(100),
---    @descripcionCirugia VARCHAR(200),
---    @fechaCirugia DATE,
---    @horaCirugia TIME,
---    @salaCirugia INT,
---    @accion VARCHAR(50) OUTPUT
---AS
---BEGIN
---    SET NOCOUNT ON;
+CREATE PROCEDURE sp_mantenedorCirugias
+    @IdUsuario INT,
+    @IdPaciente INT,
+    @Descripcion VARCHAR(200),
+    @FechaCirugia DATE,
+    @HoraCirugia TIME,
+    @IdSala INT,
+    @accion VARCHAR(50) OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    DECLARE @IdCirugia INT;
 
---    DECLARE @IdPaciente INT;
---    DECLARE @IdCirugia INT;
+    IF (@accion = '1')
+    BEGIN
+        IF EXISTS (SELECT IdPaciente FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente)
+        BEGIN
+            INSERT INTO Cirugias (IdUsuario, IdPaciente, Descripcion, FechaCirugia, HoraCirugia, IdSala)
+            VALUES (@IdUsuario, @IdPaciente, @Descripcion, @FechaCirugia, @HoraCirugia, @IdSala);
 
---    IF (@accion = '1')
---    BEGIN
-        
---        IF EXISTS (SELECT IdPaciente FROM Hospitalizaciones WHERE IdPaciente = @IdPaciente)
---        BEGIN
---            INSERT INTO Cirugias (IdPaciente, Descripcion, FechaCirugia, HoraCirugia, IdSala)
---            VALUES (@IdPaciente, @descripcionCirugia, @fechaCirugia, @horaCirugia, @salaCirugia);
---            SET @IdCirugia = SCOPE_IDENTITY();
---            SET @accion = 'Se registró la cirugía para el paciente: ' + @nombrePaciente;
---        END
---        ELSE
---        BEGIN
---            SET @accion = 'PACIENTE NO ENCONTRADO';
---        END
---    END
---    ELSE IF (@accion = '2')
---    BEGIN
---        SELECT @IdPaciente = IdPaciente
---        FROM Pacientes
---        WHERE Nombre = @nombrePaciente;
---        IF @IdPaciente IS NOT NULL
---        BEGIN
---            UPDATE Cirugias
---            SET Descripcion = @descripcionCirugia,
---                FechaCirugia = @fechaCirugia,
---                HoraCirugia = @horaCirugia,
---                IdSala = @salaCirugia
---            WHERE IdPaciente = @IdPaciente;
---            SET @accion = 'Se modificó la cirugía del paciente: ' + @nombrePaciente;
---        END
---        ELSE
---        BEGIN
---            SET @accion = 'PACIENTE NO ENCONTRADO';
---        END
---    END
---    ELSE IF (@accion = '3')
---    BEGIN
---        SELECT @IdPaciente = IdPaciente
---        FROM Pacientes
---        WHERE Nombre = @nombrePaciente;
---        IF @IdPaciente IS NOT NULL
---        BEGIN
---            UPDATE Cirugias
---            SET HoraEntrada = CAST(GETDATE() AS TIME)
---            WHERE IdPaciente = @IdPaciente;
---            UPDATE SalaCirugia
---            SET Ocupado = 1
---            WHERE IdSala = @salaCirugia;
---            SET @accion = 'Registrada la hora de ENTRADA a sala para el paciente ' + @nombrePaciente;
---        END
---        ELSE
---        BEGIN
---            SET @accion = 'PACIENTE NO ENCONTRADO';
---        END
---    END
---    ELSE IF (@accion = '4')
---    BEGIN
---        SELECT @IdPaciente = IdPaciente
---        FROM Pacientes
---        WHERE Nombre = @nombrePaciente;
+            SET @IdCirugia = SCOPE_IDENTITY();
+            SET @accion = 'Se registró la cirugía para el paciente: ' + (SELECT Nombre FROM Pacientes WHERE IdPaciente = @IdPaciente);
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'PACIENTE NO ENCONTRADO';
+        END
+    END
+    ELSE IF (@accion = '2')
+    BEGIN
+        IF EXISTS (SELECT IdPaciente FROM Pacientes WHERE IdPaciente = @IdPaciente)
+        BEGIN
+            UPDATE Cirugias
+            SET Descripcion = @Descripcion,
+                FechaCirugia = @FechaCirugia,
+                HoraCirugia = @HoraCirugia,
+                IdSala = @IdSala
+            WHERE IdPaciente = @IdPaciente;
 
---        IF @IdPaciente IS NOT NULL
---        BEGIN
---            UPDATE Cirugias
---            SET HoraSalida = CAST(GETDATE() AS TIME)
---            WHERE IdPaciente = @IdPaciente;
---            UPDATE SalaCirugia
---            SET Ocupado = 0
---            WHERE IdSala = @salaCirugia;
---            SET @accion = 'Registrada la hora de SALIDA de sala para el paciente ' + @nombrePaciente;
---        END
---        ELSE
---        BEGIN
---            SET @accion = 'PACIENTE NO ENCONTRADO';
---        END
---    END
---    ELSE IF (@accion = '5')
---    BEGIN
---        SELECT @IdPaciente = IdPaciente
---        FROM Pacientes
---        WHERE Nombre = @nombrePaciente;
+            SET @accion = 'Se modificó la cirugía del paciente: ' + (SELECT Nombre FROM Pacientes WHERE IdPaciente = @IdPaciente);
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'PACIENTE NO ENCONTRADO';
+        END
+    END
+    ELSE IF (@accion = '3')
+    BEGIN
+        IF EXISTS (SELECT IdPaciente FROM Pacientes WHERE IdPaciente = @IdPaciente)
+        BEGIN
+            UPDATE Cirugias
+            SET HoraEntrada = GETDATE()
+			WHERE IdPaciente = @IdPaciente;
 
---        IF @IdPaciente IS NOT NULL
---        BEGIN
---            DELETE FROM Cirugias
---            WHERE IdPaciente = @IdPaciente;
---            SET @accion = 'Se ha eliminado la cirugía para el paciente ' + @nombrePaciente;
---        END
---        ELSE
---        BEGIN
---            SET @accion = 'PACIENTE NO ENCONTRADO';
---        END
---    END
+            UPDATE SalaCirugia
+            SET Ocupado = 1
+            WHERE IdSala = (SELECT IdSala FROM Cirugias WHERE IdPaciente = @IdPaciente);
 
---    SET NOCOUNT OFF;
---END;
---GO
+            SET @accion = 'Registrada la hora de ENTRADA a sala para el paciente ' + (SELECT Nombre FROM Pacientes WHERE IdPaciente = @IdPaciente);
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'PACIENTE NO ENCONTRADO';
+        END
+    END
+    ELSE IF (@accion = '4')
+    BEGIN
+        IF EXISTS (SELECT IdPaciente FROM Pacientes WHERE IdPaciente = @IdPaciente)
+        BEGIN
+            UPDATE Cirugias
+            SET HoraSalida = GETDATE()
+            WHERE IdPaciente = @IdPaciente;
+
+            UPDATE SalaCirugia
+            SET Ocupado = 0
+            WHERE IdSala = @IdSala;
+
+            SET @accion = 'Registrada la hora de SALIDA de sala para el paciente ' + (SELECT Nombre FROM Pacientes WHERE IdPaciente = @IdPaciente);
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'PACIENTE NO ENCONTRADO';
+        END
+    END
+    ELSE IF (@accion = '5')
+    BEGIN
+        IF EXISTS (SELECT IdPaciente FROM Pacientes WHERE IdPaciente = @IdPaciente)
+        BEGIN
+            DELETE FROM Cirugias
+            WHERE IdPaciente = @IdPaciente;
+
+            SET @accion = 'Se ha eliminado la cirugía para el paciente ' + (SELECT Nombre FROM Pacientes WHERE IdPaciente = @IdPaciente);
+        END
+        ELSE
+        BEGIN
+            SET @accion = 'PACIENTE NO ENCONTRADO';
+        END
+    END
+
+    SET NOCOUNT OFF;
+END;
+GO
+
+EXEC sp_mantenedorCirugias
+    @IdUsuario = 5,
+    @IdPaciente = 1,
+    @Descripcion = 'Cirugía de apendicitis',
+    @FechaCirugia = '2024-07-10',
+    @HoraCirugia = '10:00',
+    @IdSala = 1,
+    @accion = '1';
+GO
+
+EXEC sp_mantenedorCirugias
+    @IdUsuario = 5,
+    @IdPaciente = 1,
+    @Descripcion = 'Cirugía de apendicitis modificada',
+    @FechaCirugia = '2024-07-15',
+    @HoraCirugia = '11:00',
+    @IdSala = 1,
+    @accion = '2';
+GO
+
+EXEC sp_mantenedorCirugias
+    @IdUsuario = 5,
+    @IdPaciente = 1,
+    @Descripcion = NULL,
+    @FechaCirugia = NULL,
+    @HoraCirugia = NULL,
+    @IdSala = 1,
+    @accion = '3';
+GO
+
+EXEC sp_mantenedorCirugias
+    @IdUsuario = 5,
+    @IdPaciente = 1,
+    @Descripcion = NULL,
+    @FechaCirugia = NULL,
+    @HoraCirugia = NULL,
+    @IdSala = 1,
+    @accion = '4';
+GO
+
+--EXEC sp_mantenedorCirugias
+--    @IdUsuario = 5,
+--    @IdPaciente = 1,
+--    @Descripcion = NULL,
+--    @FechaCirugia = NULL,
+--    @HoraCirugia = NULL,
+--    @IdSala = NULL,
+--    @accion = '5';

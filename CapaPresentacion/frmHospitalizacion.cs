@@ -29,7 +29,39 @@ namespace CapaPresentacion
             lblFecha.Text = DateTime.Now.ToLongDateString();
         }
 
-        void mantenedor(String accion)
+        void registrar(String accion)
+        {
+            try
+            {
+                objent.Nombre = txtNombre.Text;
+                objent.DNI = Convert.ToInt32(txtDni.Text);
+                objent.FechaNacimiento = dtpFechaNacimiento.Value.Date;
+                objent.Telefono = Convert.ToInt32(txtCelular.Text);
+                objent.Direccion = txtDireccion.Text;
+                objent.IdGenero = Convert.ToInt32(cboGenero.SelectedValue);
+                objent.IdEstadia = Convert.ToInt32(cboEstadia.SelectedValue);
+                objent.IdCamilla = Convert.ToInt32(cboCamilla.SelectedValue);
+                objent.IdHabitacion = Convert.ToInt32(cboHabitacion.SelectedValue);
+                objent.IdTipoHabitacion = Convert.ToInt32(cboTipoHabitacion.SelectedValue);
+                objent.FechaIngreso = DateTime.Now.Date;
+                objent.HoraIngreso = DateTime.Now.TimeOfDay;
+                objent.accion = accion;
+
+                string mensaje = objneg.N_Registrar_pacientes(objent);
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (accion == "1")
+                {
+                    Alertas.NuevoPacienteRegistrado = true;
+                }
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void modificar(String accion)
         {
             try
             {
@@ -48,7 +80,49 @@ namespace CapaPresentacion
                 objent.HoraIngreso = DateTime.Now.TimeOfDay;
                 objent.accion = accion;
 
-                string mensaje = objneg.N_mantenedor_paciente(objent);
+                string mensaje = objneg.N_Modificar_pacientes(objent);
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (accion == "1")
+                {
+                    Alertas.NuevoPacienteRegistrado = true;
+                }
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void salida(String accion)
+        {
+            try
+            {
+                objent.Codigo = txtCodigo.Text;
+                objent.accion = accion;
+
+                string mensaje = objneg.N_Salida_pacientes(objent);
+                MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (accion == "1")
+                {
+                    Alertas.NuevoPacienteRegistrado = true;
+                }
+                Limpiar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        void eliminar(String accion)
+        {
+            try
+            {
+                objent.Codigo = txtCodigo.Text;
+                objent.accion = accion;
+
+                string mensaje = objneg.N_Eliminar_pacientes(objent);
                 MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (accion == "1")
                 {
@@ -184,7 +258,7 @@ namespace CapaPresentacion
                 if (MessageBox.Show("¿Deseas registrar a " + txtNombre.Text + "?", "Mensaje",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    mantenedor("1");
+                    registrar("1");
                     Limpiar();
                 }
             }
@@ -201,7 +275,7 @@ namespace CapaPresentacion
                 if (MessageBox.Show("¿Deseas modificar a " + txtNombre.Text + "?", "Mensaje",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    mantenedor("2");
+                    modificar("2");
                     Limpiar();
                 }
             }
@@ -214,7 +288,7 @@ namespace CapaPresentacion
                 if (MessageBox.Show("¿Deseas registrar salida a " + txtNombre.Text + "?", "Mensaje",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    mantenedor("3");
+                    salida("3");
                     Limpiar();
                 }
             }
@@ -227,7 +301,7 @@ namespace CapaPresentacion
                 if (MessageBox.Show("¿Deseas eliminar a " + txtNombre.Text + "?", "Mensaje",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    mantenedor("4");
+                    eliminar("4");
                     Limpiar();
                 }
             }

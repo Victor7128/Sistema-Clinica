@@ -1,6 +1,6 @@
 ﻿namespace CapaPresentacion
 {
-    partial class frmCronograma
+    partial class frmProgramacion
     {
         /// <summary>
         /// Required designer variable.
@@ -42,9 +42,9 @@
             this.label1.ForeColor = System.Drawing.Color.Blue;
             this.label1.Location = new System.Drawing.Point(30, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 39);
+            this.label1.Size = new System.Drawing.Size(427, 39);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Cronograma";
+            this.label1.Text = "Programación de Cirugías";
             // 
             // dgvCirugias
             // 
@@ -78,7 +78,7 @@
             this.btnBuscarCirugias.UseVisualStyleBackColor = true;
             this.btnBuscarCirugias.Click += new System.EventHandler(this.btnBuscarCirugias_Click);
             // 
-            // frmCronograma
+            // frmProgramacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -89,7 +89,7 @@
             this.Controls.Add(this.dgvCirugias);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmCronograma";
+            this.Name = "frmProgramacion";
             this.Text = "Cronograma";
             this.Load += new System.EventHandler(this.frmCronograma_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCirugias)).EndInit();

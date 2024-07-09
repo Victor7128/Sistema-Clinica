@@ -31,29 +31,29 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.txtPacSelecC = new System.Windows.Forms.TextBox();
+            this.dgvPacientes = new System.Windows.Forms.DataGridView();
             this.btnBuscarPaciente = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtApellidoBuscar = new System.Windows.Forms.TextBox();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtMedico = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboSala = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.rtxDescripcion = new System.Windows.Forms.RichTextBox();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.txtHora = new System.Windows.Forms.TextBox();
+            this.dgvCirugias = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.rEGISTRARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mODIFICARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rEGISTRARENTRADAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rEGISTRARSALIDAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.eLIMINARToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.registrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modificarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarEntradaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarSalidaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cboMedico = new System.Windows.Forms.ComboBox();
+            this.txtPaciente = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCirugias)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +63,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label1.Location = new System.Drawing.Point(11, 13);
+            this.label1.Location = new System.Drawing.Point(16, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(337, 39);
             this.label1.TabIndex = 42;
@@ -74,7 +74,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label5.Location = new System.Drawing.Point(17, 66);
+            this.label5.Location = new System.Drawing.Point(22, 83);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(173, 21);
             this.label5.TabIndex = 73;
@@ -85,37 +85,30 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label6.Location = new System.Drawing.Point(17, 129);
+            this.label6.Location = new System.Drawing.Point(22, 146);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(190, 21);
             this.label6.TabIndex = 75;
             this.label6.Text = "Paciente Seleccionado";
             // 
-            // dataGridView1
+            // dgvPacientes
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(21, 264);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(283, 67);
-            this.dataGridView1.TabIndex = 79;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // txtPacSelecC
-            // 
-            this.txtPacSelecC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPacSelecC.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPacSelecC.Location = new System.Drawing.Point(21, 153);
-            this.txtPacSelecC.Name = "txtPacSelecC";
-            this.txtPacSelecC.Size = new System.Drawing.Size(283, 27);
-            this.txtPacSelecC.TabIndex = 80;
+            this.dgvPacientes.AllowUserToAddRows = false;
+            this.dgvPacientes.AllowUserToDeleteRows = false;
+            this.dgvPacientes.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPacientes.Location = new System.Drawing.Point(26, 281);
+            this.dgvPacientes.Name = "dgvPacientes";
+            this.dgvPacientes.ReadOnly = true;
+            this.dgvPacientes.RowHeadersWidth = 51;
+            this.dgvPacientes.Size = new System.Drawing.Size(283, 67);
+            this.dgvPacientes.TabIndex = 79;
             // 
             // btnBuscarPaciente
             // 
             this.btnBuscarPaciente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBuscarPaciente.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscarPaciente.Location = new System.Drawing.Point(218, 219);
+            this.btnBuscarPaciente.Location = new System.Drawing.Point(223, 236);
             this.btnBuscarPaciente.Name = "btnBuscarPaciente";
             this.btnBuscarPaciente.Size = new System.Drawing.Size(86, 30);
             this.btnBuscarPaciente.TabIndex = 81;
@@ -128,7 +121,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label3.Location = new System.Drawing.Point(386, 66);
+            this.label3.Location = new System.Drawing.Point(391, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 21);
             this.label3.TabIndex = 83;
@@ -139,155 +132,176 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label4.Location = new System.Drawing.Point(535, 66);
+            this.label4.Location = new System.Drawing.Point(540, 83);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(47, 21);
             this.label4.TabIndex = 85;
             this.label4.Text = "Hora";
             // 
-            // txtApellidoBuscar
+            // txtBuscar
             // 
-            this.txtApellidoBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtApellidoBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApellidoBuscar.Location = new System.Drawing.Point(21, 220);
-            this.txtApellidoBuscar.Name = "txtApellidoBuscar";
-            this.txtApellidoBuscar.Size = new System.Drawing.Size(186, 27);
-            this.txtApellidoBuscar.TabIndex = 91;
+            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBuscar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscar.Location = new System.Drawing.Point(26, 237);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(186, 27);
+            this.txtBuscar.TabIndex = 91;
+            this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label7.Location = new System.Drawing.Point(17, 196);
+            this.label7.Location = new System.Drawing.Point(22, 213);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(135, 21);
             this.label7.TabIndex = 90;
             this.label7.Text = "Buscar Paciente";
             // 
-            // txtMedico
+            // cboSala
             // 
-            this.txtMedico.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtMedico.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMedico.Location = new System.Drawing.Point(22, 89);
-            this.txtMedico.Name = "txtMedico";
-            this.txtMedico.Size = new System.Drawing.Size(283, 27);
-            this.txtMedico.TabIndex = 92;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(390, 87);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(116, 29);
-            this.comboBox1.TabIndex = 97;
+            this.cboSala.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSala.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboSala.FormattingEnabled = true;
+            this.cboSala.Location = new System.Drawing.Point(395, 104);
+            this.cboSala.Margin = new System.Windows.Forms.Padding(2);
+            this.cboSala.Name = "cboSala";
+            this.cboSala.Size = new System.Drawing.Size(116, 29);
+            this.cboSala.TabIndex = 97;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label2.Location = new System.Drawing.Point(386, 195);
+            this.label2.Location = new System.Drawing.Point(391, 212);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(182, 21);
             this.label2.TabIndex = 77;
             this.label2.Text = "Descripción de cirugía";
             // 
-            // richTextBox1
+            // rtxDescripcion
             // 
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.Location = new System.Drawing.Point(390, 219);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(378, 80);
-            this.richTextBox1.TabIndex = 98;
-            this.richTextBox1.Text = "";
+            this.rtxDescripcion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtxDescripcion.Location = new System.Drawing.Point(395, 236);
+            this.rtxDescripcion.Name = "rtxDescripcion";
+            this.rtxDescripcion.Size = new System.Drawing.Size(378, 80);
+            this.rtxDescripcion.TabIndex = 98;
+            this.rtxDescripcion.Text = "";
             // 
-            // dateTimePicker2
+            // dtpFecha
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(390, 153);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker2.TabIndex = 99;
+            this.dtpFecha.Location = new System.Drawing.Point(395, 170);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(200, 20);
+            this.dtpFecha.TabIndex = 99;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(68)))), ((int)(((byte)(224)))));
-            this.label8.Location = new System.Drawing.Point(386, 129);
+            this.label8.Location = new System.Drawing.Point(391, 146);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(59, 21);
             this.label8.TabIndex = 100;
             this.label8.Text = "Fecha";
             // 
-            // textBox1
+            // txtHora
             // 
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(539, 89);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(110, 27);
-            this.textBox1.TabIndex = 101;
+            this.txtHora.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtHora.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHora.Location = new System.Drawing.Point(544, 106);
+            this.txtHora.Name = "txtHora";
+            this.txtHora.Size = new System.Drawing.Size(110, 27);
+            this.txtHora.TabIndex = 101;
             // 
-            // dataGridView2
+            // dgvCirugias
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(21, 350);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.Size = new System.Drawing.Size(747, 194);
-            this.dataGridView2.TabIndex = 103;
+            this.dgvCirugias.AllowUserToAddRows = false;
+            this.dgvCirugias.AllowUserToDeleteRows = false;
+            this.dgvCirugias.BackgroundColor = System.Drawing.Color.White;
+            this.dgvCirugias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCirugias.Location = new System.Drawing.Point(26, 367);
+            this.dgvCirugias.Name = "dgvCirugias";
+            this.dgvCirugias.ReadOnly = true;
+            this.dgvCirugias.RowHeadersWidth = 51;
+            this.dgvCirugias.Size = new System.Drawing.Size(747, 194);
+            this.dgvCirugias.TabIndex = 103;
+            this.dgvCirugias.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCirugias_CellContentClick);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.rEGISTRARToolStripMenuItem,
-            this.mODIFICARToolStripMenuItem,
-            this.rEGISTRARENTRADAToolStripMenuItem,
-            this.rEGISTRARSALIDAToolStripMenuItem,
-            this.eLIMINARToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(325, 307);
+            this.registrarToolStripMenuItem,
+            this.modificarToolStripMenuItem,
+            this.registrarEntradaToolStripMenuItem,
+            this.registrarSalidaToolStripMenuItem,
+            this.eliminarToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(395, 324);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(610, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(406, 24);
             this.menuStrip1.TabIndex = 104;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // rEGISTRARToolStripMenuItem
+            // registrarToolStripMenuItem
             // 
-            this.rEGISTRARToolStripMenuItem.Name = "rEGISTRARToolStripMenuItem";
-            this.rEGISTRARToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.rEGISTRARToolStripMenuItem.Text = "REGISTRAR";
+            this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.registrarToolStripMenuItem.Text = "Registrar";
+            this.registrarToolStripMenuItem.Click += new System.EventHandler(this.registrarToolStripMenuItem_Click);
             // 
-            // mODIFICARToolStripMenuItem
+            // modificarToolStripMenuItem
             // 
-            this.mODIFICARToolStripMenuItem.Name = "mODIFICARToolStripMenuItem";
-            this.mODIFICARToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
-            this.mODIFICARToolStripMenuItem.Text = "MODIFICAR";
+            this.modificarToolStripMenuItem.Name = "modificarToolStripMenuItem";
+            this.modificarToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.modificarToolStripMenuItem.Text = "Modificar";
+            this.modificarToolStripMenuItem.Click += new System.EventHandler(this.modificarToolStripMenuItem_Click);
             // 
-            // rEGISTRARENTRADAToolStripMenuItem
+            // registrarEntradaToolStripMenuItem
             // 
-            this.rEGISTRARENTRADAToolStripMenuItem.Name = "rEGISTRARENTRADAToolStripMenuItem";
-            this.rEGISTRARENTRADAToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
-            this.rEGISTRARENTRADAToolStripMenuItem.Text = "REGISTRAR ENTRADA";
+            this.registrarEntradaToolStripMenuItem.Name = "registrarEntradaToolStripMenuItem";
+            this.registrarEntradaToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.registrarEntradaToolStripMenuItem.Text = "RegistrarEntrada";
+            this.registrarEntradaToolStripMenuItem.Click += new System.EventHandler(this.registrarEntradaToolStripMenuItem_Click);
             // 
-            // rEGISTRARSALIDAToolStripMenuItem
+            // registrarSalidaToolStripMenuItem
             // 
-            this.rEGISTRARSALIDAToolStripMenuItem.Name = "rEGISTRARSALIDAToolStripMenuItem";
-            this.rEGISTRARSALIDAToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
-            this.rEGISTRARSALIDAToolStripMenuItem.Text = "REGISTRAR SALIDA";
+            this.registrarSalidaToolStripMenuItem.Name = "registrarSalidaToolStripMenuItem";
+            this.registrarSalidaToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.registrarSalidaToolStripMenuItem.Text = "RegistrarSalida";
+            this.registrarSalidaToolStripMenuItem.Click += new System.EventHandler(this.registrarSalidaToolStripMenuItem_Click);
             // 
-            // eLIMINARToolStripMenuItem
+            // eliminarToolStripMenuItem
             // 
-            this.eLIMINARToolStripMenuItem.Name = "eLIMINARToolStripMenuItem";
-            this.eLIMINARToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.eLIMINARToolStripMenuItem.Text = "ELIMINAR";
+            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
+            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.eliminarToolStripMenuItem.Text = "Eliminar";
+            this.eliminarToolStripMenuItem.Click += new System.EventHandler(this.eliminarToolStripMenuItem_Click);
+            // 
+            // cboMedico
+            // 
+            this.cboMedico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboMedico.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboMedico.FormattingEnabled = true;
+            this.cboMedico.Location = new System.Drawing.Point(26, 105);
+            this.cboMedico.Margin = new System.Windows.Forms.Padding(2);
+            this.cboMedico.Name = "cboMedico";
+            this.cboMedico.Size = new System.Drawing.Size(283, 29);
+            this.cboMedico.TabIndex = 105;
+            // 
+            // txtPaciente
+            // 
+            this.txtPaciente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPaciente.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPaciente.Location = new System.Drawing.Point(26, 170);
+            this.txtPaciente.Name = "txtPaciente";
+            this.txtPaciente.ReadOnly = true;
+            this.txtPaciente.Size = new System.Drawing.Size(283, 27);
+            this.txtPaciente.TabIndex = 106;
             // 
             // frmCirugias
             // 
@@ -295,20 +309,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(827, 573);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtPaciente);
+            this.Controls.Add(this.cboMedico);
+            this.Controls.Add(this.dgvCirugias);
+            this.Controls.Add(this.txtHora);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.txtMedico);
-            this.Controls.Add(this.txtApellidoBuscar);
+            this.Controls.Add(this.dtpFecha);
+            this.Controls.Add(this.rtxDescripcion);
+            this.Controls.Add(this.cboSala);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnBuscarPaciente);
-            this.Controls.Add(this.txtPacSelecC);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvPacientes);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -318,8 +332,8 @@
             this.Name = "frmCirugias";
             this.Text = "Cirugias";
             this.Load += new System.EventHandler(this.frmCirugias_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPacientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCirugias)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -332,26 +346,26 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox txtPacSelecC;
+        private System.Windows.Forms.DataGridView dgvPacientes;
         private System.Windows.Forms.Button btnBuscarPaciente;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtApellidoBuscar;
+        private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboSala;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.RichTextBox rtxDescripcion;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        public System.Windows.Forms.TextBox txtMedico;
+        private System.Windows.Forms.TextBox txtHora;
+        private System.Windows.Forms.DataGridView dgvCirugias;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem rEGISTRARToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mODIFICARToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rEGISTRARENTRADAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rEGISTRARSALIDAToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eLIMINARToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modificarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarEntradaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarSalidaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
+        private System.Windows.Forms.ComboBox cboMedico;
+        private System.Windows.Forms.TextBox txtPaciente;
     }
 }

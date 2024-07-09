@@ -99,12 +99,55 @@ namespace CapaDatos
             return dt;           
         }
 
-        public string D_mantenedor_pacientes(EntidadHospitalizacion obje)
+        public string D_Registrar_pacientes(EntidadHospitalizacion obje)
+        {           
+            string accion = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_insertar_paciente_hospitalizacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
+                cmd.Parameters.AddWithValue("@DNI", obje.DNI);
+                cmd.Parameters.AddWithValue("@FechaNacimiento", obje.FechaNacimiento);
+                cmd.Parameters.AddWithValue("@Telefono", obje.Telefono);
+                cmd.Parameters.AddWithValue("@Direccion", obje.Direccion);
+                cmd.Parameters.AddWithValue("@Genero", obje.IdGenero);
+                cmd.Parameters.AddWithValue("@TipoHabitacion", obje.IdTipoHabitacion);
+                cmd.Parameters.AddWithValue("@Habitacion", obje.IdHabitacion);
+                cmd.Parameters.AddWithValue("@Camilla", obje.IdCamilla);
+                cmd.Parameters.AddWithValue("@Estadia", obje.IdEstadia);
+                SqlParameter accionParam = new SqlParameter("@accion", SqlDbType.VarChar, 50);
+                accionParam.Direction = ParameterDirection.InputOutput;
+                accionParam.Value = obje.accion;
+                cmd.Parameters.Add(accionParam);
+                if (cn.State == ConnectionState.Open)
+                    cn.Close();
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                accion = cmd.Parameters["@accion"].Value.ToString();
+                cn.Close();
+                if (accion == "DNI_EXISTE")
+                {
+                    throw new Exception("El DNI ingresado ya está registrado.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error: " + ex.Message);
+            }
+            return accion;
+        }
+
+        public string D_Modificar_pacientes(EntidadHospitalizacion obje)
         {
             string accion = "";
             try
             {
-                SqlCommand cmd = new SqlCommand("sp_mantenedor_pacientes", cn);
+                SqlCommand cmd = new SqlCommand("sp_modificar_paciente_hospitalizacion", cn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
                 cmd.Parameters.AddWithValue("@nombre", obje.Nombre);
@@ -117,6 +160,74 @@ namespace CapaDatos
                 cmd.Parameters.AddWithValue("@Habitacion", obje.IdHabitacion);
                 cmd.Parameters.AddWithValue("@Camilla", obje.IdCamilla);
                 cmd.Parameters.AddWithValue("@Estadia", obje.IdEstadia);
+                SqlParameter accionParam = new SqlParameter("@accion", SqlDbType.VarChar, 50);
+                accionParam.Direction = ParameterDirection.InputOutput;
+                accionParam.Value = obje.accion;
+                cmd.Parameters.Add(accionParam);
+                if (cn.State == ConnectionState.Open)
+                    cn.Close();
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                accion = cmd.Parameters["@accion"].Value.ToString();
+                cn.Close();
+                if (accion == "DNI_EXISTE")
+                {
+                    throw new Exception("El DNI ingresado ya está registrado.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error: " + ex.Message);
+            }
+            return accion;
+        }
+
+        public string D_Salida_pacientes(EntidadHospitalizacion obje)
+        {
+            string accion = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_registrar_salida_hospitalizacion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
+                SqlParameter accionParam = new SqlParameter("@accion", SqlDbType.VarChar, 50);
+                accionParam.Direction = ParameterDirection.InputOutput;
+                accionParam.Value = obje.accion;
+                cmd.Parameters.Add(accionParam);
+                if (cn.State == ConnectionState.Open)
+                    cn.Close();
+                cn.Open();
+                cmd.ExecuteNonQuery();
+                accion = cmd.Parameters["@accion"].Value.ToString();
+                cn.Close();
+                if (accion == "DNI_EXISTE")
+                {
+                    throw new Exception("El DNI ingresado ya está registrado.");
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Error SQL: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error: " + ex.Message);
+            }
+            return accion;
+        }
+
+        public string D_Eliminar_pacientes(EntidadHospitalizacion obje)
+        {
+            string accion = "";
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_eliminar_paciente", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@codigo", obje.Codigo);
                 SqlParameter accionParam = new SqlParameter("@accion", SqlDbType.VarChar, 50);
                 accionParam.Direction = ParameterDirection.InputOutput;
                 accionParam.Value = obje.accion;

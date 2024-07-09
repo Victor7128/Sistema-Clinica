@@ -4,7 +4,6 @@ GO
 USE Clinica
 GO
 
--- Tabla MENU
 CREATE TABLE MENU (
     IdMenu INT PRIMARY KEY,
     Nombre VARCHAR(50),
@@ -12,7 +11,6 @@ CREATE TABLE MENU (
 );
 go
 
--- Tabla ROL
 CREATE TABLE ROL (
     IdRol INT PRIMARY KEY,
     Nombre VARCHAR(50),
@@ -20,7 +18,6 @@ CREATE TABLE ROL (
 );
 go
 
--- Tabla PERMISO
 CREATE TABLE PERMISO (
     IdPermiso INT PRIMARY KEY,
     IdRol INT REFERENCES ROL(IdRol),
@@ -29,7 +26,6 @@ CREATE TABLE PERMISO (
 );
 go
 
--- Tabla USUARIOS
 CREATE TABLE USUARIOS (
     IdUsuario INT IDENTITY(1,1) PRIMARY KEY,
     Nombres VARCHAR(50),
@@ -40,21 +36,18 @@ CREATE TABLE USUARIOS (
 );
 go
 
--- Tabla Genero
 CREATE TABLE Genero (
 	IdGenero INT PRIMARY KEY,
 	Nombre varchar(10)
 )
 GO
 
--- Tabla Estadias
 CREATE TABLE Estadias (
     IdEstadia INT PRIMARY KEY,
     Nombre VARCHAR(50) NOT NULL
 );
 go
 
--- Crear tabla TipoHabitacion
 CREATE TABLE TipoHabitacion (
     IdTipoHabitacion INT PRIMARY KEY,
     Nombre NVARCHAR(50),
@@ -62,7 +55,6 @@ CREATE TABLE TipoHabitacion (
 );
 GO
 
--- Crear tabla Habitaciones
 CREATE TABLE Habitaciones (
     IdHabitacion INT PRIMARY KEY,
     IdTipoHabitacion INT,
@@ -72,7 +64,6 @@ CREATE TABLE Habitaciones (
 );
 GO
 
--- Crear tabla Camillas
 CREATE TABLE Camillas (
     IdCamilla INT PRIMARY KEY,
     IdHabitacion INT,
@@ -82,7 +73,6 @@ CREATE TABLE Camillas (
 );
 GO
 
--- Tabla SalaCirugia
 CREATE TABLE SalaCirugia (
     IdSala INT PRIMARY KEY,
     Nombre VARCHAR(50),
@@ -90,7 +80,6 @@ CREATE TABLE SalaCirugia (
 );
 GO
 
--- Tabla Pacientes
 CREATE TABLE Pacientes (
     IdPaciente INT IDENTITY(1,1) PRIMARY KEY,
     Codigo VARCHAR(5),
@@ -103,7 +92,6 @@ CREATE TABLE Pacientes (
 );
 GO
 
--- Creación de la tabla Cirugias sin restricciones de clave foránea
 CREATE TABLE Cirugias (
     IdCirugia INT IDENTITY(1,1) PRIMARY KEY,
     Descripcion VARCHAR(150) NOT NULL,
@@ -117,7 +105,6 @@ CREATE TABLE Cirugias (
 );
 GO
 
--- Creación de la tabla Hospitalizaciones sin restricciones de clave foránea
 CREATE TABLE Hospitalizaciones (
     IdHospitalizacion INT IDENTITY(1,1) PRIMARY KEY,
     IdPaciente INT NOT NULL,
@@ -133,7 +120,6 @@ CREATE TABLE Hospitalizaciones (
 );
 GO
 
--- Creación de la tabla HistorialSalidaPacientes sin restricciones de clave foránea
 CREATE TABLE HistorialSalidaPacientes (
     IdHistorial INT IDENTITY(1,1) PRIMARY KEY,
     Paciente VARCHAR(50),
@@ -160,7 +146,6 @@ CREATE TABLE HistorialSalidaPacientes (
 );
 GO
 
--- Alterar tabla Cirugias para agregar restricciones de clave foránea
 ALTER TABLE Cirugias
 ADD CONSTRAINT FK_Cirugias_Usuario FOREIGN KEY (IdUsuario) REFERENCES USUARIOS(IdUsuario);
 
@@ -171,7 +156,7 @@ ALTER TABLE Cirugias
 ADD CONSTRAINT FK_Cirugias_Pacientes FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente);
 GO
 
--- Alterar tabla Hospitalizaciones para agregar restricciones de clave foránea
+
 ALTER TABLE Hospitalizaciones
 ADD CONSTRAINT FK_Hospitalizaciones_Paciente FOREIGN KEY (IdPaciente) REFERENCES Pacientes(IdPaciente);
 GO

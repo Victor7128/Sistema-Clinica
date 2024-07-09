@@ -23,6 +23,35 @@ namespace CapaDatos
             return dt;
         }
 
+        public DataTable D_listarSala()
+        {
+            SqlCommand cmd = new SqlCommand("sp_listarSala", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable D_listarNombrePacientes()
+        {
+            SqlCommand cmd = new SqlCommand("sp_listarNombrePacientes", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
+        public DataTable D_buscarPacientesNombre(EntidadHospitalizacion obje)
+        {
+            SqlCommand cmd = new SqlCommand("sp_buscarPacientesNombre", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Nombre", obje.Nombre);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
+
         public DataTable D_buscarCirugiasDisponibles(EntidadCirugia obje)
         {
             SqlCommand cmd = new SqlCommand("sp_buscarCirugiasDisponibles", cn);
@@ -32,6 +61,15 @@ namespace CapaDatos
             DataTable dt = new DataTable();
             da.Fill(dt);
             return dt;
-        }        
+        }
+
+        public DataTable D_buscarMedico()
+        {
+            SqlCommand cmd = new SqlCommand("sp_buscarMedico", cn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
     }
 }

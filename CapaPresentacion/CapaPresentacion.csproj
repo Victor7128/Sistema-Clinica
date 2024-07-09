@@ -118,11 +118,11 @@
     <Compile Include="frmConsultas.Designer.cs">
       <DependentUpon>frmConsultas.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCronograma.cs">
+    <Compile Include="frmProgramacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCronograma.Designer.cs">
-      <DependentUpon>frmCronograma.cs</DependentUpon>
+    <Compile Include="frmProgramacion.Designer.cs">
+      <DependentUpon>frmProgramacion.cs</DependentUpon>
     </Compile>
     <Compile Include="frmHistorial.cs">
       <SubType>Form</SubType>
@@ -180,8 +180,8 @@
     <EmbeddedResource Include="frmConsultas.resx">
       <DependentUpon>frmConsultas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCronograma.resx">
-      <DependentUpon>frmCronograma.cs</DependentUpon>
+    <EmbeddedResource Include="frmProgramacion.resx">
+      <DependentUpon>frmProgramacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHistorial.resx">
       <DependentUpon>frmHistorial.cs</DependentUpon>

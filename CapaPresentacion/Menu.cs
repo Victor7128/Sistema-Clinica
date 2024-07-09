@@ -19,7 +19,7 @@ namespace CapaPresentacion
         EntidadLogin objent = new EntidadLogin();
         NegocioLogin objneg = new NegocioLogin();
         public MenuStrip menuStrip;
-        private int idusuario;        
+        public int idusuario;        
 
         public Menu(int idusuario_esperado = 0)
         {
@@ -31,11 +31,11 @@ namespace CapaPresentacion
         public void Menu_Load(object sender, EventArgs e)
         {
             InicializarMenuStrip();
-            //Panel panelContainer = new Panel();
-            //panelContainer.Name = "PanelContainer";
-            //panelContainer.Dock = DockStyle.Fill;
-            //Controls.Add(panelContainer);
-            //Controls.SetChildIndex(menuStrip, 0);
+            Panel panelContainer = new Panel();
+            panelContainer.Name = "PanelContainer";
+            panelContainer.Dock = DockStyle.Fill;
+            Controls.Add(panelContainer);
+            Controls.SetChildIndex(menuStrip, 0);
 
             AbrirFormulario(new Inicio());
         }
@@ -62,8 +62,8 @@ namespace CapaPresentacion
                         }
                     }
                     panelContainer.Controls.Clear();
-
-                    Form formularioCreado = (Form)Activator.CreateInstance(elemento);
+                    Form formularioCreado;
+                    formularioCreado = (Form)Activator.CreateInstance(elemento);
                     formularioCreado.TopLevel = false;
                     formularioCreado.Dock = DockStyle.Fill;
                     panelContainer.Controls.Add(formularioCreado);
